@@ -1,0 +1,24 @@
+{
+  "name": "validator",
+  "version": "1.0.0",
+  "description": "pos, validator, trustless, secure",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pos",
+    "validator",
+    "blockchain",
+    "trustless"
+  ],
+  "author": "uniworld.io@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "chalk": "^2.4.1",
+    "lite-server": "^2.5.4"
+  },
+  "dependencies": {
+    "@uniworld/unichain-js": "^0.1.0"
+  }
+}
