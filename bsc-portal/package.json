@@ -1,5 +1,5 @@
 {
-  "name": "run-together-contract",
+  "name": "bsc-portal",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -19,7 +19,6 @@
     "truffle-assertions": "^0.9.2"
   },
   "devDependencies": {
-    "@openzeppelin/truffle-upgrades": "^1.14.0",
     "truffle-plugin-verify": "^0.5.20"
   }
 }
