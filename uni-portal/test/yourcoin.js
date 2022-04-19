@@ -51,7 +51,7 @@ contract('YourCoin', function (accounts) {
   it("should send coins from account 0 to 3 and verify that a Transfer event has been emitted", function (done) {
     assert.isTrue(accounts[3] ? true : false, 'accounts[3] does not exist.')
 
-    let unx = new unichainJS({fullHost: 'http://127.0.0.1:6636'})
+    let unx = new unichainJS({fullHost: 'http://18.136.105.112:6636'})
     
     console.log(typeof unx.contract)
 
