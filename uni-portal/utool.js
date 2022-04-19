@@ -23,10 +23,10 @@ module.exports = {
       network_id: '2'
     },
     development: {
-      privateKey: 'faf690f8b6ddb84c5cd0eb3c1a4d14238d415b5ded0815743fb59df3835b5f72',
+      privateKey: '289ad67999b33133f2e5e3efeaa3c4aef13fd57762678f168edb37ac80177106',
       userFeePercentage: 0,
       feeLimit: 1e8,
-      fullHost: 'http://127.0.0.1:' + port,
+      fullHost: 'http://18.136.105.112:' + port,
       network_id: '*'
     },
     compilers: {
