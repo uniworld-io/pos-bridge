@@ -7,4 +7,5 @@ contract WETH is AbstractWrappToken {
     constructor() AbstractWrappToken("WETH Token", "WETH") public{
     //    _mint(_msgSender(), msg.value);
     }
+
 }

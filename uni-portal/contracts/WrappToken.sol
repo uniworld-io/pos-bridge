@@ -8,13 +8,4 @@ contract AbstractWrappToken is URC20 {
     //    _mint(_msgSender(), msg.value);
     }
 
-
-    function deposit() external payable {
-        _mint(_msgSender(), _msgValue());
-    }
-
-    function withdraw(uint256 amount) external{
-        _msgSender().transfer(amount);
-        burn(amount);
-    }
 }
