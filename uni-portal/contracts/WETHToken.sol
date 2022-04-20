@@ -1,11 +1,10 @@
 pragma solidity >=0.4.4 <0.6.0;
 
-import "./WrappToken.sol";
+import "./WrapTokenURC20.sol";
 
-contract WETH is AbstractWrappToken {
+contract WETHToken is WrapTokenURC20 {
 
-    constructor() AbstractWrappToken("WETH Token", "WETH") public{
-    //    _mint(_msgSender(), msg.value);
+    constructor(address minter) WrapTokenURC20("WETH Token", "WETH", minter) public{
     }
 
 }

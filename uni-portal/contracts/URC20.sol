@@ -13,15 +13,6 @@ contract URC20 is ERC20, UContext{
         symbol = symbol;
     }
 
-    function burn(uint256 amount) public {
-        _burn(_msgSender(), amount);
-    }
-
-
-    function burnFrom(address account, uint256 amount) public {
-        _burnFrom(account, amount);
-    }
-
     function getSymbol() public view returns(string memory){
         return _symbol;
     }
