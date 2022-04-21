@@ -1,7 +1,7 @@
 pragma solidity >=0.4.4 <0.6.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "./common/UContext.sol";
+import "./UContext.sol";
 
 contract URC20 is ERC20, UContext{
 
