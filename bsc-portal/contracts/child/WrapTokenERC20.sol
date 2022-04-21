@@ -6,6 +6,8 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract WrapTokenERC20 is IWrapToken, ERC20, AccessControlEnumerable {
 
+    //Todo: implement  EIP712 for sign data
+
     bytes32 public constant DEPOSITOR_ROLE = keccak256("DEPOSITOR_ROLE");
 
     constructor(

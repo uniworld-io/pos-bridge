@@ -1,10 +1,15 @@
 pragma solidity ^0.8.0;
 
 import "./interfaces/IChildChainManager.sol";
+import "./interfaces/IStateReceiver.sol";
+import "./interfaces/IWrapToken.sol";
+
+
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 
-contract ChildChainManager is IChildChainManager, Initializable, AccessControlEnumerable{
+
+contract ChildChainManager is IChildChainManager, Initializable, AccessControlEnumerable, IStateReceiver {
     bytes32 public constant DEPOSIT = keccak256("DEPOSIT");
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
     bytes32 public constant MAPPER_ROLE = keccak256("MAPPER_ROLE");
@@ -51,6 +56,39 @@ contract ChildChainManager is IChildChainManager, Initializable, AccessControlEn
         emit TokenMapped(rootToken, childToken);
     }
 
+    /**
+     * @notice Receive state sync data from root chain, only callable by state syncer
+     * @dev state syncing mechanism is used for both depositing tokens and mapping them
+     * @param data bytes data from RootChainManager contract
+     * `data` is made up of bytes32 `syncType` and bytes `syncData`
+     * `syncType` determines if it is deposit or token mapping
+     * in case of token mapping, `syncData` is encoded address `rootToken`, address `childToken` and bytes32 `tokenType`
+     * in case of deposit, `syncData` is encoded address `user`, address `rootToken` and bytes `depositData`
+     * `depositData` is token specific data (amount in case of ERC20). It is passed as is to child token
+     */
+    function onStateReceive(uint256, bytes calldata data)
+    external
+    override
+    {
+        require(hasRole(STATE_SYNCER_ROLE, _msgSender()), "must have state syncer role");
+        (bytes32 syncType, bytes memory syncData) = abi.decode(
+            data,
+            (bytes32, bytes)
+        );
+
+        if (syncType == DEPOSIT) {
+            _syncDeposit(syncData);
+        } else if (syncType == MAP_TOKEN) {
+            (address rootToken, address childToken,) = abi.decode(
+                syncData,
+                (address, address, bytes32)
+            );
+            _mapToken(rootToken, childToken);
+        } else {
+            revert("ChildChainManager: INVALID_SYNC_TYPE");
+        }
+    }
+
     function _mapToken(address rootToken, address childToken) private {
         address oldChildToken = rootToChildToken[rootToken];
         address oldRootToken = childToRootToken[childToken];
@@ -68,5 +106,28 @@ contract ChildChainManager is IChildChainManager, Initializable, AccessControlEn
 
         emit TokenMapped(rootToken, childToken);
     }
-    //todo write deposit sync form root chain and child chain
+
+    function _syncDeposit(bytes memory syncData) private {
+        (address user, address rootToken, bytes memory depositData) = abi
+        .decode(syncData, (address, address, bytes));
+        address childTokenAddress = rootToChildToken[rootToken];
+        require(
+            childTokenAddress != address(0x0),
+            "ChildChainManager: TOKEN_NOT_MAPPED"
+        );
+        IWrapToken childTokenContract = IChildToken(childTokenAddress);
+        childTokenContract.deposit(user, depositData);
+    }
+
+    function _syncDeposit(bytes memory syncData) private {
+        (address user, address rootToken, bytes memory depositData) = abi
+        .decode(syncData, (address, address, bytes));
+        address childTokenAddress = rootToChildToken[rootToken];
+        require(
+            childTokenAddress != address(0x0),
+            "ChildChainManager: TOKEN_NOT_MAPPED"
+        );
+        IWrapToken childTokenContract = IChildToken(childTokenAddress);
+        childTokenContract.deposit(user, depositData);
+    }
 }
