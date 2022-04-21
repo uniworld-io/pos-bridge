@@ -1,19 +1,24 @@
 pragma solidity >=0.4.4 <0.6.0;
 
-import "./common/UContext.sol";
+import "./UContext.sol";
 import "@openzeppelin/contracts/access/roles/WhitelistedRole.sol";
 
 contract UniAccessControl is UContext{
     mapping(bytes32 => mapping(address => bool)) roles;
 
-    bytes32 public constant AMIN_ROLE = keccak256("ADMIN_ROLE");
+    bytes32 public constant DEFAULT_AMIN_ROLE = keccak256("DEFAULT_AMIN_ROLE");
 
-    constructor() public {
-        roles[AMIN_ROLE][_msgSender()]=true;
+//    constructor() public {
+//        roles[AMIN_ROLE][_msgSender()]=true;
+//    }
+
+    modifier only(bytes32 role){
+        _checkRole(role, _msgSender());
+        _;
     }
 
     modifier onlyAdmin(){
-        _checkRole(AMIN_ROLE, _msgSender());
+        _checkRole(DEFAULT_AMIN_ROLE, _msgSender());
         _;
     }
 
@@ -21,7 +26,7 @@ contract UniAccessControl is UContext{
         return roles[role][account];
     }
 
-    function _setupRole(bytes32 role, address account) internal onlyAdmin{
+    function _setupRole(bytes32 role, address account) internal {
         roles[role][account] = true;
     }
 
