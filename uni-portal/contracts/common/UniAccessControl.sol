@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/roles/WhitelistedRole.sol";
 contract UniAccessControl is UContext{
     mapping(bytes32 => mapping(address => bool)) roles;
 
-    bytes32 public constant DEFAULT_AMIN_ROLE = keccak256("DEFAULT_AMIN_ROLE");
+    bytes32 public constant DEFAULT_ADMIN_ROLE = keccak256("DEFAULT_ADMIN_ROLE");
 
 //    constructor() public {
 //        roles[AMIN_ROLE][_msgSender()]=true;
@@ -18,7 +18,7 @@ contract UniAccessControl is UContext{
     }
 
     modifier onlyAdmin(){
-        _checkRole(DEFAULT_AMIN_ROLE, _msgSender());
+        _checkRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _;
     }
 

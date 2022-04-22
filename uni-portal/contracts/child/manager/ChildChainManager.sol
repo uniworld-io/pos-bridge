@@ -19,14 +19,13 @@ contract ChildChainManager is IChildChainManager, UniAccessControl, Initializabl
 
 
 
-    constructor(address admin, uint8 _consensusRate, uint8 _minValidator, address[] _initValidator) public {
+    constructor(address admin, uint8 _consensusRate, uint8 _minValidator, address[] memory _initValidator) public {
         consensusRate = _consensusRate;
         minValidator = _minValidator;
         validators = _initValidator;
     }
 
     function initialize(address _owner) external initializer {
-        _setupContractId("ChildChainManager");
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(STATE_SYNCER_ROLE, _owner);
     }
@@ -39,16 +38,16 @@ contract ChildChainManager is IChildChainManager, UniAccessControl, Initializabl
         address oldChildToken = rootToChildToken[rootChainId][rootToken];
         address oldRootToken = childToRootToken[childChainId][childToken];
 
-        if (rootToChildToken[oldRootToken] != address(0)) {
-            rootToChildToken[oldRootToken] = address(0);
+        if (rootToChildToken[rootChainId][oldRootToken] != address(0)) {
+            rootToChildToken[rootChainId][oldRootToken] = address(0);
         }
 
-        if (childToRootToken[oldChildToken] != address(0)) {
-            childToRootToken[oldChildToken] = address(0);
+        if (childToRootToken[childChainId][oldChildToken] != address(0)) {
+            childToRootToken[childChainId][oldChildToken] = address(0);
         }
 
-        rootToChildToken[rootToken] = childToken;
-        childToRootToken[childToken] = rootToken;
+        rootToChildToken[rootChainId][rootToken] = childToken;
+        childToRootToken[childChainId][childToken] = rootToken;
 
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken);
 
@@ -60,13 +59,15 @@ contract ChildChainManager is IChildChainManager, UniAccessControl, Initializabl
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken);
     }
 
-    function depositExec(bytes calldata data) public {
-        (bytes32 digest, bytes calldata message, bytes[] signatures)
+    function depositExec(bytes memory data) public {
+        (bytes32 digest, bytes memory message, bytes[] memory signatures)
         = abi.decode(data, (bytes32, bytes, bytes[]));
+
         (address rootToken, uint rootChainId, address depositor, uint256 amount)
         = abi.decode(data, (address, uint, address, uint256));
+
         address childToken = rootToChildToken[rootChainId][rootToken];
-        IChildToken childContract = IChildToken(childContract);
+        IChildToken childContract = IChildToken(childToken);
         childContract.deposit(depositor, abi.encode(amount));
     }
 

@@ -4,7 +4,7 @@ import "./ChildTokenURC20.sol";
 
 contract WETHToken is ChildTokenURC20 {
 
-    constructor(address minter) WrapTokenURC20("WETH Token", "WETH", minter) public{
+    constructor(address minter) ChildTokenURC20("WETH Token", "WETH") public{
     }
 
 }

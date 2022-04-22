@@ -10,8 +10,6 @@ contract ChildTokenURC20 is URC20, UniAccessControl, IChildToken, Initializable 
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
-
-    //@TODO
     constructor(string memory _name, string memory _symbol) URC20(_name, _symbol) public{}
 
     function initialize(address _owner) external initializer {
@@ -19,7 +17,7 @@ contract ChildTokenURC20 is URC20, UniAccessControl, IChildToken, Initializable 
         _setupRole(MINTER_ROLE, _owner);
     }
 
-    function deposit(address user, bytes calldata depositData) public only(MINTER_ROLE){
+    function deposit(address user, bytes memory depositData) public only(MINTER_ROLE){
         uint256 amount = abi.decode(depositData, (uint256));
         _mint(user, amount);
     }
