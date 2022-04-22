@@ -8,5 +8,7 @@ interface IChildChainManager{
 
     function unmapToken(uint rootChainId, address rootToken, uint childChainId, address childToken) external;
 
+    function validatorChanged(address validator, address validatorPk, bytes[] memory signatures) external;
+
     event TokenMapped(uint rootChainId, address rootToken, uint childChainId, address childToken);
 }

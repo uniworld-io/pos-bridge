@@ -7,26 +7,22 @@ import "./IChildChainManager.sol";
 import "../../common/Initializable.sol";
 import "../token/IChildToken.sol";
 import "../../common/AccessControlUni.sol";
+import "../../common/ManagerValidator.sol";
 
 
-contract ChildChainManager is IChildChainManager, AccessControlUni, Initializable {
+contract ChildChainManager is IChildChainManager, AccessControlUni, Initializable, ManagerValidator {
     mapping(uint => mapping(address => address)) rootToChildToken;
     mapping(uint => mapping(address => address)) childToRootToken;
-
-    address[] private validators;
-    uint8 private minValidator;
-    uint8 private consensusRate;
 
     bytes32 public constant DEPOSIT = keccak256("DEPOSIT");
     bytes32 public constant STATE_SYNCER_ROLE = keccak256("STATE_SYNCER_ROLE");//@Todo
 
+    constructor(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_)
+    ManagerValidator(consensusRate_, minValidator_, validators_) public {
+    }
 
+    event WithdrawExecuted(uint childChainId, address childToken, address burner, address receiver, uint256 value);
 
-//    constructor(address admin, uint8 _consensusRate, uint8 _minValidator, address[] memory _initValidator) public {
-//        consensusRate = _consensusRate;
-//        minValidator = _minValidator;
-//        validators = _initValidator;
-//    }
 
     function initialize(address _owner) external initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
@@ -34,7 +30,7 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
     }
 
     function mapToken(uint rootChainId, address rootToken, uint childChainId, address childToken)
-    override external only(DEFAULT_ADMIN_ROLE){
+    override external only(DEFAULT_ADMIN_ROLE) {
         _mapToken(rootChainId, rootToken, childChainId, childToken);
     }
 
@@ -63,16 +59,35 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken);
     }
 
+    function withdraw(bytes calldata withdrawData) public {
+        (uint childChainId, address childToken, address burner, address receiver, uint256 value)
+        = abi.decode(withdrawData, (uint, address, address, address, uint256));
+
+        require(burner != address(0), "Depositor address invalid");
+
+        IChildToken childContract = IChildToken(childToken);
+        childContract.withdraw(value);
+
+        emit WithdrawExecuted(childChainId, childToken, burner, receiver, value);
+    }
+
     function depositExec(bytes memory depositData) public {
         (bytes32 digest, bytes memory message, bytes[] memory signatures)
         = abi.decode(depositData, (bytes32, bytes, bytes[]));
 
-        (address rootToken, uint rootChainId, address depositor, uint256 amount)
-        = abi.decode(message, (address, uint, address, uint256));
+        require(_validateSign(digest, signatures), "ChildChainManager: Group sign not accepted");
+
+        (uint rootChainId, address rootToken,  address user, uint256 value)
+        = abi.decode(message, (uint, address, address, uint256));
 
         address childToken = rootToChildToken[rootChainId][rootToken];
         IChildToken childContract = IChildToken(childToken);
-        childContract.deposit(depositor, abi.encode(amount));
+        childContract.deposit(user, abi.encode(value));
+    }
+
+    function validatorChanged(address validator, address validatorPk, bytes[] memory signatures)
+    external only(DEFAULT_ADMIN_ROLE){
+        //@TODo
     }
 
 

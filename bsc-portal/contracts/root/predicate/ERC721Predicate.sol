@@ -12,16 +12,24 @@ import "../../common/AccessControlUni.sol";
 contract ERC721Predicate is ITokenPredicate, AccessControlUni, Initializable {
     using SafeERC20 for IERC20;
 
+    bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
 
+    bytes32 public constant TOKEN_TYPE = keccak256("ERC20");
 
-    function lockTokens(address depositor, address rootToken, uint256 amount, uint rootChainId, address receiver)
-    override external{
-//@TODo
+    function initialize(address _owner) external initializer {
+        _setupRole(MANAGER_ROLE, _owner);
+        _setupRole(DEFAULT_ADMIN_ROLE, _owner);
     }
 
-    function unlockTokens(address burner, address rootToken, uint256 amount, uint rootChainId,  address withdrawer)
-    override external{
-//@TODO
+
+    function lockTokens(address depositor, address rootToken, uint256 value)
+    override external only(MANAGER_ROLE) {
+        //@TODO
     }
 
+    function unlockTokens(address withdrawer, address rootToken, uint256 value)
+    override external only(MANAGER_ROLE) {
+        //@TODO
+
+    }
 }

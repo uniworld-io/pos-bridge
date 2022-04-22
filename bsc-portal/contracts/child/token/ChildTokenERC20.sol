@@ -23,8 +23,8 @@ abstract contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initi
         _mint(user, amount);
     }
 
-    function withdraw(uint256 amount) public {
-        _burn(_msgSender(), amount);
+    function withdraw(uint256 value) public {
+        _burn(_msgSender(), value);
     }
 
 }
