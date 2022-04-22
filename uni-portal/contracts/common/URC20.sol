@@ -10,14 +10,14 @@ contract URC20 is ERC20, UContext{
 
     constructor(string memory name, string memory symbol) public{
         _name = name;
-        symbol = symbol;
+        _symbol = symbol;
     }
 
-    function getSymbol() public view returns(string memory){
+    function symbol() public view returns(string memory){
         return _symbol;
     }
 
-    function getName() public view returns(string memory){
+    function name() public view returns(string memory){
         return _name;
     }
 

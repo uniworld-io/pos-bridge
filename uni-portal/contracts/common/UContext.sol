@@ -1,6 +1,7 @@
 pragma solidity >=0.4.4 <0.6.0;
 
-contract UContext{
+//import "@openzeppelin/contracts/GSN/Context.sol";
+contract UContext {
 
     function _msgValue() internal view returns (uint256) {
         return msg.value;

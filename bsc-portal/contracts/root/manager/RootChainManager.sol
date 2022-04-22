@@ -1,12 +1,14 @@
-pragma solidity >=0.4.4 <0.6.0;
+// SPDX-License-Identifier: GPL-3.0
 
+
+pragma solidity ^0.8.0;
 
 import "./IRootChainManager.sol";
-import "../../common/UniAccessControl.sol";
 import "../../common/Initializable.sol";
 import "../predicate/ITokenPredicate.sol";
+import "../../common/AccessControlUni.sol";
 
-contract RootChainManager is IRootChainManager, UniAccessControl, Initializable {
+contract RootChainManager is IRootChainManager, AccessControlUni, Initializable {
     mapping(uint => mapping(address => address)) rootToChildToken;
     mapping(uint => mapping(address => address)) childToRootToken;
     mapping(bytes32 => address) typeToPredicate;
@@ -24,7 +26,7 @@ contract RootChainManager is IRootChainManager, UniAccessControl, Initializable 
     event ValidatorChanged(address validator, bytes  data);
 
     function mapToken(bytes32 typeToken, uint rootChainId, address rootToken, uint childChainId, address childToken)
-    external only(MAPPER_ROLE) {
+    override external only(MAPPER_ROLE) {
         require(rootToChildToken[rootChainId][rootToken] != address(0)
             && childToRootToken[childChainId][childToken] != address(0),
             "Already mapped token");
@@ -39,14 +41,15 @@ contract RootChainManager is IRootChainManager, UniAccessControl, Initializable 
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken, typeToken);
     }
 
-    function unmapToken(uint rootChainId, address rootToken, uint childChainId, address childToken) external only(MAPPER_ROLE) {
+    function unmapToken(uint rootChainId, address rootToken, uint childChainId, address childToken)
+    override external only(MAPPER_ROLE) {
         rootToChildToken[rootChainId][rootToken] = address(0);
         childToRootToken[childChainId][childToken] = address(0);
         tokenToType[rootToken] = bytes32(0);
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken, tokenToType[rootToken]);
     }
 
-    function deposit(bytes calldata depositData) external {
+    function deposit(bytes calldata depositData) override external {
         (address depositor, address receiver, uint256 amount, uint rootChainId, address rootToken, uint childChainId)
         = abi.decode(depositData, (address, address, uint256, uint, address, uint));
 
@@ -63,13 +66,13 @@ contract RootChainManager is IRootChainManager, UniAccessControl, Initializable 
 
     }
 
-    function registerPredicate(bytes32 tokenType, address predicateAddress) public onlyAdmin {
+    function registerPredicate(bytes32 tokenType, address predicateAddress) public only(DEFAULT_ADMIN_ROLE) {
         typeToPredicate[tokenType] = predicateAddress;
         emit PredicateRegistered(tokenType, predicateAddress);
     }
 
 
-    function() external payable {
+    receive() external payable {
         //@TODo
     }
 }

@@ -1,12 +1,15 @@
-pragma solidity >=0.4.4 <0.6.0;
+// SPDX-License-Identifier: GPL-3.0
+
+
+pragma solidity ^0.8.0;
 
 import "./IChildChainManager.sol";
-import "../../common/UniAccessControl.sol";
 import "../../common/Initializable.sol";
 import "../token/IChildToken.sol";
+import "../../common/AccessControlUni.sol";
 
 
-contract ChildChainManager is IChildChainManager, UniAccessControl, Initializable {
+contract ChildChainManager is IChildChainManager, AccessControlUni, Initializable {
     mapping(uint => mapping(address => address)) rootToChildToken;
     mapping(uint => mapping(address => address)) childToRootToken;
 
@@ -30,11 +33,12 @@ contract ChildChainManager is IChildChainManager, UniAccessControl, Initializabl
         _setupRole(STATE_SYNCER_ROLE, _owner);
     }
 
-    function mapToken(uint rootChainId, address rootToken, uint childChainId, address childToken) external onlyAdmin{
+    function mapToken(uint rootChainId, address rootToken, uint childChainId, address childToken)
+    override external only(DEFAULT_ADMIN_ROLE){
         _mapToken(rootChainId, rootToken, childChainId, childToken);
     }
 
-    function _mapToken(uint rootChainId, address rootToken, uint childChainId, address childToken) private onlyAdmin{
+    function _mapToken(uint rootChainId, address rootToken, uint childChainId, address childToken) private {
         address oldChildToken = rootToChildToken[rootChainId][rootToken];
         address oldRootToken = childToRootToken[childChainId][childToken];
 
@@ -53,7 +57,7 @@ contract ChildChainManager is IChildChainManager, UniAccessControl, Initializabl
 
     }
 
-    function unmapToken(uint rootChainId, address rootToken, uint childChainId, address childToken) external {
+    function unmapToken(uint rootChainId, address rootToken, uint childChainId, address childToken) override external {
         rootToChildToken[rootChainId][rootToken] = address(0);
         childToRootToken[childChainId][childToken] = address(0);
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken);
