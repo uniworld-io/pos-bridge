@@ -15,8 +15,8 @@ export class ContractEventHandler implements IContractEventHandler{
 
     onEvent(message: EventData[]): void {
         message.forEach(item => {
-            const msg = JSON.stringify(item.returnValues);
-            const msgHash = Crypto.getHash(msg);
+            const msg = item.returnValues;
+            const msgHash = Crypto.getHash(JSON.stringify(msg));
             const signature = Crypto.getSignature(msgHash);
             const pushRelayData = new PushRelayData(ContractEventHandler.validator, msgHash, msg, signature);
             console.log('Before push data to relay: ', pushRelayData.toJSON())
