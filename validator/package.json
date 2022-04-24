@@ -2,9 +2,9 @@
   "name": "validator",
   "version": "1.0.0",
   "description": "pos, validator, trustless, secure",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx tsc && NODE_ENV=testnet node build/app.js"
   },
   "keywords": [
     "pos",
@@ -15,11 +15,20 @@
   "author": "uniworld.io@gmail.com",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.25",
     "chalk": "^2.4.1",
-    "lite-server": "^2.5.4"
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
+    "lite-server": "^2.5.4",
+    "typescript": "^4.6.3"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^2.5.0",
-    "@uniworld/unichain-js": "^0.1.0"
+    "@uniworld/unichain-js": "^0.1.0",
+    "eth-crypto": "^2.3.0",
+    "express": "^4.17.3",
+    "web3": "^1.7.3",
+    "yarn": "^1.22.18"
   }
 }
