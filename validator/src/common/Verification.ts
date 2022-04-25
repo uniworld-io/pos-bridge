@@ -1,5 +1,5 @@
 
-export class PushRelayData{
+export class Verification {
     constructor(public validator: string,
                 public msgHash: string,
                 public msg: any,

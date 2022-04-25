@@ -3,7 +3,7 @@ import {VALIDATOR} from "./ConfigEnv";
 
 export class Crypto{
 
-    //@TODO: add prefix
+    //@TODO: check prefix
     static getHash(message: string): string{
         return EthCrypto.hash.keccak256(message);
     }

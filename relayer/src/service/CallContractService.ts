@@ -1,6 +1,6 @@
 import {BufferEvent} from "../common/BufferEvent";
-import {ValidatorMsgData} from "../entity/ValidatorMsgData";
-import {DataSignatures} from "../entity/DataSignatures";
+import {Verification} from "../entity/Verification";
+import {GroupVerification} from "../entity/GroupVerification";
 import {Constant} from "../common/Constant";
 import {DepositExecMsg} from "../entity/DepositExecMsg";
 import {WithdrawExecMsg} from "../entity/WithdrawExecMsg";
@@ -23,8 +23,8 @@ export class CallContractService{
 
     runCallContract(): void{
         this.bufferEvent.forEach((key, value) => {
-            const data = value as DataSignatures;
-            const msg = data.msg as ValidatorMsgData;
+            const data = value as GroupVerification;
+            const msg = data.msg as Verification;
             switch (msg.event){
                 case Constant.WITHDRAW_EVENT:
                     this.callWithdrawExec(data);
@@ -39,7 +39,7 @@ export class CallContractService{
         });
     }
 
-    callDepositExec(callData: DataSignatures):void{
+    callDepositExec(callData: GroupVerification):void{
         const msg = callData.msg as DepositExecMsg;
         const mngContract = this.chainIdToContract(msg.childChainId) as IContractManager;
         const contract = mngContract.getChild() as Contract;
@@ -48,7 +48,7 @@ export class CallContractService{
         ).send;
     }
 
-    callWithdrawExec(callData: DataSignatures): void{
+    callWithdrawExec(callData: GroupVerification): void{
         const msg = callData.msg as WithdrawExecMsg;
         const mngContract = this.chainIdToContract(msg.rootChainId) as IContractManager;
         const contract = mngContract.getRoot() as Contract;

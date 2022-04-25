@@ -1,18 +1,18 @@
-import {ValidatorMsgData} from "../entity/ValidatorMsgData";
+import {Verification} from "../entity/Verification";
 import {BufferEvent} from "../common/BufferEvent";
-import {DataSignatures} from "../entity/DataSignatures";
+import {GroupVerification} from "../entity/GroupVerification";
 
 export class RelayService{
     private mapDepositEvent = BufferEvent.map;
 
-    bufferEvent(data: ValidatorMsgData): void{
+    bufferEvent(data: Verification): void{
         const msgHash = data.msgHash;
         if(this.mapDepositEvent.has(msgHash)){
-            const callData = this.mapDepositEvent.get(msgHash) as DataSignatures;
+            const callData = this.mapDepositEvent.get(msgHash) as GroupVerification;
             callData.signatures.push(data.signature);
             this.mapDepositEvent.set(msgHash, callData);
         }else {
-            const callData = new DataSignatures(msgHash, data.msg, [data.signature])
+            const callData = new GroupVerification(msgHash, data.msg, [data.signature])
             this.mapDepositEvent.set(msgHash, callData);
         }
     }

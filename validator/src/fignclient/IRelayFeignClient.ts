@@ -1,5 +1,5 @@
-import {PushRelayData} from "../common/PushRelayData";
+import {Verification} from "../common/Verification";
 
 export interface IRelayFeignClient {
-    postToCollectEvent(body: PushRelayData): void
+    postToCollectVerification(body: Verification): void
 }
