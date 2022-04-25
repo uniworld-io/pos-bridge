@@ -14,8 +14,8 @@ export class ContractEventListener implements IContractEventListener {
         this.contract = new web3.eth.Contract(abi, contractAddress);
     }
 
-    listen(emit: string, filter: any, handler: IContractEventHandler): void {
-        this.contract.getPastEvents(emit, filter)
+    listen(event: string, filter: any, handler: IContractEventHandler): void {
+        this.contract.getPastEvents(event, filter)
             .then(result => {
                 console.log('Listen contract capture: ', result);
                 handler.onEvent(result);

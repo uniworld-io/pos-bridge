@@ -1,5 +1,5 @@
 import {IRelayFeignClient} from "./IRelayFeignClient";
-import {Verification} from "../common/Verification";
+import {Verification} from "../entity/Verification";
 import {RELAY_APP} from "../common/ConfigEnv";
 
 export class RelayFeignClientHttp implements IRelayFeignClient{

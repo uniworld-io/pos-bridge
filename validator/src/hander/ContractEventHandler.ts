@@ -1,7 +1,7 @@
 import {IContractEventHandler} from "./IContractEventHandler";
 import {EventData} from "web3-eth-contract";
 import {Crypto} from "../common/Crypto";
-import {Verification} from "../common/Verification";
+import {Verification} from "../entity/Verification";
 import {IRelayFeignClient} from "../fignclient/IRelayFeignClient";
 import {VALIDATOR} from "../common/ConfigEnv";
 
