@@ -2,7 +2,7 @@ pragma solidity ^0.8.0;
 
 /// @title Token predicate interface for all pos portal predicates
 /// @notice Abstract interface that defines methods for custom predicates
-contract ITokenPredicate {
+interface ITokenPredicate {
     /**
      * @notice Deposit tokens into pos portal
      * @dev When `depositor` deposits tokens into pos portal, tokens get locked into predicate contract.

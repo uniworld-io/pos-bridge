@@ -1,0 +1,137 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0xCc106606b9ac151CfF3c8977cebb3969B43e66b4",
+    "txHash": "0xb9d8c8ee9ebe3ce079544994d3b534e3978a91cba2bcfc7dece3a30cfd7b3296"
+  },
+  "proxies": [
+    {
+      "address": "0x512CaD8D126dF03f6A6f7028d41d14511d95CD3b",
+      "txHash": "0x4216456fee6189875a4ebedf6b3be3e34039bde3734a9b6365c827660b2dd20e",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xd80f2241B4513Bfb609FCc4ed98b3E8A2AcefFa4",
+      "txHash": "0x18c4818d5f3566f73813e1a278663419fd310f0e56af64f70616a7146eda9fa2",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x47Db580aC4FAE158110b1335f932c103aF82A7D3",
+      "txHash": "0xab4622fd39f9749bb87712a881b03c71f75601a2b186296cd1e476c8abb26273",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "89a5862ef216ba9f557549ed155d55c4a8a7142c74f1df6e4f1467455d11f6b6": {
+      "address": "0x17B0CF8d4D3023f25Be1f95A621B0DCe56AbAc3d",
+      "txHash": "0xacc6c861f56371329fb63a4456b59fc4dee68bfe10696e1ed0b7bff5c7fa40e4",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:39"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:44"
+          },
+          {
+            "contract": "AccessControl",
+            "label": "_roles",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)336_storage)",
+            "src": "..\\@openzeppelin\\contracts\\access\\AccessControl.sol:55"
+          },
+          {
+            "contract": "AccessControlEnumerable",
+            "label": "_roleMembers",
+            "type": "t_mapping(t_bytes32,t_struct(AddressSet)2156_storage)",
+            "src": "..\\@openzeppelin\\contracts\\access\\AccessControlEnumerable.sol:16"
+          },
+          {
+            "contract": "ChildChainManager",
+            "label": "rootToChildToken",
+            "type": "t_mapping(t_address,t_address)",
+            "src": "..\\project:\\contracts\\child\\ChildChainManager.sol:18"
+          },
+          {
+            "contract": "ChildChainManager",
+            "label": "childToRootToken",
+            "type": "t_mapping(t_address,t_address)",
+            "src": "..\\project:\\contracts\\child\\ChildChainManager.sol:19"
+          }
+        ],
+        "types": {
+          "t_mapping(t_address,t_address)": {
+            "label": "mapping(address => address)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_mapping(t_bytes32,t_struct(AddressSet)2156_storage)": {
+            "label": "mapping(bytes32 => struct EnumerableSet.AddressSet)"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_struct(AddressSet)2156_storage": {
+            "label": "struct EnumerableSet.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)1855_storage"
+              }
+            ]
+          },
+          "t_struct(Set)1855_storage": {
+            "label": "struct EnumerableSet.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)"
+              }
+            ]
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)336_storage)": {
+            "label": "mapping(bytes32 => struct AccessControl.RoleData)"
+          },
+          "t_struct(RoleData)336_storage": {
+            "label": "struct AccessControl.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32"
+              }
+            ]
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          },
+          "t_bool": {
+            "label": "bool"
+          }
+        }
+      }
+    }
+  }
+}

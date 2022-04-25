@@ -19,7 +19,7 @@ contract ChildChainManager is IChildChainManager, Initializable, AccessControlEn
     mapping(address => address) public childToRootToken;
 
     function initialize(address _owner) external initializer {
-        _setupContractId("ChildChainManager");
+//        _setupContractId("ChildChainManager");
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(MAPPER_ROLE, _owner);
         _setupRole(STATE_SYNCER_ROLE, _owner);
@@ -115,19 +115,7 @@ contract ChildChainManager is IChildChainManager, Initializable, AccessControlEn
             childTokenAddress != address(0x0),
             "ChildChainManager: TOKEN_NOT_MAPPED"
         );
-        IWrapToken childTokenContract = IChildToken(childTokenAddress);
-        childTokenContract.deposit(user, depositData);
-    }
-
-    function _syncDeposit(bytes memory syncData) private {
-        (address user, address rootToken, bytes memory depositData) = abi
-        .decode(syncData, (address, address, bytes));
-        address childTokenAddress = rootToChildToken[rootToken];
-        require(
-            childTokenAddress != address(0x0),
-            "ChildChainManager: TOKEN_NOT_MAPPED"
-        );
-        IWrapToken childTokenContract = IChildToken(childTokenAddress);
+        IWrapToken childTokenContract = IWrapToken(childTokenAddress);
         childTokenContract.deposit(user, depositData);
     }
 }

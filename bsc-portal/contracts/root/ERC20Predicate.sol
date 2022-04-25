@@ -27,7 +27,7 @@ contract ERC20Predicate is ITokenPredicate, AccessControlEnumerable, Initializab
     );
 
     function initialize(address _owner) external initializer {
-        _setupContractId("ERC20Predicate");
+//        _setupContractId("ERC20Predicate");
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(MANAGER_ROLE, _owner);
     }
@@ -48,7 +48,7 @@ contract ERC20Predicate is ITokenPredicate, AccessControlEnumerable, Initializab
     external
     override
     {
-        require(hasRole(MANAGER_ROLE, _msgSender()), "must have mapper role");
+        require(hasRole(MANAGER_ROLE, _msgSender()), "must have manager role");
         uint256 amount = abi.decode(depositData, (uint256));
         emit LockedERC20(depositor, depositReceiver, rootToken, amount);
         IERC20(rootToken).safeTransferFrom(depositor, address(this), amount);
@@ -62,13 +62,13 @@ contract ERC20Predicate is ITokenPredicate, AccessControlEnumerable, Initializab
     function exitTokens(
         address,
         address rootToken,
-        bytes memory log
+        bytes calldata log
     )
-    public
+    external
     override
-    only(MANAGER_ROLE)
     {
-        (address withdrawer, uint256 memory amount) = abi.decode(
+        require(hasRole(MANAGER_ROLE, _msgSender()), "must have manager role");
+        (address withdrawer, uint256 amount) = abi.decode(
             log,
             (address, uint256)
         );
