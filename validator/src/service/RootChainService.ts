@@ -3,6 +3,7 @@ import {Constant} from "../common/Constant";
 import {IContractEventHandler} from "../hander/IContractEventHandler";
 import {ContractEventHandler} from "../hander/ContractEventHandler";
 import {RelayFeignClientHttp} from "../fignclient/RelayFeignClientHttp";
+import {CHAIN} from "../common/ConfigEnv";
 
 export class RootChainService {
     eventHandler: IContractEventHandler;
@@ -12,12 +13,13 @@ export class RootChainService {
     }
 
     start(): void {
-        //Listen and handler event withdraw
-        const ethServer = process.env.ETH_RPC_SERVER as string;
-        const ethToken = process.env.ETH_TOKEN as string;
-        const abi = require('../resource/RootTokenAbi.json');
-        console.log('ETH rpc service', ethServer);
-        this.run(ethServer, ethToken, abi, {fromBlock: 'latest'});
+        //Listen and handler event deposit
+        const ethRootManager = CHAIN.ETH.ROOT_MANAGER;
+        this.run(CHAIN.ETH.SERVER_ADDRESS, ethRootManager.ADDRESS, ethRootManager.ABI, {fromBlock: 'latest'});
+
+        //Listen and handler event deposit
+        const bscRootManager = CHAIN.BSC.ROOT_MANAGER;
+        this.run(CHAIN.BSC.SERVER_ADDRESS, bscRootManager.ADDRESS, bscRootManager.ABI, {fromBlock: 'latest'});
 
     }
 

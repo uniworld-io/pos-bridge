@@ -1,11 +1,9 @@
 import {App} from "./controller/RelayController";
 import {CallContractSchedule} from "./task/CallContractSchedule";
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}`})
-
-const port = process.env.PORT;
+import {SERVER} from "./common/ConfigEnv";
 
 const job = new CallContractSchedule();
 job.start();
 
-App.listen(port, () => console.log('Relay app running with port', port));
+App.listen(SERVER.PORT, () => console.log('Relay app running with port', SERVER.PORT));
 

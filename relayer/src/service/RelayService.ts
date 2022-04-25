@@ -1,32 +1,19 @@
-import {PushRelayData} from "../common/PushRelayData";
+import {ValidatorMsgData} from "../entity/ValidatorMsgData";
 import {BufferEvent} from "../common/BufferEvent";
-import {ContractCallDataSignatures} from "../common/ContractCallDataSignatures";
+import {DataSignatures} from "../entity/DataSignatures";
 
 export class RelayService{
-    private mapDepositEvent = BufferEvent.mapDepositEvent;
-    private mapWithdrawEvent = BufferEvent.mapWithdrawEvent;
+    private mapDepositEvent = BufferEvent.map;
 
-    bufferDepositEvent(data: PushRelayData): void{
+    bufferEvent(data: ValidatorMsgData): void{
         const msgHash = data.msgHash;
         if(this.mapDepositEvent.has(msgHash)){
-            const callData = this.mapDepositEvent.get(msgHash) as ContractCallDataSignatures;
+            const callData = this.mapDepositEvent.get(msgHash) as DataSignatures;
             callData.signatures.push(data.signature);
             this.mapDepositEvent.set(msgHash, callData);
         }else {
-            const callData = new ContractCallDataSignatures(msgHash, data.msg, [data.signature])
+            const callData = new DataSignatures(msgHash, data.msg, [data.signature])
             this.mapDepositEvent.set(msgHash, callData);
-        }
-    }
-
-    bufferWithdrawEvent(data: PushRelayData): void{
-        const msgHash = data.msgHash;
-        if(this.mapWithdrawEvent.has(msgHash)){
-            const callData = this.mapWithdrawEvent.get(msgHash) as ContractCallDataSignatures;
-            callData.signatures.push(data.signature);
-            this.mapWithdrawEvent.set(msgHash, callData);
-        }else {
-            const callData = new ContractCallDataSignatures(msgHash, data.msg, [data.signature])
-            this.mapWithdrawEvent.set(msgHash, callData);
         }
     }
 }

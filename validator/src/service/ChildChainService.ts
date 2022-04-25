@@ -3,6 +3,7 @@ import {Constant} from "../common/Constant";
 import {IContractEventHandler} from "../hander/IContractEventHandler";
 import {ContractEventHandler} from "../hander/ContractEventHandler";
 import {RelayFeignClientHttp} from "../fignclient/RelayFeignClientHttp";
+import {CHAIN} from "../common/ConfigEnv";
 
 export class ChildChainService{
 
@@ -14,10 +15,11 @@ export class ChildChainService{
 
     start(): void{
         //Listen and handler event deposit
-        const bscRpcServer = process.env.BSC_RPC_SERVER as string;
-        const bscToken = process.env.BSC_TOKEN as string;
-        const abi = require('../resource/ChildTokenAbi.json');
-        this.run(bscRpcServer, bscToken, abi, {fromBlock: 'latest'})
+        const bscChildManager = CHAIN.BSC.CHILD_MANAGER;
+        this.run(CHAIN.BSC.SERVER_ADDRESS, bscChildManager.ADDRESS, bscChildManager.ABI, {fromBlock: 'latest'})
+
+        const ethChildManager = CHAIN.ETH.CHILD_MANAGER;
+        this.run(CHAIN.ETH.SERVER_ADDRESS, ethChildManager.ADDRESS, ethChildManager.ABI, {fromBlock: 'latest'})
 
     }
 

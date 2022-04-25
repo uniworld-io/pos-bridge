@@ -1,5 +1,5 @@
 import {IContractEventListener} from "./IContractEventListener";
-import {Contract, EventData} from "web3-eth-contract";
+import {Contract} from "web3-eth-contract";
 import Web3 from "web3";
 import {IContractEventHandler} from "../hander/IContractEventHandler";
 

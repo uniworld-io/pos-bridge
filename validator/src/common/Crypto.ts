@@ -1,4 +1,5 @@
 import EthCrypto from 'eth-crypto';
+import {VALIDATOR} from "./ConfigEnv";
 
 export class Crypto{
 
@@ -9,7 +10,7 @@ export class Crypto{
 
     //@TODO
     static getSignature(messageHash: string): string{
-        const priKey = process.env.PRIVATE_KEY as string;
+        const priKey = VALIDATOR.PRIVATE_KEY;
         return EthCrypto.sign(priKey, messageHash);
     }
 }
