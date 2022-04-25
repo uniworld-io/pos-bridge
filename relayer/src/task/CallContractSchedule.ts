@@ -1,16 +1,15 @@
 
 import {CronJob} from "cron";
 import {CallContractService} from "../service/CallContractService";
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}`})
+import {CRON_TAB} from "../common/ConfigEnv";
 
 export class CallContractSchedule{
-    private static cronTab = process.env.CRON_TAB as string | '*/30 * * * * *';
     jobCallContract: CronJob;
     callContractService: CallContractService;
     constructor() {
         console.log("Setup schedule job call contract...")
         this.callContractService = new CallContractService();
-        this.jobCallContract = new CronJob(CallContractSchedule.cronTab, async () => {
+        this.jobCallContract = new CronJob(CRON_TAB, async () => {
             await this.run();
         })
         console.log("Setup schedule job call contract...done!")

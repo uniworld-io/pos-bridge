@@ -7,6 +7,8 @@ import bscRootMngAbi from '../resource/BscRootManagerABI.json';
 
 
 
+export const CRON_TAB = process.env.CRON_TAB as string | '*/30 * * * * *';
+
 export const API = {
     HOME: '/',
     COLLECT_VERIFICATION: process.env.API_COLLECT_VERIFICATION as string | 'collect-validator',
