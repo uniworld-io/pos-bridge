@@ -1,8 +1,15 @@
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}`})
 
+import ethChildMngAbi from '../resource/EthChildManagerABI.json';
+import ethRootMngAbi from '../resource/EthRootManagerABI.json';
+import bscChildMngAbi from '../resource/BscChildManagerABI.json';
+import bscRootMngAbi from '../resource/BscRootManagerABI.json';
+
+
+
 export const API = {
     HOME: '/',
-    COLLECT_VALIDATOR: process.env.COLLECT_VALIDATOR as string | 'collect-validator',
+    COLLECT_VERIFICATION: process.env.API_COLLECT_VERIFICATION as string | 'collect-validator',
 }
 
 export const SERVER = {
@@ -16,11 +23,11 @@ export const CHAIN = {
         SERVER_ADDRESS: process.env.ETH_RPC_SERVER as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.ETH_CHILD_MANAGER_ADDRESS as string,
-            ABI: require('../resource/EthChildManagerABI.json')
+            ABI: ethChildMngAbi as any
         },
         ROOT_MANAGER:{
             ADDRESS: process.env.ETH_ROOT_MANAGER_ADDRESS as string,
-            ABI: require('../resource/EthRootManagerABI.json')
+            ABI: ethRootMngAbi as any
         }
     },
 
@@ -29,11 +36,11 @@ export const CHAIN = {
         SERVER_ADDRESS: process.env.BSC_RPC_ADDRESS as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.BSC_CHILD_MANAGER_ADDRESS as string,
-            ABI: require('../resource/BscChildManagerABI.json')
+            ABI: bscChildMngAbi as any
         },
         ROOT_MANAGER:{
             ADDRESS: process.env.BSC_ROOT_MANAGER_ADDRESS as string,
-            ABI: require('../resource/BscRootManagerABI.json')
+            ABI: bscRootMngAbi as any
         }
     }
 }

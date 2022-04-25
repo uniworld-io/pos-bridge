@@ -7,6 +7,9 @@ export class ContractEventListener implements IContractEventListener {
     private contract: Contract;
 
     constructor(chainHost: string, contractAddress?: string, abi?: any) {
+        console.log(chainHost);
+        console.log(contractAddress);
+        console.log(abi);
         const web3 = new Web3(chainHost);
         this.contract = new web3.eth.Contract(abi, contractAddress);
     }
