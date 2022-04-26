@@ -5,5 +5,5 @@ const rootChainService = new RootChainService();
 const childChainService = new ChildChainService();
 
 rootChainService.start()
-childChainService.start();
+// childChainService.start();
 

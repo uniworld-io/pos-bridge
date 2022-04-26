@@ -43,7 +43,7 @@ export const CHAIN = {
     },
     UNI: {
         ID: parseInt(process.env.UNI_CHAIN_ID as string),
-        SERVER_ADDRESS: process.env.UNI_RPC_ADDRESS as string,
+        SERVER_ADDRESS: process.env.UNI_RPC_SERVER as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.UNI_CHILD_MANAGER_ADDRESS as string,
             ABI: childMngAbi as any,

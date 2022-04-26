@@ -1,4 +1,4 @@
 
 export interface IContractEventHandler {
-    onEvent(message: any): void
+    handle(message: any): void
 }
