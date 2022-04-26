@@ -268,5 +268,16 @@ contract RootChainManager is IRootChainManager, Initializable, AccessControlEnum
         );
     }
 
-    //todo exit
+    //todo exit check code lai exit
+    function exit(bytes calldata inputData) external override {
+
+        address predicateAddress = typeToPredicate[
+        tokenToType[rootToken]
+        ];
+        ITokenPredicate(predicateAddress).exitTokens(
+            _msgSender(),
+            rootToken,
+            log.toRlpBytes()
+        );
+    }
 }
