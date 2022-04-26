@@ -9,8 +9,8 @@ export class CallContractSchedule{
     constructor() {
         console.log("Setup schedule job call contract...")
         this.callContractService = new CallContractService();
-        this.jobCallContract = new CronJob(CRON_TAB, async () => {
-            await this.run();
+        this.jobCallContract = new CronJob(CRON_TAB,  () => {
+             this.run();
         })
         console.log("Setup schedule job call contract...done!")
     }
@@ -21,9 +21,9 @@ export class CallContractSchedule{
         }
     }
 
-    async run(): Promise<void>{
-        console.log('Call deposit exec')
-        this.callContractService.runCallContract();
+     run(): void{
+        console.log('Do call contract...')
+        this.callContractService.doCallContract();
     }
 
 }

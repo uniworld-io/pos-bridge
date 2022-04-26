@@ -4,6 +4,8 @@ import ethChildMngAbi from '../resource/EthChildManagerABI.json';
 import ethRootMngAbi from '../resource/EthRootManagerABI.json';
 import bscChildMngAbi from '../resource/BscChildManagerABI.json';
 import bscRootMngAbi from '../resource/BscRootManagerABI.json';
+import uniChildMngAbi from '../resource/UniChildManagerABI.json';
+import uniRootMngAbi from '../resource/UniRootManagerABI.json';
 
 
 export const CHAIN = {
@@ -12,11 +14,17 @@ export const CHAIN = {
         SERVER_ADDRESS: process.env.ETH_RPC_SERVER as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.ETH_CHILD_MANAGER_ADDRESS as string,
-            ABI: ethChildMngAbi as any
+            ABI: ethChildMngAbi as any,
+            FILTER:{
+                fromBlock: 'latest'
+            }
         },
         ROOT_MANAGER:{
             ADDRESS: process.env.ETH_ROOT_MANAGER_ADDRESS as string,
-            ABI: ethRootMngAbi as any
+            ABI: ethRootMngAbi as any,
+            FILTER:{
+                fromBlock: 'latest'
+            }
         }
     },
 
@@ -25,13 +33,38 @@ export const CHAIN = {
         SERVER_ADDRESS: process.env.BSC_RPC_ADDRESS as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.BSC_CHILD_MANAGER_ADDRESS as string,
-            ABI: bscChildMngAbi as any
+            ABI: bscChildMngAbi as any,
+            FILTER:{
+                fromBlock: 'latest'
+            }
         },
         ROOT_MANAGER:{
             ADDRESS: process.env.BSC_ROOT_MANAGER_ADDRESS as string,
-            ABI: bscRootMngAbi as any
+            ABI: bscRootMngAbi as any,
+            FILTER:{
+                fromBlock: 'latest'
+            }
+        }
+    },
+    UNI: {
+        ID: parseInt(process.env.UNI_CHAIN_ID as string),
+        SERVER_ADDRESS: process.env.UNI_RPC_ADDRESS as string,
+        CHILD_MANAGER: {
+            ADDRESS: process.env.UNI_CHILD_MANAGER_ADDRESS as string,
+            ABI: uniChildMngAbi as any,
+            FILTER:{
+                fromBlock: 'latest'
+            }
+        },
+        ROOT_MANAGER:{
+            ADDRESS: process.env.UNI_ROOT_MANAGER_ADDRESS as string,
+            ABI: uniRootMngAbi as any,
+            FILTER:{
+                fromBlock: 'latest'
+            }
         }
     }
+
 }
 
 export const RELAY_APP = {

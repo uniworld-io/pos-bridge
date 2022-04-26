@@ -1,30 +1,23 @@
-import {ContractEventListener} from "../event/ContractEventListener";
-import {Constant} from "../common/Constant";
-import {IContractEventHandler} from "../hander/IContractEventHandler";
-import {ContractEventHandler} from "../hander/ContractEventHandler";
-import {RelayFeignClientHttp} from "../fignclient/RelayFeignClientHttp";
 import {CHAIN} from "../common/ConfigEnv";
+import {AbstractChainMngService} from "./AbstractChainMngService";
 
-export class ChildChainService{
+export class ChildChainService extends AbstractChainMngService{
 
-    eventHandler: IContractEventHandler;
-
-    constructor() {
-        this.eventHandler = new ContractEventHandler(new RelayFeignClientHttp());
-    }
 
     start(): void{
         //Listen and handler event deposit
-        const bscChildManager = CHAIN.BSC.CHILD_MANAGER;
-        this.run(CHAIN.BSC.SERVER_ADDRESS, bscChildManager.ADDRESS, bscChildManager.ABI, {fromBlock: 'latest'})
+        const bscChain = CHAIN.BSC;
+        const bscChildMng = bscChain.CHILD_MANAGER;
+        super.listenWithWeb3(bscChain.SERVER_ADDRESS, bscChildMng.ADDRESS, bscChildMng.ABI, bscChildMng.FILTER);
 
-        const ethChildManager = CHAIN.ETH.CHILD_MANAGER;
-        this.run(CHAIN.ETH.SERVER_ADDRESS, ethChildManager.ADDRESS, ethChildManager.ABI, {fromBlock: 'latest'})
+        const ethChain = CHAIN.BSC;
+        const ethChildMng = ethChain.CHILD_MANAGER;
+        super.listenWithWeb3(ethChain.SERVER_ADDRESS, ethChildMng.ADDRESS, ethChildMng.ABI, ethChildMng.FILTER);
+
+        // const uniChain = CHAIN.UNI;
+        // const uniChildMng = uniChain.CHILD_MANAGER;
+        // super.listenWithUni(ethChain.SERVER_ADDRESS, uniChildMng.ADDRESS, uniChildMng.ABI, uniChildMng.FILTER);
 
     }
 
-    private run(serverAddress: string, rootToken: string, abi: any, filter: any): void{
-        const withdrawEventListener = new ContractEventListener(serverAddress, rootToken, abi);
-        withdrawEventListener.listen(Constant.WITHDRAW_EVENT, filter, this.eventHandler);
-    }
 }

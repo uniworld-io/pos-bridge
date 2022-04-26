@@ -11,7 +11,7 @@ export class BscContractManager implements IContractManager{
     private readonly childMngContract: Contract
     private readonly rootMngContract: Contract;
     constructor() {
-        this.web3 = new Web3();
+        this.web3 = new Web3(BSC.SERVER_ADDRESS);
 
         const childMng = BSC.CHILD_MANAGER;
         this.childMngContract = new this.web3.eth.Contract(childMng.ABI, childMng.ADDRESS);

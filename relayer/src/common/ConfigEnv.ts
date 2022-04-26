@@ -4,7 +4,8 @@ import ethChildMngAbi from '../resource/EthChildManagerABI.json';
 import ethRootMngAbi from '../resource/EthRootManagerABI.json';
 import bscChildMngAbi from '../resource/BscChildManagerABI.json';
 import bscRootMngAbi from '../resource/BscRootManagerABI.json';
-
+import uniChildMngAbi from '../resource/UniChildManagerABI.json';
+import uniRootMngAbi from '../resource/UniRootManagerABI.json';
 
 
 export const CRON_TAB = process.env.CRON_TAB as string | '*/30 * * * * *';
@@ -43,6 +44,19 @@ export const CHAIN = {
         ROOT_MANAGER:{
             ADDRESS: process.env.BSC_ROOT_MANAGER_ADDRESS as string,
             ABI: bscRootMngAbi as any
+        }
+    },
+
+    UNI: {
+        ID: parseInt(process.env.UNI_CHAIN_ID as string),
+        SERVER_ADDRESS: process.env.UNI_RPC_ADDRESS as string,
+        CHILD_MANAGER: {
+            ADDRESS: process.env.UNI_CHILD_MANAGER_ADDRESS as string,
+            ABI: uniChildMngAbi as any
+        },
+        ROOT_MANAGER:{
+            ADDRESS: process.env.UNI_ROOT_MANAGER_ADDRESS as string,
+            ABI: uniRootMngAbi as any
         }
     }
 }

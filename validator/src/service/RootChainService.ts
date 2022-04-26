@@ -1,30 +1,19 @@
-import {ContractEventListener} from "../event/ContractEventListener";
-import {Constant} from "../common/Constant";
-import {IContractEventHandler} from "../hander/IContractEventHandler";
-import {ContractEventHandler} from "../hander/ContractEventHandler";
-import {RelayFeignClientHttp} from "../fignclient/RelayFeignClientHttp";
 import {CHAIN} from "../common/ConfigEnv";
+import {AbstractChainMngService} from "./AbstractChainMngService";
 
-export class RootChainService {
-    eventHandler: IContractEventHandler;
-
-    constructor() {
-        this.eventHandler = new ContractEventHandler(new RelayFeignClientHttp());
-    }
+export class RootChainService extends AbstractChainMngService{
 
     start(): void {
-        //Listen and handler event deposit
-        const ethRootManager = CHAIN.ETH.ROOT_MANAGER;
-        this.run(CHAIN.ETH.SERVER_ADDRESS, ethRootManager.ADDRESS, ethRootManager.ABI, {fromBlock: 'latest'});
+        const bscChain = CHAIN.BSC;
+        const bscRootMng = bscChain.ROOT_MANAGER;
+        super.listenWithWeb3(bscChain.SERVER_ADDRESS, bscRootMng.ADDRESS, bscRootMng.ABI, bscRootMng.FILTER);
 
-        //Listen and handler event deposit
-        const bscRootManager = CHAIN.BSC.ROOT_MANAGER;
-        this.run(CHAIN.BSC.SERVER_ADDRESS, bscRootManager.ADDRESS, bscRootManager.ABI, {fromBlock: 'latest'});
+        const ethChain = CHAIN.BSC;
+        const ethRootMng = ethChain.ROOT_MANAGER;
+        super.listenWithWeb3(ethChain.SERVER_ADDRESS, ethRootMng.ADDRESS, ethRootMng.ABI, ethRootMng.FILTER);
 
-    }
-
-    private run(serverAddress: string, rootToken: string, abi: any, filter: any): void {
-        const depositEventListener = new ContractEventListener(serverAddress, rootToken, abi);
-        depositEventListener.listen(Constant.DEPOSIT_EVENT, filter, this.eventHandler);
+        // const uniChain = CHAIN.UNI;
+        // const uniRootMng = uniChain.ROOT_MANAGER;
+        // super.listenWithUni(ethChain.SERVER_ADDRESS, uniRootMng.ADDRESS, uniRootMng.ABI, uniRootMng.FILTER);
     }
 }

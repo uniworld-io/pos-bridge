@@ -7,11 +7,12 @@ const ETH = CHAIN.ETH;
 
 export class EthContractManager implements IContractManager{
 
+    //@TODO review pool connection
     private web3: Web3;
     childMngContract: Contract
     rootMngContract: Contract;
     constructor() {
-        this.web3 = new Web3();
+        this.web3 = new Web3(ETH.SERVER_ADDRESS);
 
         const childMng = ETH.CHILD_MANAGER;
         this.childMngContract = new this.web3.eth.Contract(childMng.ABI, childMng.ADDRESS);

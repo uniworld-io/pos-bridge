@@ -13,15 +13,15 @@ import {Contract} from "web3-eth-contract";
 export class CallContractService{
     private bufferEvent = BufferEvent.map;
 
-    private bscContract: BscContractManager;
-    private ethContract: EthContractManager;
+    private readonly bscContract: BscContractManager;
+    private readonly ethContract: EthContractManager;
 
     constructor() {
         this.bscContract = new BscContractManager();
         this.ethContract = new EthContractManager();
     }
 
-    runCallContract(): void{
+    doCallContract(): void{
         this.bufferEvent.forEach((key, value) => {
             const data = value as GroupVerification;
             const msg = data.msg as Verification;
@@ -39,7 +39,7 @@ export class CallContractService{
         });
     }
 
-    callDepositExec(callData: GroupVerification):void{
+    private callDepositExec(callData: GroupVerification):void{
         const msg = callData.msg as DepositExecMsg;
         const mngContract = this.chainIdToContract(msg.childChainId) as IContractManager;
         const contract = mngContract.getChild() as Contract;
@@ -48,7 +48,7 @@ export class CallContractService{
         ).send;
     }
 
-    callWithdrawExec(callData: GroupVerification): void{
+    private callWithdrawExec(callData: GroupVerification): void{
         const msg = callData.msg as WithdrawExecMsg;
         const mngContract = this.chainIdToContract(msg.rootChainId) as IContractManager;
         const contract = mngContract.getRoot() as Contract;
