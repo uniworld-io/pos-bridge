@@ -27,5 +27,4 @@ export class BscContractManager implements IContractManager{
     getRoot(): any {
         return this.rootMngContract;
     }
-
 }

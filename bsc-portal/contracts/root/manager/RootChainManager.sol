@@ -75,13 +75,13 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     }
 
     function withdrawExec(bytes calldata withdrawData) public {
-        (bytes32 digest, bytes memory message, bytes[] memory signatures)
+        (bytes32 digest, bytes memory msg, bytes[] memory signatures)
         = abi.decode(withdrawData, (bytes32, bytes, bytes[]));
 
-        require(_validateSign(digest, signatures), "RootChainManager: Group sign not accepted withdraw");
+        require(_validateSign(digest, msg,  signatures), "RootChainManager: Group sign not accepted withdraw");
 
         (uint childChainId, address childToken, address withdrawer, uint256 value)
-        = abi.decode(message, (uint, address, address, uint256));
+        = abi.decode(msg, (uint, address, address, uint256));
 
         address rootToken = childToRootToken[childChainId][childToken];
 

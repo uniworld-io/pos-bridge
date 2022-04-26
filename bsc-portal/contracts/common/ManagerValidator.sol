@@ -12,7 +12,7 @@ contract ManagerValidator {
         validators = validators_;
     }
 
-    function _validateSign(bytes32 digest, bytes[] memory signatures) internal returns(bool){
+    function _validateSign(bytes32 digest, bytes calldata msg, bytes[] memory signatures) internal returns(bool){
         //@TODo
         return true;
     }

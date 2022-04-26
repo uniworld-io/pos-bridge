@@ -16,6 +16,7 @@ contract ERC20Predicate is ITokenPredicate, AccessControlUni, Initializable {
     bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
     bytes32 public constant TOKEN_TYPE = keccak256("ERC20");
 
+    //Sync message
     event LockedERC20(address depositor, address rootToken, uint256 amount);
     event UnlockedERC20(address withdrawer, address rootToken, uint256 amount);
 

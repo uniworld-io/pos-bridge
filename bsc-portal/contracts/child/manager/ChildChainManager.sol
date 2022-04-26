@@ -72,17 +72,18 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
     }
 
     function depositExec(bytes memory depositData) public {
-        (bytes32 digest, bytes memory message, bytes[] memory signatures)
+        (bytes32 digest, bytes memory msg, bytes[] memory signatures)
         = abi.decode(depositData, (bytes32, bytes, bytes[]));
 
-        require(_validateSign(digest, signatures), "ChildChainManager: Group sign not accepted");
+        require(_validateSign(digest, msg, signatures), "ChildChainManager: Group sign not accepted");
 
         (uint rootChainId, address rootToken,  address user, uint256 value)
-        = abi.decode(message, (uint, address, address, uint256));
+        = abi.decode(msg, (uint, address, address, uint256));
 
         address childToken = rootToChildToken[rootChainId][rootToken];
         IChildToken childContract = IChildToken(childToken);
         childContract.deposit(user, abi.encode(value));
+
     }
 
     function validatorChanged(address validator, address validatorPk, bytes[] memory signatures)

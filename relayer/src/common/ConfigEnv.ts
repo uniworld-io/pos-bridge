@@ -1,11 +1,7 @@
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}`})
 
-import ethChildMngAbi from '../resource/EthChildManagerABI.json';
-import ethRootMngAbi from '../resource/EthRootManagerABI.json';
-import bscChildMngAbi from '../resource/BscChildManagerABI.json';
-import bscRootMngAbi from '../resource/BscRootManagerABI.json';
-import uniChildMngAbi from '../resource/UniChildManagerABI.json';
-import uniRootMngAbi from '../resource/UniRootManagerABI.json';
+import childMngAbi from '../resource/ChildManagerABI.json';
+import rootMngAbi from '../resource/RootManagerABI.json';
 
 
 export const CRON_TAB = process.env.CRON_TAB as string | '*/30 * * * * *';
@@ -26,11 +22,11 @@ export const CHAIN = {
         SERVER_ADDRESS: process.env.ETH_RPC_SERVER as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.ETH_CHILD_MANAGER_ADDRESS as string,
-            ABI: ethChildMngAbi as any
+            ABI: childMngAbi as any
         },
         ROOT_MANAGER:{
             ADDRESS: process.env.ETH_ROOT_MANAGER_ADDRESS as string,
-            ABI: ethRootMngAbi as any
+            ABI: rootMngAbi as any
         }
     },
 
@@ -39,11 +35,11 @@ export const CHAIN = {
         SERVER_ADDRESS: process.env.BSC_RPC_ADDRESS as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.BSC_CHILD_MANAGER_ADDRESS as string,
-            ABI: bscChildMngAbi as any
+            ABI: childMngAbi as any
         },
         ROOT_MANAGER:{
             ADDRESS: process.env.BSC_ROOT_MANAGER_ADDRESS as string,
-            ABI: bscRootMngAbi as any
+            ABI: rootMngAbi as any
         }
     },
 
@@ -52,11 +48,11 @@ export const CHAIN = {
         SERVER_ADDRESS: process.env.UNI_RPC_ADDRESS as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.UNI_CHILD_MANAGER_ADDRESS as string,
-            ABI: uniChildMngAbi as any
+            ABI: childMngAbi as any
         },
         ROOT_MANAGER:{
             ADDRESS: process.env.UNI_ROOT_MANAGER_ADDRESS as string,
-            ABI: uniRootMngAbi as any
+            ABI: rootMngAbi as any
         }
     }
 }

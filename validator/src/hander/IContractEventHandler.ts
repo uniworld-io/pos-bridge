@@ -1,6 +1,4 @@
 
-import {EventData} from "web3-eth-contract";
-
 export interface IContractEventHandler {
     onEvent(message: any): void
 }

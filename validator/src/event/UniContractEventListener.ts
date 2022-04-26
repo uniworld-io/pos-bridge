@@ -1,6 +1,5 @@
 import {IContractEventListener} from "./IContractEventListener";
 import {IContractEventHandler} from "../hander/IContractEventHandler";
-import {UniContractJS} from "./UniContractJS";
 
 
 

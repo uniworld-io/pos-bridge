@@ -10,7 +10,9 @@ import {CHAIN} from "../common/ConfigEnv";
 import {IContractManager} from "../contract/IContractManager";
 import {Contract} from "web3-eth-contract";
 
-export class CallContractService{
+const Web3EthAbi = require('web3-eth-abi');
+
+export class CallContractService {
     private bufferEvent = BufferEvent.map;
 
     private readonly bscContract: BscContractManager;
@@ -21,11 +23,11 @@ export class CallContractService{
         this.ethContract = new EthContractManager();
     }
 
-    doCallContract(): void{
+    doCallContract(): void {
         this.bufferEvent.forEach((key, value) => {
             const data = value as GroupVerification;
             const msg = data.msg as Verification;
-            switch (msg.event){
+            switch (msg.event) {
                 case Constant.WITHDRAW_EVENT:
                     this.callWithdrawExec(data);
                     break;
@@ -39,26 +41,58 @@ export class CallContractService{
         });
     }
 
-    private callDepositExec(callData: GroupVerification):void{
-        const msg = callData.msg as DepositExecMsg;
+    private callDepositExec(verification: GroupVerification): void {
+        const msg = verification.msg as DepositExecMsg;
         const mngContract = this.chainIdToContract(msg.childChainId) as IContractManager;
         const contract = mngContract.getChild() as Contract;
-        contract.methods.depositExecuted(
-            //@TODO
-        ).send;
+
+        //@todo
+        const msgEncode = Web3EthAbi.encodeParameters(
+            ['uint', 'uint', 'address', 'address', 'address', 'uint256'],
+            [
+                msg.rootChainId,
+                msg.childChainId,
+                msg.rootToken,
+                msg.depositor,
+                msg.receiver,
+                msg.value
+            ]);
+
+        const depositData =  Web3EthAbi.encodeParameters(
+            ['bytes32', 'bytes', 'address[]'],
+            [verification.msgHash, msgEncode, verification.signatures]
+        );
+
+        contract.methods.DepositExecuted(depositData).send;
     }
 
-    private callWithdrawExec(callData: GroupVerification): void{
-        const msg = callData.msg as WithdrawExecMsg;
+    private callWithdrawExec(verification: GroupVerification): void {
+        const msg = verification.msg as WithdrawExecMsg;
         const mngContract = this.chainIdToContract(msg.rootChainId) as IContractManager;
         const contract = mngContract.getRoot() as Contract;
-        contract.methods.withdrawExecuted(
-            //@TODO
-        ).send;
+
+        //@todo
+        const msgEncode = Web3EthAbi.encodeParameters(
+            ['uint', 'uint', 'address', 'address', 'address', 'uint256'],
+            [
+                msg.rootChainId,
+                msg.childChainId,
+                msg.childToken,
+                msg.burner,
+                msg.withdrawer,
+                msg.value
+            ]);
+
+        const withdrawData =  Web3EthAbi.encodeParameters(
+            ['bytes32', 'bytes', 'address[]'],
+            [verification.msgHash, msgEncode, verification.signatures]
+        );
+
+        contract.methods.WithdrawExecuted(withdrawData).send;
     }
 
-    private chainIdToContract(chainId: number): any{
-        switch (chainId){
+    private chainIdToContract(chainId: number): any {
+        switch (chainId) {
             case CHAIN.ETH.ID:
                 return this.ethContract;
             case CHAIN.BSC.ID:
