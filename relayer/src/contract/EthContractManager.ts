@@ -12,8 +12,6 @@ export class EthContractManager implements IContractManager{
     private readonly connector: Web3;
 
     constructor(connector: Web3) {
-        connector.eth.accounts.wallet.add('23e2eae41fca0f33e0fd3c1b901b1b114e75af8664fc6d88f18e48153a67aae0');
-
         this.connector = connector;
         const childMng = ETH.CHILD_MANAGER;
         this.childMngContract = new connector.eth.Contract(childMng.ABI, childMng.ADDRESS);

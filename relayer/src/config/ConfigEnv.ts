@@ -30,7 +30,7 @@ export const TRANSACTION = {
 
 export const CHAIN = {
     ETH: {
-        ID: parseInt(process.env.ETH_CHAIN_ID as string),
+        ID: Number(process.env.ETH_CHAIN_ID),
         CHAIN_HOST: process.env.ETH_CHAIN_HOST as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.ETH_CHILD_MANAGER_ADDRESS as string,
@@ -43,7 +43,7 @@ export const CHAIN = {
     },
 
     BSC: {
-        ID: parseInt(process.env.BSC_CHAIN_ID as string),
+        ID: Number(process.env.BSC_CHAIN_ID),
         CHAIN_HOST: process.env.BSC_CHAIN_HOST as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.BSC_CHILD_MANAGER_ADDRESS as string,
@@ -56,7 +56,7 @@ export const CHAIN = {
     },
 
     UNI: {
-        ID: parseInt(process.env.UNI_CHAIN_ID as string),
+        ID: Number(process.env.UNI_CHAIN_ID),
         CHAIN_HOST: process.env.UNI_CHAIN_HOST as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.UNI_CHILD_MANAGER_ADDRESS as string,

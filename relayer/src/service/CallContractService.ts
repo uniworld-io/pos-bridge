@@ -57,6 +57,7 @@ export class CallContractService {
     private callDepositExec(verification: GroupVerification): void {
         try{
             const msg = verification.msg as DepositExecMsg;
+            console.debug('Call deposit exec: ', msg);
             const manager = this.chainIdToManager(msg.childChainId) as IContractManager;
             this.depositCaller.call(manager, verification);
         }catch (Error){
@@ -67,6 +68,7 @@ export class CallContractService {
     private callWithdrawExec(verification: GroupVerification): void {
         try {
             const msg = verification.msg as WithdrawExecMsg;
+            console.debug('Call withdraw exec: ', msg);
             const manager = this.chainIdToManager(msg.rootChainId) as IContractManager;
             this.withdrawCaller.call(manager, verification);
         }catch (Error){
@@ -75,7 +77,7 @@ export class CallContractService {
     }
 
     private chainIdToManager(chainId: number): any {
-
+        console.log('-----------------Map chain-id: ', chainId);
         switch (chainId) {
             case CHAIN.ETH.ID:
                 return this.ethManager;

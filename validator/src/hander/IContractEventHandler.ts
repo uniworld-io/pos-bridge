@@ -1,4 +1,5 @@
+import {EventStandardization} from "../entity/EventStandardization";
 
 export interface IContractEventHandler {
-    handle(message: any): void
+    handle(message: EventStandardization): void
 }
