@@ -1,12 +1,11 @@
 import {IContractEventHandler} from "../hander/IContractEventHandler";
 import {Web3ContractEventListener} from "../event/Web3ContractEventListener";
-import {Constant} from "../common/Constant";
 import {UniContractEventListener} from "../event/UniContractEventListener";
-import {CHAIN} from "../common/ConfigEnv";
+import {CHAIN} from "../config/ConfigEnv";
 import Web3 from "web3";
 import {PostHttpContractEventHandler} from "../hander/PostHttpContractEventHandler";
+import {POOL_EVENT_CONNECTOR} from "../config/PoolConnector";
 
-const UniChain = require('@uniworld/unichain-js');
 
 export class AbstractChainMngService{
     private readonly contractEventHandler: IContractEventHandler;
@@ -18,9 +17,10 @@ export class AbstractChainMngService{
 
 
     constructor() {
-        this.ethChainConnector = new Web3(CHAIN.ETH.SERVER_ADDRESS);
-        this.bscChainConnector = new Web3(CHAIN.BSC.SERVER_ADDRESS);
-        this.uniChainConnector = new UniChain({fullHost: CHAIN.UNI.SERVER_ADDRESS});
+
+        this.ethChainConnector = POOL_EVENT_CONNECTOR.ethChainConnector;
+        this.bscChainConnector = POOL_EVENT_CONNECTOR.bscChainConnector;
+        this.uniChainConnector = POOL_EVENT_CONNECTOR.uniChainConnector;
 
         this.contractEventHandler = new PostHttpContractEventHandler();
     }

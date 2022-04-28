@@ -4,37 +4,29 @@ import {Constant} from "../common/Constant";
 import {UniEventResult} from "../entity/UniEventResult";
 import {Verification} from "../entity/Verification";
 import {Crypto} from "../common/Crypto";
-import {VALIDATOR} from "../common/ConfigEnv";
+import {VALIDATOR} from "../config/ConfigEnv";
 
 export class UniContractEventListener implements IContractEventListener{
     private contract: any;
     private handler: IContractEventHandler;
 
     constructor(uniChainConnector: any, mngAddress: string, abi: any, handler: IContractEventHandler) {
-        console.log('Server: ', uniChainConnector);
-        console.log('Address: ', mngAddress);
-        console.log('Abi: ', abi);
         this.handler = handler;
         this.contract = uniChainConnector.contract(abi, mngAddress);
     }
 
     listen(event: string, filter: any):void{
-
-        //@TEST
-        this.contract.Balance().watch(filter, (error: any, result: any) => {
-            console.log(result);
-        })
-
         let watcher;
-        if(event === Constant.DEPOSIT_EVENT){
+        if(event === Constant.DEPOSIT_EXEC){
             watcher = this.contract.DepositExecuted();
         }
-        if(event === Constant.WITHDRAW_EVENT){
+        if(event === Constant.WITHDRAW_EXEC){
             watcher = this.contract.WithdrawExecuted();
         }
         if(watcher == null || typeof watcher === 'undefined')
             return;
         watcher.watch(filter, (error: any, result: UniEventResult) => {
+            console.log(result)
             const msg = result.result;
             const msgHash = Crypto.getHash(JSON.stringify(msg));
             const signature = Crypto.getSignature(msgHash);

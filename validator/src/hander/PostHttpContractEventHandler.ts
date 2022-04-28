@@ -1,26 +1,17 @@
 import {IContractEventHandler} from "./IContractEventHandler";
-import {RELAY_APP} from "../common/ConfigEnv";
+import {RELAY_APP} from "../config/ConfigEnv";
 import {Verification} from "../entity/Verification";
+const axios = require('axios').default;
 
-export class PostHttpContractEventHandler implements IContractEventHandler{
+export class PostHttpContractEventHandler implements IContractEventHandler {
 
 
-    async handle(message: Verification): Promise<void> {
+    handle(message: Verification): void {
 
-        const host = RELAY_APP.HOST;
-        const path = RELAY_APP.API.COLLECT_VERIFICATION;
-        const response = await fetch(host + '/' + path, {
-            method: 'POST',
-            body: JSON.stringify(message),
-            headers: {'Content-Type': 'application/json'}
-        })
-        if (!response.ok) {
-            console.error("Error");
-        } else if (response.status >= 400) {
-            console.error('Relay HTTP Error: ' + response.status + ' - ' + response.body);
-        } else {
-
-        }
+        const url = RELAY_APP.HOST + '/' + RELAY_APP.API.COLLECT_VERIFICATION;
+        axios.post(url, message)
+            .then((res:any) => console.log(res))
+            .catch((error: any) => console.error(error));
     }
 
 }

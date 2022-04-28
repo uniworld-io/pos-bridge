@@ -1,6 +1,6 @@
 import {App} from "./controller/RelayController";
 import {CallContractSchedule} from "./task/CallContractSchedule";
-import {SERVER} from "./common/ConfigEnv";
+import {SERVER} from "./config/ConfigEnv";
 
 const job = new CallContractSchedule();
 job.start();

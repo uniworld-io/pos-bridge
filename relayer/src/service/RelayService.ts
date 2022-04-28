@@ -8,12 +8,14 @@ export class RelayService{
     bufferEvent(data: Verification): void{
         const msgHash = data.msgHash;
         if(this.mapDepositEvent.has(msgHash)){
-            const callData = this.mapDepositEvent.get(msgHash) as GroupVerification;
-            callData.signatures.push(data.signature);
-            this.mapDepositEvent.set(msgHash, callData);
+            const oldData = this.mapDepositEvent.get(msgHash) as GroupVerification;
+            oldData.signatures.push(data.signature);
+            this.mapDepositEvent.set(msgHash, oldData);
+            console.log("Push event to buffer: ", oldData);
         }else {
-            const callData = new GroupVerification(msgHash, data.msg, [data.signature])
-            this.mapDepositEvent.set(msgHash, callData);
+            const newData = new GroupVerification(data.event, msgHash, data.msg, [data.signature])
+            this.mapDepositEvent.set(msgHash, newData);
+            console.log("Push event to buffer: ", newData);
         }
     }
 }

@@ -1,5 +1,5 @@
 import EthCrypto from 'eth-crypto';
-import {VALIDATOR} from "./ConfigEnv";
+import {VALIDATOR} from "../config/ConfigEnv";
 
 export class Crypto{
 

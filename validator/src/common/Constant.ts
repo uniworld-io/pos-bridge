@@ -1,6 +1,6 @@
 
 
 export const Constant = {
-     DEPOSIT_EVENT: 'DepositExecuted',
-     WITHDRAW_EVENT: 'WithdrawExecuted'
+     DEPOSIT_EXEC: 'DepositExecuted',
+     WITHDRAW_EXEC: 'WithdrawExecuted'
 }

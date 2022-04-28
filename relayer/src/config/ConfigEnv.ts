@@ -15,11 +15,23 @@ export const SERVER = {
     PORT: process.env.PORT
 }
 
+export const WALLET = {
+    PRIVATE_KEY: process.env.DEFAULT_WALLET_PRIVATE_KEY as string,
+    ACCOUNT: process.env.DEFAULT_WALLET_ACCOUNT as string
+}
+
+export const TRANSACTION = {
+    OPTIONS: {
+        from: WALLET.ACCOUNT,
+        gas: 36960,
+        gasPrice: 0
+    }
+}
 
 export const CHAIN = {
     ETH: {
         ID: parseInt(process.env.ETH_CHAIN_ID as string),
-        SERVER_ADDRESS: process.env.ETH_RPC_SERVER as string,
+        CHAIN_HOST: process.env.ETH_CHAIN_HOST as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.ETH_CHILD_MANAGER_ADDRESS as string,
             ABI: childMngAbi as any
@@ -32,7 +44,7 @@ export const CHAIN = {
 
     BSC: {
         ID: parseInt(process.env.BSC_CHAIN_ID as string),
-        SERVER_ADDRESS: process.env.BSC_RPC_ADDRESS as string,
+        CHAIN_HOST: process.env.BSC_CHAIN_HOST as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.BSC_CHILD_MANAGER_ADDRESS as string,
             ABI: childMngAbi as any
@@ -45,7 +57,7 @@ export const CHAIN = {
 
     UNI: {
         ID: parseInt(process.env.UNI_CHAIN_ID as string),
-        SERVER_ADDRESS: process.env.UNI_RPC_ADDRESS as string,
+        CHAIN_HOST: process.env.UNI_CHAIN_HOST as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.UNI_CHILD_MANAGER_ADDRESS as string,
             ABI: childMngAbi as any
