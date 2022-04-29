@@ -30,6 +30,6 @@ jobs:
 
       - name: Build relayer
           run: |
-            cd relayer
+            cd ../relayer
             npm install
             npx webpack
