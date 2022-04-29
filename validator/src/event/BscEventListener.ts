@@ -1,4 +1,4 @@
-import {Web3EventListener} from "./Web3EventListener";
+import {EventListenerImpl} from "./EventListenerImpl";
 import {IContractEventHandler} from "../hander/IContractEventHandler";
 
 import {POOL_EVENT_CONNECTOR} from "../config/PoolConnector";
@@ -6,7 +6,7 @@ import {CHAIN} from "../config/ConfigEnv";
 
 const _ = require('lodash');
 
-export class BscEventListener extends  Web3EventListener{
+export class BscEventListener extends  EventListenerImpl{
 
     constructor(handler: IContractEventHandler) {
         const chain = CHAIN.BSC;

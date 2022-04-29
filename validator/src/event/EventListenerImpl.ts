@@ -4,7 +4,7 @@ import {IEventListener} from "./IEventListener";
 import {EventStandardization} from "../entity/EventStandardization";
 
 
-export class Web3EventListener implements IEventListener {
+export class EventListenerImpl implements IEventListener {
 
     protected rootChainManager: Contract;
     protected childChainManager: Contract;
