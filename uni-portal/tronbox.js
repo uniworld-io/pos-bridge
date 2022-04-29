@@ -6,9 +6,9 @@ module.exports = {
             // Don't put your private key here:
             privateKey: process.env.PRIVATE_KEY_MAINNET,
             /*
-              Create a .env file (it must be gitignored) containing something like
+              Create a .env.local file (it must be gitignored) containing something like
               export PRIVATE_KEY_MAINNET=8da4ef21b864d2cc526dbdb2a120bd2874c36c9d0a1fb7f8c63d7f7a8b41de8f
-              Then, run the migration with: source .env && tronbox migrate --network mainnet
+              Then, run the migration with: source .env.local && tronbox migrate --network mainnet
             */
             userFeePercentage: 100,
             feeLimit: 1e8,

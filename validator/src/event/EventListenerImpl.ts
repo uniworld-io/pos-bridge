@@ -18,25 +18,23 @@ export class EventListenerImpl implements IEventListener {
 
 
     public listenEventDeposit(filter: any): void {
-        this.rootChainManager.events.DepositExecuted()
-            .on('data', (result: any) => {
-                console.log('CaptureEvent: ', result);
-                this.handler.handle(EventStandardization.from(result));
-            })
-            .on('changed', (changed: any) => console.log('Changed event: ', changed))
-            .on('error', (err: any) => console.log('Error event: ', err.message, err.stack))
-            .on('connected', (str: any) => console.log('Connected event: ', str))
+        const events = this.rootChainManager.events.DepositExecuted();
+        this.listen(events)
     }
 
     public listenEventWithdraw(filter: any): void {
-        this.childChainManager.events.WithdrawExecuted()
-            .on('data', (result: any) => {
-                console.log('CaptureEvent: ', result);
-                this.handler.handle(EventStandardization.from(result));
-            })
-            .on('changed', (changed: any) => console.log('Changed event: ', changed))
-            .on('error', (err: any) => console.log('Error event: ', err.message, err.stack))
-            .on('connected', (str: any) => console.log('Connected event: ', str))
+        const events = this.childChainManager.events.WithdrawExecuted()
+        this.listen(events);
+    }
+
+    private listen(events: any): void {
+        events.on('data', (result: any) => {
+            console.log('CaptureEvent: ', result);
+            this.handler.handle(EventStandardization.from(result));
+        })
+        events.on('changed', (changed: any) => console.log('Changed event: ', changed))
+        events.on('error', (err: any) => console.log('Error event: ', err.message, err.stack))
+        events.on('connected', (str: any) => console.log('Connected event: ', str))
     }
 
 }

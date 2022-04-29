@@ -22,6 +22,11 @@ export class UniEventListener implements IEventListener {
         this.rootChainManager = uniChainConnector.contract(chain.ROOT_MANAGER.ABI, chain.ROOT_MANAGER.ADDRESS);
         this.childChainManager = uniChainConnector.contract(chain.CHILD_MANAGER.ABI, chain.CHILD_MANAGER.ADDRESS);
 
+        console.log("=======================================LISTEN UNI CHAIN=======================================");
+        console.log(uniChainConnector.eventServer)
+        console.log("=====> ROOT MANAGER CONTRACT:",this.rootChainManager.address)
+        console.log("=====> CHILD MANAGER CONTRACT:", this.childChainManager.address)
+
     }
 
     listenEventDeposit(filter: any): void {

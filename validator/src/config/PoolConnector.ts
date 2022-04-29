@@ -10,17 +10,18 @@ class PoolConnector{
     uniChainConnector: any;
 
     constructor() {
+        const options = {
+            reconnect: {
+                auto: true,
+                delay: 1000, // ms
+                // maxAttempts: 5,
+                onTimeout: false
+            }
+        };
 
-        this.ethChainConnector = new Web3(new Web3.providers.WebsocketProvider(CHAIN.ETH.EVENT_HOST));
-        this.bscChainConnector = new Web3(new Web3.providers.WebsocketProvider(CHAIN.BSC.EVENT_HOST));
+        this.ethChainConnector = new Web3(new Web3.providers.WebsocketProvider(CHAIN.ETH.EVENT_HOST, options));
+        this.bscChainConnector = new Web3(new Web3.providers.WebsocketProvider(CHAIN.BSC.EVENT_HOST, options));
         this.uniChainConnector = new UniChain({fullHost: CHAIN.UNI.EVENT_HOST});
-
-        console.log('=============LISTENER EVENT===============');
-        console.log('Connection ETH: ', this.ethChainConnector);
-        console.log('=========================================');
-        console.log('Connection BSC: ', this.bscChainConnector);
-        console.log('=========================================');
-        console.log('Connection UNI: ', this.uniChainConnector);
     }
 }
 
