@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -24,6 +24,7 @@ jobs:
 
       - name: Build validator
         run: |
+          pwd
           cd validator
           npm install
           npx webpack
