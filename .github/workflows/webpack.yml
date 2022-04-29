@@ -28,8 +28,8 @@ jobs:
           npm install
           npx webpack
 
-      - name: Build relayer
-          run: |
-            cd ../relayer
-            npm install
-            npx webpack
+#      - name: Build relayer
+#          run: |
+#            cd ../relayer
+#            npm install
+#            npx webpack
