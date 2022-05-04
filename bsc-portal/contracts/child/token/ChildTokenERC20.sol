@@ -18,8 +18,7 @@ contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable 
         address childChainManager
     ) public ERC20(name_, symbol_) {
         _setupContractId("ChildERC20");
-
-//        _setupDecimals(decimals_);
+        _setupDecimals(decimals_);
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(MINTER_ROLE, childChainManager);
     }
