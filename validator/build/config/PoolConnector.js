@@ -10,15 +10,15 @@ const UniChain = require('@uniworld/unichain-js');
 class PoolConnector {
     constructor() {
         const options = {
-            reconnect: {
-                auto: true,
-                delay: 1000,
-                // maxAttempts: 5,
-                onTimeout: false
-            }
+            // reconnect: {
+            auto: true,
+            //     delay: 1000, // ms
+            //     // maxAttempts: 5,
+            //     onTimeout: false
+            // }
         };
-        this.ethChainConnector = new web3_1.default(new web3_1.default.providers.WebsocketProvider(ConfigEnv_1.CHAIN.ETH.EVENT_HOST, options));
-        this.bscChainConnector = new web3_1.default(new web3_1.default.providers.WebsocketProvider(ConfigEnv_1.CHAIN.BSC.EVENT_HOST, options));
+        this.ethChainConnector = new web3_1.default(new web3_1.default.providers.WebsocketProvider(ConfigEnv_1.CHAIN.ETH.EVENT_HOST));
+        this.bscChainConnector = new web3_1.default(new web3_1.default.providers.WebsocketProvider(ConfigEnv_1.CHAIN.BSC.EVENT_HOST));
         this.uniChainConnector = new UniChain({ fullHost: ConfigEnv_1.CHAIN.UNI.EVENT_HOST });
     }
 }

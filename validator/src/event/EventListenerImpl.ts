@@ -4,13 +4,17 @@ import {IEventListener} from "./IEventListener";
 import {EventStandardization} from "../entity/EventStandardization";
 
 
+const logger = require('../common/Logger');
+
 export class EventListenerImpl implements IEventListener {
 
     protected rootChainManager: Contract;
     protected childChainManager: Contract;
     private readonly handler: IContractEventHandler;
+    private readonly chainId: number;
 
-    constructor(handler: IContractEventHandler, rootChainManager: Contract, childChainManager: Contract) {
+    constructor(chainId: number, handler: IContractEventHandler, rootChainManager: Contract, childChainManager: Contract) {
+        this.chainId = chainId;
         this.rootChainManager = rootChainManager;
         this.childChainManager = childChainManager;
         this.handler = handler;
@@ -29,11 +33,11 @@ export class EventListenerImpl implements IEventListener {
 
     private listen(events: any): void {
         events.on('data', (result: any) => {
-            console.log('CaptureEvent: ', result);
+            logger.info('CaptureEvent: %s', result);
             this.handler.handle(EventStandardization.from(result));
         })
         events.on('changed', (changed: any) => console.log('Changed event: ', changed))
-        events.on('error', (err: any) => console.log('Error event: ', err.message, err.stack))
+        events.on('error', (err: any) => logger.error('Error event from chain-id %s: %s, %s', this.chainId, err.message, err.stack))
         events.on('connected', (str: any) => console.log('Connected event: ', str))
     }
 
