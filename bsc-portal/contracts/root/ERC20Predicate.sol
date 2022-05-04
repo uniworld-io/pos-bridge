@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract ERC20Predicate is ITokenPredicate, AccessControlEnumerable, Initializable {
+contract ERC20Predicate is ITokenPredicate, AccessControlEnumerable {
 
     using SafeERC20 for IERC20;
 
@@ -26,8 +26,15 @@ contract ERC20Predicate is ITokenPredicate, AccessControlEnumerable, Initializab
         uint256 amount
     );
 
-    function initialize(address _owner) external initializer {
-//        _setupContractId("ERC20Predicate");
+    //    function initialize(address _owner) external initializer {
+    ////        _setupContractId("ERC20Predicate");
+    //        _setupRole(DEFAULT_ADMIN_ROLE, _owner);
+    //        _setupRole(MANAGER_ROLE, _owner);
+    //    }
+    constructor(
+        address _owner
+    ) {
+        //        _setupContractId("WrapTokenERC20");
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(MANAGER_ROLE, _owner);
     }

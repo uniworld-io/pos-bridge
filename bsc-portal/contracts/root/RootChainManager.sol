@@ -46,8 +46,8 @@ contract RootChainManager is IRootChainManager, Initializable, AccessControlEnum
     external
     initializer
     {
-//        _initializeEIP712("RootChainManager");
-//        _setupContractId("RootChainManager");
+        //        _initializeEIP712("RootChainManager");
+        //        _setupContractId("RootChainManager");
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(MAPPER_ROLE, _owner);
     }
@@ -113,7 +113,7 @@ contract RootChainManager is IRootChainManager, Initializable, AccessControlEnum
         address rootToken,
         address childToken,
         bytes32 tokenType
-    ) external override only(MAPPER_ROLE) {
+    ) external override {
         require(hasRole(MAPPER_ROLE, _msgSender()), "must have mapper role");
         // explicit check if token is already mapped to avoid accidental remaps
         require(
@@ -228,7 +228,7 @@ contract RootChainManager is IRootChainManager, Initializable, AccessControlEnum
 
         // payable(typeToPredicate[tokenToType[ETHER_ADDRESS]]).transfer(msg.value);
         // transfer doesn't work as expected when receiving contract is proxified so using call
-        (bool success, /* bytes memory data */) = typeToPredicate[tokenToType[ETHER_ADDRESS]].call{value: msg.value}("");
+        (bool success, /* bytes memory data */) = typeToPredicate[tokenToType[ETHER_ADDRESS]].call{value : msg.value}("");
         if (!success) {
             revert("RootChainManager: ETHER_TRANSFER_FAILED");
         }
@@ -269,15 +269,21 @@ contract RootChainManager is IRootChainManager, Initializable, AccessControlEnum
     }
 
     //todo exit check code lai exit
+    //withdraw
     function exit(bytes calldata inputData) external override {
 
+        (address withdrawer, uint256 amount, address rootToken) = abi.decode(
+            inputData,
+            (address, uint256, address)
+        );
         address predicateAddress = typeToPredicate[
         tokenToType[rootToken]
         ];
+        bytes memory logData = abi.encode(withdrawer, amount);
         ITokenPredicate(predicateAddress).exitTokens(
             _msgSender(),
             rootToken,
-            log.toRlpBytes()
+            logData
         );
     }
 }

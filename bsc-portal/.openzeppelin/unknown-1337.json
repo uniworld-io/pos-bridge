@@ -1,8 +1,8 @@
 {
   "manifestVersion": "3.2",
   "admin": {
-    "address": "0xCc106606b9ac151CfF3c8977cebb3969B43e66b4",
-    "txHash": "0xb9d8c8ee9ebe3ce079544994d3b534e3978a91cba2bcfc7dece3a30cfd7b3296"
+    "address": "0xf9b17Ef36E36810208fDc72898531C7f62f7Ebd7",
+    "txHash": "0xf447e027cc7b1db116f6ba9a2ecec9ed65acf7ff373cf892c606e3c389d1d7e5"
   },
   "proxies": [
     {
@@ -19,12 +19,52 @@
       "address": "0x47Db580aC4FAE158110b1335f932c103aF82A7D3",
       "txHash": "0xab4622fd39f9749bb87712a881b03c71f75601a2b186296cd1e476c8abb26273",
       "kind": "transparent"
+    },
+    {
+      "address": "0x9064D0606496d5a518CE3c8Bb89fe91eaA271F57",
+      "txHash": "0x23c33abc8ad5be00556f8ae0b288d7b89c0cc289dd380616f32d823b050ed4e9",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x349bed8a1960C84d0AAe3a534b1Dd3E94563e9AA",
+      "txHash": "0x04e7e87034fd5520738067e22d30544b945676c74ea9e9717e982a5e0e851975",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6182df052c8c899c521BA625b99284B0Fc0B1214",
+      "txHash": "0xa79185e6964c4cdb7bf5f8b2abb783841d881f2a062aaa8db2c1bbce3fda3edc",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xdB3c664e800a8a830823fE0de294884f91e31aCC",
+      "txHash": "0x1ef285ea11d70490164b6bb7c3353b05cd41d03a6640e50aa1a63575ed1806bc",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x75F9e014c376f8E3559bDef2F3621eF8007a9f41",
+      "txHash": "0x80eb879d2e0c5e612481d13195a28ec2eec7837f1885ab78e91189d902153ede",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6Fcf0cD6Cf5c72208fdC3cC0FD6bE8145357d6B2",
+      "txHash": "0x6e2cb58c95f8ed6a57f1f3a753022dcbfa67fb31f7e293b28cad345240a9cb4e",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xf991337F96e857b57575b8E28fc4BAC5fBc03159",
+      "txHash": "0x8450e68174707f0624ec52e42f8c0776e447a2ce1836a3a9b2ae1016d682adf0",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x800D2c6867b833E59e3919e73C55c6756b131D2C",
+      "txHash": "0xc1186fdb3b990fa16b8ba2bb233974d4f16bf05be09c7e4ba3d2fe06c1b702c7",
+      "kind": "transparent"
     }
   ],
   "impls": {
     "89a5862ef216ba9f557549ed155d55c4a8a7142c74f1df6e4f1467455d11f6b6": {
-      "address": "0x17B0CF8d4D3023f25Be1f95A621B0DCe56AbAc3d",
-      "txHash": "0xacc6c861f56371329fb63a4456b59fc4dee68bfe10696e1ed0b7bff5c7fa40e4",
+      "address": "0x7ce89caBbe6caF4332730165B9DDf88D531CD700",
+      "txHash": "0xfd806aac8842ecb6966d7c2d0f1d07d89ff5375f4e095618e65fee16cf01cfcc",
       "layout": {
         "storage": [
           {
@@ -48,7 +88,7 @@
           {
             "contract": "AccessControlEnumerable",
             "label": "_roleMembers",
-            "type": "t_mapping(t_bytes32,t_struct(AddressSet)2156_storage)",
+            "type": "t_mapping(t_bytes32,t_struct(AddressSet)2987_storage)",
             "src": "..\\@openzeppelin\\contracts\\access\\AccessControlEnumerable.sol:16"
           },
           {
@@ -71,22 +111,22 @@
           "t_address": {
             "label": "address"
           },
-          "t_mapping(t_bytes32,t_struct(AddressSet)2156_storage)": {
+          "t_mapping(t_bytes32,t_struct(AddressSet)2987_storage)": {
             "label": "mapping(bytes32 => struct EnumerableSet.AddressSet)"
           },
           "t_bytes32": {
             "label": "bytes32"
           },
-          "t_struct(AddressSet)2156_storage": {
+          "t_struct(AddressSet)2987_storage": {
             "label": "struct EnumerableSet.AddressSet",
             "members": [
               {
                 "label": "_inner",
-                "type": "t_struct(Set)1855_storage"
+                "type": "t_struct(Set)2686_storage"
               }
             ]
           },
-          "t_struct(Set)1855_storage": {
+          "t_struct(Set)2686_storage": {
             "label": "struct EnumerableSet.Set",
             "members": [
               {
@@ -129,6 +169,159 @@
           },
           "t_bool": {
             "label": "bool"
+          }
+        }
+      }
+    },
+    "ec26997db6a5309454fb0d39d569ba8011425eef31ad646f249035d6f7add0e4": {
+      "address": "0xdE8D3107Be03fa5691277AcB6B609Bd69268849a",
+      "txHash": "0xc357f62525eac972f2f4a2fe43ef93affd38636d16de252fa00e6411c589218a",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:39"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:44"
+          },
+          {
+            "contract": "AccessControl",
+            "label": "_roles",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)336_storage)",
+            "src": "..\\@openzeppelin\\contracts\\access\\AccessControl.sol:55"
+          },
+          {
+            "contract": "AccessControlEnumerable",
+            "label": "_roleMembers",
+            "type": "t_mapping(t_bytes32,t_struct(AddressSet)2987_storage)",
+            "src": "..\\@openzeppelin\\contracts\\access\\AccessControlEnumerable.sol:16"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "typeToPredicate",
+            "type": "t_mapping(t_bytes32,t_address)",
+            "src": "..\\project:\\contracts\\root\\RootChainManager.sol:16"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "rootToChildToken",
+            "type": "t_mapping(t_address,t_address)",
+            "src": "..\\project:\\contracts\\root\\RootChainManager.sol:17"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "childToRootToken",
+            "type": "t_mapping(t_address,t_address)",
+            "src": "..\\project:\\contracts\\root\\RootChainManager.sol:18"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "tokenToType",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "src": "..\\project:\\contracts\\root\\RootChainManager.sol:19"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "processedExits",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "src": "..\\project:\\contracts\\root\\RootChainManager.sol:20"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "childChainManagerAddress",
+            "type": "t_address",
+            "src": "..\\project:\\contracts\\root\\RootChainManager.sol:21"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "_stateSender",
+            "type": "t_contract(IStateSender)4690",
+            "src": "..\\project:\\contracts\\root\\RootChainManager.sol:22"
+          }
+        ],
+        "types": {
+          "t_mapping(t_bytes32,t_address)": {
+            "label": "mapping(bytes32 => address)"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_mapping(t_address,t_address)": {
+            "label": "mapping(address => address)"
+          },
+          "t_mapping(t_address,t_bytes32)": {
+            "label": "mapping(address => bytes32)"
+          },
+          "t_mapping(t_bytes32,t_bool)": {
+            "label": "mapping(bytes32 => bool)"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_contract(IStateSender)4690": {
+            "label": "contract IStateSender"
+          },
+          "t_mapping(t_bytes32,t_struct(AddressSet)2987_storage)": {
+            "label": "mapping(bytes32 => struct EnumerableSet.AddressSet)"
+          },
+          "t_struct(AddressSet)2987_storage": {
+            "label": "struct EnumerableSet.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)2686_storage"
+              }
+            ]
+          },
+          "t_struct(Set)2686_storage": {
+            "label": "struct EnumerableSet.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)"
+              }
+            ]
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)336_storage)": {
+            "label": "mapping(bytes32 => struct AccessControl.RoleData)"
+          },
+          "t_struct(RoleData)336_storage": {
+            "label": "struct AccessControl.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32"
+              }
+            ]
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
           }
         }
       }
