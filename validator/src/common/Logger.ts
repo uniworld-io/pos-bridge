@@ -5,6 +5,7 @@ module.exports = winston.createLogger({
     format: winston.format.combine(
         winston.format.splat(),
         winston.format.json(),
+        winston.format.prettyPrint(),
         winston.format.timestamp({
             format: 'YYYY-MM-DD HH:mm:ss'
         }),

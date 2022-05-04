@@ -20,7 +20,7 @@ class EventListenerImpl {
     }
     listen(events) {
         events.on('data', (result) => {
-            logger.info('CaptureEvent: %s', result);
+            logger.info('CaptureEvent: %o', result);
             this.handler.handle(EventStandardization_1.EventStandardization.from(result));
         });
         events.on('changed', (changed) => console.log('Changed event: ', changed));

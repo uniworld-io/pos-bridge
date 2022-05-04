@@ -2,7 +2,7 @@
 const winston = require('winston');
 const path = require('path');
 module.exports = winston.createLogger({
-    format: winston.format.combine(winston.format.splat(), winston.format.json(), winston.format.timestamp({
+    format: winston.format.combine(winston.format.splat(), winston.format.json(), winston.format.prettyPrint(), winston.format.timestamp({
         format: 'YYYY-MM-DD HH:mm:ss'
     }), winston.format.colorize(), winston.format.printf((log) => {
         if (log.stack)

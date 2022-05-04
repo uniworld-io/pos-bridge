@@ -4,13 +4,14 @@ const path = require('path');
 module.exports = winston.createLogger({
     format: winston.format.combine(
         winston.format.splat(),
+        winston.format.json(),
+        winston.format.prettyPrint(),
         winston.format.timestamp({
             format: 'YYYY-MM-DD HH:mm:ss'
         }),
         winston.format.colorize(),
         winston.format.printf(
             (log: any) => {
-                // nếu log là error hiển thị stack trace còn không hiển thị message của log
                 if (log.stack) return `[${log.timestamp}] [${log.level}] ${log.stack}`;
                 return `[${log.timestamp}] [${log.level}] ${log.message}`;
             },
@@ -22,6 +23,6 @@ module.exports = winston.createLogger({
             level: 'error',
             filename: path.join(__dirname, './logs/errors.log')
         }),
-        new winston.transports.File({ filename: './logs/validator.log' })
+        new winston.transports.File({ filename: './logs/relayer.log' })
     ],
 })

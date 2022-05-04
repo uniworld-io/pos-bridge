@@ -33,7 +33,7 @@ export class EventListenerImpl implements IEventListener {
 
     private listen(events: any): void {
         events.on('data', (result: any) => {
-            logger.info('CaptureEvent: %s', result);
+            logger.info('CaptureEvent: %o', result);
             this.handler.handle(EventStandardization.from(result));
         })
         events.on('changed', (changed: any) => console.log('Changed event: ', changed))
