@@ -4,7 +4,7 @@
   "description": "pos, validator, trustless, secure",
   "main": "app.js",
   "scripts": {
-    "start": "npx tsc && NODE_ENV=testnet node build/app.js"
+    "start": "npx tsc && NODE_ENV=testnet node build/ValidatorApp.js &"
   },
   "keywords": [
     "pos",
@@ -31,7 +31,7 @@
     "eth-crypto": "^2.3.0",
     "express": "^4.17.3",
     "lodash": "^4.17.21",
-    "web3": "^1.5.3",
+    "web3": "^1.7.3",
     "winston": "^3.7.2",
     "yarn": "^1.22.18"
   }
