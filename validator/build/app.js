@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const BscEventListener_1 = require("./event/BscEventListener");
+const ContractEventHandler_1 = require("./hander/ContractEventHandler");
+const EthEventListener_1 = require("./event/EthEventListener");
+const UniEventListener_1 = require("./event/UniEventListener");
+const contractEventHandler = new ContractEventHandler_1.ContractEventHandler();
+const bscListener = new BscEventListener_1.BscEventListener(contractEventHandler);
+const ethListener = new EthEventListener_1.EthEventListener(contractEventHandler);
+const uniListener = new UniEventListener_1.UniEventListener(contractEventHandler);
+bscListener.listenEventDeposit({});
+bscListener.listenEventWithdraw({});
+ethListener.listenEventDeposit({});
+ethListener.listenEventWithdraw({});
