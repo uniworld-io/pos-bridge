@@ -21,8 +21,7 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
     ManagerValidator(consensusRate_, minValidator_, validators_) public {
     }
 
-    event WithdrawExecuted(uint childChainId, address childToken, address burner, address receiver, uint256 value);
-
+    event WithdrawExecuted(uint childChainId, uint rootChainId, address childToken, address burner, address withdrawer, uint256 value);
 
     function initialize(address _owner) external initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
@@ -60,30 +59,31 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
     }
 
     function withdraw(bytes calldata withdrawData) public {
-        (uint childChainId, address childToken, address burner, address receiver, uint256 value)
-        = abi.decode(withdrawData, (uint, address, address, address, uint256));
+        (uint childChainId, uint rootChainId,address childToken, address burner, address withdrawer, uint256 value)
+        = abi.decode(withdrawData, (uint, uint, address, address, address, uint256));
 
-        require(burner != address(0), "Depositor address invalid");
+        require(burner != address(0), "Burner address invalid");
+
+        require(childToRootToken[childChainId][childToken] != address(0), "ChildChainManager: TOKEN_NOT_MAPPED");
 
         IChildToken childContract = IChildToken(childToken);
         childContract.withdraw(value);
 
-        emit WithdrawExecuted(childChainId, childToken, burner, receiver, value);
+        emit WithdrawExecuted(childChainId, rootChainId, childToken, burner, withdrawer, value);
     }
 
-    function depositExec(bytes memory depositData) public {
-        (bytes32 digest, bytes memory msg, bytes[] memory signatures)
-        = abi.decode(depositData, (bytes32, bytes, bytes[]));
+    function depositExecuted(bytes32 digest, bytes calldata msgData, bytes[] memory signatures) public {
 
-        require(_validateSign(digest, msg, signatures), "ChildChainManager: Group sign not accepted");
+        require(_validateSign(digest, msgData, signatures), "ChildChainManager: INVALID_SIGNATURES");
 
         (uint rootChainId, address rootToken,  address user, uint256 value)
-        = abi.decode(msg, (uint, address, address, uint256));
+        = abi.decode(msgData, (uint, address, address, uint256));
 
         address childToken = rootToChildToken[rootChainId][rootToken];
+        require(childToken != address(0), "ChildChainManager: TOKEN_NOT_MAPPED");
+
         IChildToken childContract = IChildToken(childToken);
         childContract.deposit(user, abi.encode(value));
-
     }
 
     function validatorChanged(address validator, address validatorPk, bytes[] memory signatures)

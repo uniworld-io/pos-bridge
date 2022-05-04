@@ -18,7 +18,8 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
     bytes32 public constant MAPPER_ROLE = keccak256("MAPPER_ROLE");
 
-    event DepositedExecuted(uint rootChainId, address rootToken, address depositor, address receiver, uint256 value);
+    event DepositExecuted(uint rootChainId, uint childChainId, address rootToken, address depositor, address receiver, uint256 value);
+
 
     constructor(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_)
     ManagerValidator(consensusRate_, minValidator_, validators_) public {
@@ -57,8 +58,8 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     }
 
     function deposit(bytes calldata depositData) public {
-        (uint rootChainId, address rootToken, address depositor, address receiver, uint256 value)
-        = abi.decode(depositData, (uint, address, address, address , uint));
+        (uint rootChainId, uint childChainId, address rootToken, address depositor, address receiver, uint256 value)
+        = abi.decode(depositData, (uint, uint, address, address, address , uint));
 
         require(depositor != address(0), "Depositor address invalid");
 
@@ -71,20 +72,16 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         ITokenPredicate predicate = ITokenPredicate(predicateAddress);
         predicate.lockTokens(depositor, rootToken, value);
 
-        emit DepositedExecuted(rootChainId, rootToken, depositor, receiver, value);
+        emit DepositExecuted(rootChainId, childChainId, rootToken, depositor, receiver, value);
     }
 
-    function withdrawExec(bytes calldata withdrawData) public {
-        (bytes32 digest, bytes memory msg, bytes[] memory signatures)
-        = abi.decode(withdrawData, (bytes32, bytes, bytes[]));
+    function withdrawExecuted(bytes32 digest, bytes calldata msg, bytes[] memory signatures) public {
+        (uint childChainId, address childToken,  address withdrawer, uint256 value)
+        = abi.decode(msg, (uint, address, address, uint256));
 
         require(_validateSign(digest, msg,  signatures), "RootChainManager: Group sign not accepted withdraw");
 
-        (uint childChainId, address childToken, address withdrawer, uint256 value)
-        = abi.decode(msg, (uint, address, address, uint256));
-
         address rootToken = childToRootToken[childChainId][childToken];
-
         bytes32 tokenType = tokenToType[rootToken];
         require(rootToken != address(0) && tokenType != 0, "RootChainManager: Token not mapped");
 

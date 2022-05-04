@@ -7,15 +7,21 @@ import "../../common/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "../../common/AccessControlUni.sol";
 
-abstract contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable {
+contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable {
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
-//    constructor(string memory _name, string memory _symbol) ERC20(_name, _symbol) public{}
+    constructor(
+        string memory name_,
+        string memory symbol_,
+        uint8 decimals_,
+        address childChainManager
+    ) public ERC20(name_, symbol_) {
+        _setupContractId("ChildERC20");
 
-    function initialize(address _owner) external initializer {
-        _setupRole(DEFAULT_ADMIN_ROLE, _owner);
-        _setupRole(MINTER_ROLE, _owner);
+//        _setupDecimals(decimals_);
+        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
+        _setupRole(MINTER_ROLE, childChainManager);
     }
 
     function deposit(address user, bytes calldata depositData) override external only(MINTER_ROLE){
