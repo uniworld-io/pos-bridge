@@ -6,7 +6,9 @@
   "scripts": {
     "test": "truffle test",
     "deploy_rinkeby": "truffle migrate --network rinkeby",
-    "deploy_bsctestnet": "truffle migrate --network bsctestnet"
+    "deploy_bsctestnet": "truffle migrate --network bsctestnet",
+    "deploy_bscunitestnet": "truffle migrate --network bscunitestnet",
+    "deploy_ethunitestnet": "truffle migrate --network ethunitestnet"
   },
   "author": "",
   "license": "ISC",

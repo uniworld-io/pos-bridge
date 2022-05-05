@@ -7,9 +7,9 @@ import "./IRootChainManager.sol";
 import "../../common/Initializable.sol";
 import "../predicate/ITokenPredicate.sol";
 import "../../common/AccessControlUni.sol";
-import "../../common/ManagerValidator.sol";
+import "../../common/SignaturesValidator.sol";
 
-contract RootChainManager is IRootChainManager, AccessControlUni, Initializable, ManagerValidator {
+contract RootChainManager is IRootChainManager, AccessControlUni, Initializable, SignaturesValidator {
     mapping(uint => mapping(address => address)) rootToChildToken;
     mapping(uint => mapping(address => address)) childToRootToken;
     mapping(bytes32 => address) typeToPredicate;
@@ -22,7 +22,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
 
 
     constructor(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_)
-    ManagerValidator(consensusRate_, minValidator_, validators_) public {
+    SignaturesValidator(consensusRate_, minValidator_, validators_) public {
     }
 
     function initialize(address _owner) external initializer {
@@ -76,10 +76,10 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     }
 
     function withdrawExecuted(bytes32 digest, bytes calldata msg, bytes[] memory signatures) public {
+        _validateSign(msg, signatures);
+
         (uint childChainId, address childToken,  address withdrawer, uint256 value)
         = abi.decode(msg, (uint, address, address, uint256));
-
-        require(_validateSign(digest, msg,  signatures), "RootChainManager: Group sign not accepted withdraw");
 
         address rootToken = childToRootToken[childChainId][childToken];
         bytes32 tokenType = tokenToType[rootToken];

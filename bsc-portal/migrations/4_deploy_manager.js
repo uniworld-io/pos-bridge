@@ -5,7 +5,7 @@ const RootManager = artifacts.require("RootChainManager");
 
 const consensusRate = process.env.CONSENSUS_RATE;
 const minValidators = process.env.MIN_VALIDATORS;
-const validators = process.env.VALIDATORS;
+const validators = process.env.VALIDATORS.split(',');
 
 
 module.exports = async function (deployer) {

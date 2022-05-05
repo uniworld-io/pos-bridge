@@ -51,7 +51,7 @@ module.exports = {
             network_id: "*"    // Any network (default: none)
         },
         bsctestnet: {
-            provider: () => new HDWalletProvider(private_key, `https://data-seed-prebsc-1-s1.binance.org:8545/`),
+            provider: () => new HDWalletProvider(test_private_key, `https://data-seed-prebsc-1-s1.binance.org:8545/`),
             network_id: 97,
             timeoutBlocks: 2000,
             skipDryRun: true,
@@ -66,18 +66,14 @@ module.exports = {
             skipDryRun: true
         },
         bscunitestnet: {
-            provider: () => new HDWalletProvider(test_private_key, `http://18.141.168.229:9797`),
+            host: "18.141.168.229",
+            port: 9797,
             network_id: 9797,
-            confirmations: 3,
-            timeoutBlocks: 200,
-            skipDryRun: true
         },
         ethunitestnet: {
-            provider: () => new HDWalletProvider(test_private_key, `http://18.141.168.229:4242`),
+            host: "18.141.168.229",
+            port: 4242,
             network_id: 4242,
-            confirmations: 3,
-            timeoutBlocks: 200,
-            skipDryRun: true
         }
     },
 

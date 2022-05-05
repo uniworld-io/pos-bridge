@@ -1,6 +1,6 @@
 import EthCrypto from 'eth-crypto';
 import {VALIDATOR} from "../config/ConfigEnv";
-
+import Web3 from "web3";
 export class Crypto{
 
     //@TODO: check prefix

@@ -7,10 +7,10 @@ import "./IChildChainManager.sol";
 import "../../common/Initializable.sol";
 import "../token/IChildToken.sol";
 import "../../common/AccessControlUni.sol";
-import "../../common/ManagerValidator.sol";
+import "../../common/SignaturesValidator.sol";
 
 
-contract ChildChainManager is IChildChainManager, AccessControlUni, Initializable, ManagerValidator {
+contract ChildChainManager is IChildChainManager, AccessControlUni, Initializable, SignaturesValidator {
     mapping(uint => mapping(address => address)) rootToChildToken;
     mapping(uint => mapping(address => address)) childToRootToken;
 
@@ -18,7 +18,7 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
     bytes32 public constant STATE_SYNCER_ROLE = keccak256("STATE_SYNCER_ROLE");//@Todo
 
     constructor(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_)
-    ManagerValidator(consensusRate_, minValidator_, validators_) public {
+    SignaturesValidator(consensusRate_, minValidator_, validators_) public {
     }
 
     event WithdrawExecuted(uint childChainId, uint rootChainId, address childToken, address burner, address withdrawer, uint256 value);
@@ -49,7 +49,6 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
         childToRootToken[childChainId][childToken] = rootToken;
 
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken);
-
     }
 
     function unmapToken(uint rootChainId, address rootToken, uint childChainId, address childToken) override external {
@@ -72,12 +71,10 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
         emit WithdrawExecuted(childChainId, rootChainId, childToken, burner, withdrawer, value);
     }
 
-    function depositExecuted(bytes32 digest, bytes calldata msgData, bytes[] memory signatures) public {
-
-        require(_validateSign(digest, msgData, signatures), "ChildChainManager: INVALID_SIGNATURES");
-
+    function depositExecuted(bytes32 digest, bytes calldata msg, bytes[] memory signatures) public {
+        _validateSign(msg, signatures);
         (uint rootChainId, address rootToken,  address user, uint256 value)
-        = abi.decode(msgData, (uint, address, address, uint256));
+        = abi.decode(msg, (uint, address, address, uint256));
 
         address childToken = rootToChildToken[rootChainId][rootToken];
         require(childToken != address(0), "ChildChainManager: TOKEN_NOT_MAPPED");

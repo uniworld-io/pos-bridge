@@ -14,5 +14,4 @@ module.exports = async function (deployer) {
     console.log('network', deployer.network);
     console.log("WBNBToken:", wbnbToken.address);
     console.log("ETHToken:", wethToken.address);
-
 };

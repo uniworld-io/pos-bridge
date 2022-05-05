@@ -14,7 +14,7 @@ contract ERC721Predicate is ITokenPredicate, AccessControlUni, Initializable {
 
     bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
 
-    bytes32 public constant TOKEN_TYPE = keccak256("ERC20");
+    bytes32 public constant TOKEN_TYPE = keccak256("ERC721");
 
     function initialize(address _owner) external initializer {
         _setupRole(MANAGER_ROLE, _owner);

@@ -1,7 +1,7 @@
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}`})
 
-import childMngAbi from '../resource/ChildManagerABI.json';
-import rootMngAbi from '../resource/RootManagerABI.json';
+import childMngAbi from '../../resource/ChildManagerABI.json';
+import rootMngAbi from '../../resource/RootManagerABI.json';
 
 
 export const CRON_TAB = process.env.CRON_TAB as string | '*/30 * * * * *';
