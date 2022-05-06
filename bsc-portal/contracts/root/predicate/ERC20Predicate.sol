@@ -26,14 +26,17 @@ contract ERC20Predicate is ITokenPredicate, AccessControlUni, Initializable {
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
     }
 
-    function lockTokens(address depositor, address rootToken, uint256 value)
+    function lockTokens(address depositor, address rootToken, bytes calldata data)
     override external only(MANAGER_ROLE) {
+        uint256 value = abi.decode(data, (uint256));
         IERC20(rootToken).safeTransferFrom(depositor, address(this), value);
         emit LockedERC20(depositor, rootToken, value);
     }
 
-    function unlockTokens(address withdrawer, address rootToken, uint256 value)
+    function unlockTokens(address withdrawer, address rootToken, bytes calldata data)
     override external only(MANAGER_ROLE) {
+
+        uint256 value = abi.decode(data, (uint256));
         IERC20(rootToken).safeTransfer(withdrawer, value);
         emit UnlockedERC20(withdrawer, rootToken, value);
     }

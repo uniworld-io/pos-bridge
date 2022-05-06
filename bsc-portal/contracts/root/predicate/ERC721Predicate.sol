@@ -22,12 +22,12 @@ contract ERC721Predicate is ITokenPredicate, AccessControlUni, Initializable {
     }
 
 
-    function lockTokens(address depositor, address rootToken, uint256 value)
+    function lockTokens(address depositor, address rootToken, bytes calldata data)
     override external only(MANAGER_ROLE) {
         //@TODO
     }
 
-    function unlockTokens(address withdrawer, address rootToken, uint256 value)
+    function unlockTokens(address withdrawer, address rootToken, bytes calldata data)
     override external only(MANAGER_ROLE) {
         //@TODO
 

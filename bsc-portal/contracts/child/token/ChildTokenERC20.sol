@@ -28,8 +28,9 @@ contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable 
         _mint(user, amount);
     }
 
-    function withdraw(uint256 value) public {
-        _burn(_msgSender(), value);
+    function withdraw(bytes calldata withdrawData) override external {
+        uint256 amount = abi.decode(withdrawData, (uint256));
+        _burn(_msgSender(), amount);
     }
 
 }

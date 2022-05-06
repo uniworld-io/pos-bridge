@@ -2,9 +2,9 @@
   "name": "validator",
   "version": "1.0.0",
   "description": "pos, validator, trustless, secure",
-  "main": "app.js",
+  "main": "ValidatorApp.js",
   "scripts": {
-    "start": "npx tsc && NODE_ENV=testnet node build/ValidatorApp.js"
+    "start": "npx tsc && NODE_ENV=testnet node build/src/ValidatorApp.js"
   },
   "keywords": [
     "pos",
