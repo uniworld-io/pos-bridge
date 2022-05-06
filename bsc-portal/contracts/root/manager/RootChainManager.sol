@@ -61,7 +61,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken, tokenToType[rootToken]);
     }
 
-    function deposit(address receiver, address rootToken, uint32 childChainId) override external  payable{
+    function deposit(address receiver, address rootToken, uint32 childChainId) override external payable{
         bytes memory depositData = abi.encode(msg.value);
         _depositFor(receiver, rootToken, childChainId, depositData);
     }

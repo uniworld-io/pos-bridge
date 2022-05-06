@@ -4,14 +4,14 @@ const ChildManager = artifacts.require("ChildChainManager");
 const rootChainId = 9797;
 const childChainId = 4242;
 
-const rootTokenERC20 = '0x66717810fa8A9b5f424CFfabab662b63FF69a59b';
-const childTokenERC20 ='0x0Af894F19E8Ca1d94db8EF9150aA62a20A14846A';
+const rootTokenERC20 = '0x4b5eaBf187E3151E2C47c9e230b640d29712dA62';
+const childTokenERC20 ='0x3Dd0f760fD6cd58FFC590CA38A7A0c0034cE7c7E';
 
-const rootChainManagerAddress = '0x5391fD6ee15bB44FAeAb126dA104180A9C4adc76';
-const childChainManagerAddress = '0xbC4Cc047236A3042C2065b75a64c0B2e24760A60';
+const rootChainManagerAddress = '0xEc6b24cd3a50EeCE727e4eF2BfC2089404c1B683';
+const childChainManagerAddress = '0x4b273ddE7590467CBe05B6060C04EB84DAAea58F';
 
 const ERC20_TYPE = '0x8ae85d849167ff996c04040c44924fd364217285e4cad818292c7ac37c0a345b';
-const predicateErc20Address = '0x0051700454a1A76e6C9d653453232a574ba5a61d';
+const predicateErc20Address = '0xCcA99938760A00979eeA785f445973AbBaA540bE';
 
 const adminAddress = process.env.ADMIN_ADDRESS;
 
@@ -25,15 +25,15 @@ module.exports = async function (deployer) {
     // await rootManager.registerPredicate(ERC20_TYPE, predicateErc20Address)
     //     .on('transactionHash', hash => console.log(hash));
     //
-    // await rootManager.mapToken(ERC20_TYPE, rootChainId, rootTokenERC20, childChainId, childTokenERC20)
+    // await rootManager.mapToken(ERC20_TYPE, rootTokenERC20, childChainId, childTokenERC20)
     //     .on('transactionHash', hash => console.log(hash));
 
 
     // const childManager = await ChildManager.at(childChainManagerAddress);
-
+    //
     // await childManager.initialize(adminAddress)
     //     .on('transactionHash', hash => console.log(hash));
-    // await childManager.mapToken(rootChainId, rootTokenERC20, childChainId, childTokenERC20)
+    // await childManager.mapToken(childTokenERC20, rootChainId, rootTokenERC20)
     //     .on('transactionHash', hash => console.log(hash));
 
 };
