@@ -20,15 +20,15 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
 
     event WithdrawExecuted(uint32 childChainId, uint32 rootChainId, address childToken, address burner, address withdrawer, bytes value);
 
-    constructor(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_, uint32 chainId_)
-    SignaturesValidator(consensusRate_, minValidator_, validators_) public {
-        childChainId = chainId_;
-    }
 
-
-    function initialize(address _owner) external initializer {
+    function initialize(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_, uint32 chainId_, address _owner) external initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(STATE_SYNCER_ROLE, _owner);
+        childChainId = chainId_;
+
+        consensusRate = consensusRate_;
+        minValidator = minValidator_;
+        validators = validators_;
     }
 
     function mapToken(address childToken, uint32 rootChainId, address rootToken)

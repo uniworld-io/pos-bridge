@@ -15,14 +15,14 @@ export const SERVER = {
     PORT: process.env.PORT
 }
 
-export const WALLET = {
-    PRIVATE_KEY: process.env.DEFAULT_WALLET_PRIVATE_KEY as string,
-    ACCOUNT: process.env.DEFAULT_WALLET_ACCOUNT as string
+export const MANAGER = {
+    PRIVATE_KEY: process.env.MANAGER_PRIVATE_KEY as string,
+    ACCOUNT: process.env.MANAGER_ADDRESS as string
 }
 
 export const TRANSACTION = {
     OPTIONS: {
-        from: WALLET.ACCOUNT,
+        from: MANAGER.ACCOUNT,
         gas: 36960,
         gasPrice: 0
     }

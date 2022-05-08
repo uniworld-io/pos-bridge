@@ -14,28 +14,25 @@ contract ERC20Predicate is ITokenPredicate, AccessControlUni, Initializable {
     using SafeERC20 for IERC20;
 
     bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
-    bytes32 public constant TOKEN_TYPE = keccak256("ERC20");
+
 
     //Sync message
     event LockedERC20(address depositor, address rootToken, uint256 amount);
     event UnlockedERC20(address withdrawer, address rootToken, uint256 amount);
 
-
     function initialize(address _owner) external initializer {
-        _setupRole(MANAGER_ROLE, _owner);
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
+        _setupRole(MANAGER_ROLE, _owner);
+        _setupContractId("ERC20Predicate");
     }
 
-    function lockTokens(address depositor, address rootToken, bytes calldata data)
-    override external only(MANAGER_ROLE) {
+    function lockTokens(address depositor, address rootToken, bytes calldata data) override external only(MANAGER_ROLE){
         uint256 value = abi.decode(data, (uint256));
         IERC20(rootToken).safeTransferFrom(depositor, address(this), value);
         emit LockedERC20(depositor, rootToken, value);
     }
 
-    function unlockTokens(address withdrawer, address rootToken, bytes calldata data)
-    override external only(MANAGER_ROLE) {
-
+    function unlockTokens(address withdrawer, address rootToken, bytes calldata data) override external only(MANAGER_ROLE){
         uint256 value = abi.decode(data, (uint256));
         IERC20(rootToken).safeTransfer(withdrawer, value);
         emit UnlockedERC20(withdrawer, rootToken, value);

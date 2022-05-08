@@ -16,7 +16,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     mapping(address => bytes32) tokenToType;
 
     uint32 rootChainId;
-    
+
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
     bytes32 public constant MAPPER_ROLE = keccak256("MAPPER_ROLE");
 
@@ -24,14 +24,15 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     event PredicateRegistered(bytes32 tokenType, address tokenAddress);
     event ValidatorChanged(address validator, bytes data);
 
-    constructor(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_, uint32 chainId_)
-    SignaturesValidator(consensusRate_, minValidator_, validators_) public {
-        rootChainId = chainId_;
-    }
-
-    function initialize(address _owner) external initializer {
+    function initialize(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_, uint32 chainId_, address _owner) external initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(MAPPER_ROLE, _owner);
+        rootChainId = chainId_;
+
+        consensusRate = consensusRate_;
+        minValidator = minValidator_;
+        validators = validators_;
+        _setupContractId("RootChainManager");
     }
 
 
@@ -44,7 +45,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     }
 
     function _mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) private {
-        require(typeToPredicate[typeToken] !=address (0), "RootChainManager: TYPE_NOT_SUPPORT");
+        require(typeToPredicate[typeToken] != address(0), "RootChainManager: TYPE_NOT_SUPPORT");
 
         rootToChildToken[rootToken] = childToken;
         childToRootToken[childChainId][childToken] = rootToken;
@@ -61,14 +62,10 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken, tokenToType[rootToken]);
     }
 
-    function deposit(address receiver, address rootToken, uint32 childChainId) override external payable{
-        bytes memory depositData = abi.encode(msg.value);
+    function deposit(address receiver, address rootToken, uint32 childChainId, bytes calldata depositData) override external{
         _depositFor(receiver, rootToken, childChainId, depositData);
     }
 
-    function depositFor(address receiver, address rootToken, uint32 childChainId, bytes calldata depositData) override external{
-        _depositFor(receiver, rootToken, childChainId, depositData);
-    }
 
     function _depositFor(address receiver, address rootToken, uint32 childChainId, bytes memory depositData) private {
 
@@ -79,8 +76,9 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         address predicateAddress = typeToPredicate[tokenType];
         require(predicateAddress != address(0), "RootChainManager: PREDICATE_NOT_MAPPED");
 
-        ITokenPredicate predicate = ITokenPredicate(predicateAddress);
-        predicate.lockTokens(_msgSender(), rootToken, depositData);
+        require(receiver != address(0), "RootChainManager: RECEIVER_INVALID");
+
+        ITokenPredicate(predicateAddress).lockTokens(_msgSender(), rootToken, depositData);
 
         emit DepositExecuted(rootChainId, childChainId, rootToken, _msgSender(), receiver, depositData);
     }
@@ -98,8 +96,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         address predicateAddress = typeToPredicate[tokenType];
         require(predicateAddress != address(0), "RootChainManager: Invalid token type");
 
-        ITokenPredicate predicate = ITokenPredicate(predicateAddress);
-        predicate.unlockTokens(withdrawer, rootToken, withdrawData);
+        ITokenPredicate(predicateAddress).unlockTokens(withdrawer, rootToken, withdrawData);
     }
 
     function registerPredicate(bytes32 tokenType, address predicateAddress) public only(DEFAULT_ADMIN_ROLE) {
@@ -109,7 +106,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
 
 
     function validatorChanged(address validator, address validatorPk, bytes[] memory signatures)
-    external only(DEFAULT_ADMIN_ROLE){
+    external only(DEFAULT_ADMIN_ROLE) {
         //@TODo
     }
 

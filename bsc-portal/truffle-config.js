@@ -23,6 +23,7 @@ require('dotenv').config();
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
+
 const private_key = process.env.MAIN_WALLET_PRIVATE_KEY;
 const test_private_key = process.env.TEST_WALLET_PRIVATE_KEY;
 
@@ -66,14 +67,17 @@ module.exports = {
             skipDryRun: true
         },
         bscunitestnet: {
-            host: "18.141.168.229",
+            // provider: () => new HDWalletProvider(test_private_key, `http://18.141.168.229:9797`),
+            host: '18.141.168.229',
             port: 9797,
             network_id: 9797,
+            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb',
+
         },
         ethunitestnet: {
-            host: "18.141.168.229",
-            port: 4242,
+            provider: () => new HDWalletProvider(test_private_key, `http://18.141.168.229:4242`),
             network_id: 4242,
+            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb',
         }
     },
 

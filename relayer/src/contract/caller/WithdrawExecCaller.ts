@@ -30,7 +30,7 @@ export class WithdrawExecCaller implements ICaller {
 
         //@todo
         const msgEncode = Web3EthAbi.encodeParameters(
-            ['uint', 'address', 'address', 'uint256'],
+            ['uint', 'address', 'address', 'bytes'],
             [
                 msg.childChainId,
                 msg.childToken,

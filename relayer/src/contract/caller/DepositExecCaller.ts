@@ -30,7 +30,7 @@ export class DepositExecCaller implements ICaller {
         const contract = manager.getChild() as Contract;
         //@todo
         const msgEncode = Web3EthAbi.encodeParameters(
-            ['uint', 'address', 'address', 'uint256'],
+            ['uint', 'address', 'address', 'bytes'],
             [
                 msg.rootChainId,
                 msg.rootToken,
