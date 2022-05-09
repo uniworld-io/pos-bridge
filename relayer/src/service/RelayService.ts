@@ -13,7 +13,7 @@ export class RelayService{
             this.mapDepositEvent.set(msgHash, oldData);
             console.log("Push event to buffer: ", oldData);
         }else {
-            const newData = new GroupVerification(data.event, msgHash, data.msg, [data.signature])
+            const newData = new GroupVerification(data.toChainId, data.event, msgHash, data.msg, [data.signature])
             this.mapDepositEvent.set(msgHash, newData);
             console.log("Push event to buffer: ", newData);
         }

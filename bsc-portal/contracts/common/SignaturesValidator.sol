@@ -11,7 +11,7 @@ contract SignaturesValidator is SignatureVerifier{
     function _validateSign(bytes calldata msg, bytes[] memory signatures) internal{
         _removeDuplicateSignature(signatures);
 
-        bytes32 msgHash = keccak256(abi.encodePacked(msg));
+        bytes32 msgHash = keccak256(msg);
         uint8 countVerify = 0;
         for(uint i = 0; i < signatures.length; i++ ){
             if(keccak256(signatures[i]) == keccak256("")){
@@ -25,7 +25,7 @@ contract SignaturesValidator is SignatureVerifier{
             }
         }
         require(countVerify >= minValidator, "SignaturesValidator: LESS_THAN_MIN_VALIDATOR");
-        require(countVerify / validators.length >= consensusRate, "SignaturesValidator: NOT_PASS_CONSENSUS_RATE");
+        require(countVerify / validators.length >= consensusRate / 100, "SignaturesValidator: NOT_PASS_CONSENSUS_RATE");
     }
 
     function _removeDuplicateSignature(bytes[] memory signatures) internal{

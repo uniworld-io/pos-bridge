@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import {CHAIN, MANAGER} from "./ConfigEnv";
+import {CHAIN, RELAYER} from "./ConfigEnv";
 
 const UniChain = require('@uniworld/unichain-js');
 
@@ -10,12 +10,11 @@ class PoolConnector{
     uniChainConnector: any;
 
     constructor() {
-
         this.ethChainConnector = new Web3(new Web3.providers.HttpProvider(CHAIN.ETH.CHAIN_HOST));
-        this.ethChainConnector.eth.accounts.wallet.add(MANAGER.PRIVATE_KEY);
+        this.ethChainConnector.eth.accounts.wallet.add(RELAYER.PRIVATE_KEY);
 
         this.bscChainConnector = new Web3(new Web3.providers.HttpProvider(CHAIN.BSC.CHAIN_HOST));
-        this.bscChainConnector.eth.accounts.wallet.add(MANAGER.PRIVATE_KEY);
+        this.bscChainConnector.eth.accounts.wallet.add(RELAYER.PRIVATE_KEY);
 
         this.uniChainConnector = new UniChain({fullHost: CHAIN.UNI.CHAIN_HOST});
 

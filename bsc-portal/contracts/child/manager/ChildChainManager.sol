@@ -66,7 +66,7 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
         emit WithdrawExecuted(childChainId, rootChainId, childToken, _msgSender(), withdrawer, withdrawData);
     }
 
-    function depositExecuted(bytes32 digest, bytes calldata msg, bytes[] memory signatures) public {
+    function depositExecuted(bytes calldata msg, bytes[] memory signatures) public {
         _validateSign(msg, signatures);
 
         (uint32 rootChainId, address rootToken,  address user, bytes memory depositData)

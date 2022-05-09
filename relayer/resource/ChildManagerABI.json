@@ -1,26 +1,5 @@
 [
   {
-    "inputs": [
-      {
-        "internalType": "uint8",
-        "name": "consensusRate_",
-        "type": "uint8"
-      },
-      {
-        "internalType": "uint8",
-        "name": "minValidator_",
-        "type": "uint8"
-      },
-      {
-        "internalType": "address[]",
-        "name": "validators_",
-        "type": "address[]"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -100,9 +79,9 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "rootChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "indexed": false,
@@ -112,9 +91,9 @@
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "childChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "indexed": false,
@@ -131,15 +110,15 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "childChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "rootChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "indexed": false,
@@ -161,9 +140,9 @@
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "bytes",
         "name": "value",
-        "type": "uint256"
+        "type": "bytes"
       }
     ],
     "name": "WithdrawExecuted",
@@ -440,6 +419,26 @@
   {
     "inputs": [
       {
+        "internalType": "uint8",
+        "name": "consensusRate_",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "minValidator_",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address[]",
+        "name": "validators_",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint32",
+        "name": "chainId_",
+        "type": "uint32"
+      },
+      {
         "internalType": "address",
         "name": "_owner",
         "type": "address"
@@ -453,23 +452,18 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "address",
+        "name": "childToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32",
         "name": "rootChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "internalType": "address",
         "name": "rootToken",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "childChainId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "childToken",
         "type": "address"
       }
     ],
@@ -481,23 +475,18 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "address",
+        "name": "childToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32",
         "name": "rootChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "internalType": "address",
         "name": "rootToken",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "childChainId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "childToken",
         "type": "address"
       }
     ],
@@ -508,6 +497,21 @@
   },
   {
     "inputs": [
+      {
+        "internalType": "address",
+        "name": "withdrawer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "childToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32",
+        "name": "rootChainId",
+        "type": "uint32"
+      },
       {
         "internalType": "bytes",
         "name": "withdrawData",
@@ -521,11 +525,6 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "digest",
-        "type": "bytes32"
-      },
       {
         "internalType": "bytes",
         "name": "msg",

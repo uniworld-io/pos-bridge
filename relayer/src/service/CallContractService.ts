@@ -1,7 +1,6 @@
 import {BufferEvent} from "../common/BufferEvent";
 import {GroupVerification} from "../entity/GroupVerification";
 import {Constant} from "../common/Constant";
-import {DepositExecMsg} from "../entity/DepositExecMsg";
 import {BscContractManager} from "../contract/BscContractManager";
 import {EthContractManager} from "../contract/EthContractManager";
 import {CHAIN} from "../config/ConfigEnv";
@@ -10,7 +9,6 @@ import {ICaller} from "../contract/caller/ICaller";
 import {DepositExecCaller} from "../contract/caller/DepositExecCaller";
 import {WithdrawExecCaller} from "../contract/caller/WithdrawExecCaller";
 import {UniContractManager} from "../contract/UniContractManager";
-import {WithdrawExecMsg} from "../entity/WithdrawExecMsg";
 import {POOL_CONNECTOR} from '../config/PoolConnector';
 
 export class CallContractService {
@@ -20,10 +18,8 @@ export class CallContractService {
     private readonly ethManager: EthContractManager;
     private readonly uniManager: UniContractManager;
 
-
     private readonly depositCaller: ICaller;
     private readonly withdrawCaller: ICaller;
-
 
     constructor() {
         this.bscManager = new BscContractManager(POOL_CONNECTOR.bscChainConnector);
@@ -37,43 +33,24 @@ export class CallContractService {
     doCallContract(): void {
         this.bufferEvent.forEach((value, key) => {
             console.log("Loop event: ", value)
-            const data = value as GroupVerification;
+            const verification = value as GroupVerification;
+            const manager = this.chainIdToManager(verification.toChainId) as IContractManager;
+            let caller;
 
-            switch (data.event) {
+            switch (verification.event) {
                 case Constant.WITHDRAW_EXEC:
-                    this.callWithdrawExec(data);
+                    caller = this.withdrawCaller;
                     break;
                 case Constant.DEPOSIT_EXEC:
-                    this.callDepositExec(data);
+                    caller = this.depositCaller;
                     break;
                 default:
-                    console.log("Not mapped type event")
-                    break;
+                    console.log("Not mapped type event: ", verification.event)
+                    throw new Error("Not mapped type event");
             }
+            caller.call(manager, verification);
         });
         this.bufferEvent.clear();
-    }
-
-    private callDepositExec(verification: GroupVerification): void {
-        try{
-            const msg = verification.msg as DepositExecMsg;
-            console.debug('Call deposit exec: ', msg);
-            const manager = this.chainIdToManager(msg.childChainId) as IContractManager;
-            this.depositCaller.call(manager, verification);
-        }catch (Error){
-            console.log(Error);
-        }
-    }
-
-    private callWithdrawExec(verification: GroupVerification): void {
-        try {
-            const msg = verification.msg as WithdrawExecMsg;
-            console.debug('Call withdraw exec: ', msg);
-            const manager = this.chainIdToManager(msg.rootChainId) as IContractManager;
-            this.withdrawCaller.call(manager, verification);
-        }catch (Error){
-            console.log(Error);
-        }
     }
 
     private chainIdToManager(chainId: number): any {

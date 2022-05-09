@@ -6,15 +6,15 @@ const mockValues = {
     rootChainId: 9797,
     childChainId: 4242,
 
-    consensusRate: 60,
+    consensusRate: 50,
     minValidators: 1,
 
-    childChainManager: '0xE35E92df298a7483f536833305B5f1A6c1aF374F',
-    childTokenErc20: '0x5f24638c2AA003c31cfccEf706ed130bCb3Eb566',
+    childChainManager: '0x8c2ABBBC9514E14F4FCD4bf47dCcDE00437e2e34',
+    childTokenErc20: '0x0B545b1940B9D24c617248635D00217a490921f4',
 
-    rootChainManager: '0x5a7340FA7f867d709304787bD9932a847f2e568c',
-    erc20Predicate: '0x12E780a5A698b5f5c9F1ce1D29625c9fb7C1fa8E',
-    rootTokenErc20:'0xEA28B50F0E402B4c7aB980658626B815CCe43832',
+    rootChainManager: '0x8456B5e675ecCCB1947Ca22f4946C4e4D9f357Cc',
+    erc20Predicate: '0x3A2A1358F5fFDA0Becefa5159D0fECE1C90f611C',
+    rootTokenErc20:'0xA0699E3d2bA6186F75c2d8A1Aa6A348347bF9Dbd',
 
 
     accounts:[

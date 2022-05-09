@@ -15,15 +15,15 @@ export const SERVER = {
     PORT: process.env.PORT
 }
 
-export const MANAGER = {
-    PRIVATE_KEY: process.env.MANAGER_PRIVATE_KEY as string,
-    ACCOUNT: process.env.MANAGER_ADDRESS as string
+export const RELAYER = {
+    PRIVATE_KEY: process.env.RELAYER_PRIVATE_KEY as string,
+    ACCOUNT: process.env.RELAYER_ADDRESS as string
 }
 
 export const TRANSACTION = {
     OPTIONS: {
-        from: MANAGER.ACCOUNT,
-        gas: 36960,
+        from: RELAYER.ACCOUNT,
+        gas: 3000000,
         gasPrice: 0
     }
 }

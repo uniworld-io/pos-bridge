@@ -1,6 +1,6 @@
 
 export class Verification {
-    constructor(public validator: string,
+    constructor(public toChainId: number,
                 public msgHash: string,
                 public msg: any,
                 public signature: string,
@@ -8,7 +8,7 @@ export class Verification {
 
     toJSON() {
         return {
-            validator: this.validator,
+            toChainId: this.toChainId,
             msgHash: this.msgHash,
             msg: this.msg,
             signature: this.signature

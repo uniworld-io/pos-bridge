@@ -1,7 +1,8 @@
-
 export class GroupVerification {
-    constructor(public event:string,
+    constructor(public toChainId: number,
+                public event: string,
                 public msgHash: string,
                 public msg: any,
-                public signatures: string[]) {}
+                public signatures: string[]) {
+    }
 }

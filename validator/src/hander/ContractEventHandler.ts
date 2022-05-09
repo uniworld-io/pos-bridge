@@ -7,6 +7,8 @@ import {EventStandardization} from "../entity/EventStandardization";
 const axios = require('axios').default;
 
 const _ = require('lodash');
+const Web3EthAbi = require('web3-eth-abi');
+import EthCrypto from 'eth-crypto';
 
 
 export class ContractEventHandler implements IContractEventHandler {
@@ -25,24 +27,42 @@ export class ContractEventHandler implements IContractEventHandler {
     private signMessage(result: EventStandardization): Verification{
         const eventType = result.eventName;
         let pickMsg;
-        if(eventType === Constant.WITHDRAW_EXEC){
+        let msgHash;
+        let signature;
+        let msg;
+        let toChainId;
+
+        if(result.eventName === Constant.WITHDRAW_EXEC){
             pickMsg = _.pick(result.values, ['childChainId', 'rootChainId', 'childToken', 'burner', 'withdrawer', 'value']);
-        }else if(eventType === Constant.DEPOSIT_EXEC){
-            pickMsg = _.pick(result.values, ['childChainId', 'rootChainId', 'rootToken', 'depositor', 'receiver', 'value']);
+            msg = Web3EthAbi.encodeParameters(
+                ['uint32', 'address', 'address', 'bytes'],
+                [
+                    Number(pickMsg.childChainId),
+                    pickMsg.childToken,
+                    pickMsg.receiver,
+                    pickMsg.value
+                ]);
+            msgHash = EthCrypto.hash.keccak256([{type: "bytes", value: msg}]);
+            signature = Crypto.getSignature(msgHash);
+            toChainId = Number(pickMsg.rootChainId);
+        }else if(result.eventName === Constant.DEPOSIT_EXEC){
+            pickMsg = _.pick(result.values, ['rootChainId', 'childChainId', 'rootToken', 'depositor', 'receiver', 'value']);
+            msg = Web3EthAbi.encodeParameters(
+                ['uint32', 'address', 'address', 'bytes'],
+                [
+                    Number(pickMsg.rootChainId),
+                    pickMsg.rootToken,
+                    pickMsg.receiver,
+                    pickMsg.value
+                ]);
+            msgHash = EthCrypto.hash.keccak256([{type: "bytes", value: msg}]);
+            signature = Crypto.getSignature(msgHash);
+            toChainId = Number(pickMsg.childChainId);
         }else {
             throw new Error('Event undefined ' + result)
         }
 
-        const msg = {
-            ...pickMsg,
-            childChainId: Number(pickMsg.childChainId),
-            rootChainId: Number(pickMsg.rootChainId),
-            value: Number(pickMsg.value)
-        }
-        const msgHash = Crypto.getHash(JSON.stringify(msg));
-        const signature = Crypto.getSignature(msgHash);
-
-        return new Verification(VALIDATOR.ADDRESS, msgHash, msg, signature, eventType);
+        return new Verification(toChainId, msgHash, msg, signature, eventType);
     }
 
 }

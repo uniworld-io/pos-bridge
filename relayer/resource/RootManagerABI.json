@@ -1,39 +1,18 @@
 [
   {
-    "inputs": [
-      {
-        "internalType": "uint8",
-        "name": "consensusRate_",
-        "type": "uint8"
-      },
-      {
-        "internalType": "uint8",
-        "name": "minValidator_",
-        "type": "uint8"
-      },
-      {
-        "internalType": "address[]",
-        "name": "validators_",
-        "type": "address[]"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "rootChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "childChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "indexed": false,
@@ -55,9 +34,9 @@
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "bytes",
         "name": "value",
-        "type": "uint256"
+        "type": "bytes"
       }
     ],
     "name": "DepositExecuted",
@@ -162,9 +141,9 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "rootChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "indexed": false,
@@ -174,9 +153,9 @@
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "childChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "indexed": false,
@@ -224,8 +203,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [],
@@ -238,8 +216,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [],
@@ -252,8 +229,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [],
@@ -285,8 +261,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [
@@ -328,8 +303,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [],
@@ -342,8 +316,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [
@@ -367,8 +340,7 @@
       }
     ],
     "stateMutability": "pure",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [
@@ -402,8 +374,7 @@
       }
     ],
     "stateMutability": "pure",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [
@@ -458,8 +429,7 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "inputs": [
@@ -488,16 +458,34 @@
       }
     ],
     "stateMutability": "pure",
-    "type": "function",
-    "constant": true
+    "type": "function"
   },
   {
     "stateMutability": "payable",
-    "type": "receive",
-    "payable": true
+    "type": "receive"
   },
   {
     "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "consensusRate_",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "minValidator_",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address[]",
+        "name": "validators_",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint32",
+        "name": "chainId_",
+        "type": "uint32"
+      },
       {
         "internalType": "address",
         "name": "_owner",
@@ -517,19 +505,14 @@
         "type": "bytes32"
       },
       {
-        "internalType": "uint256",
-        "name": "rootChainId",
-        "type": "uint256"
-      },
-      {
         "internalType": "address",
         "name": "rootToken",
         "type": "address"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "childChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "internalType": "address",
@@ -545,19 +528,14 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "rootChainId",
-        "type": "uint256"
-      },
-      {
         "internalType": "address",
         "name": "rootToken",
         "type": "address"
       },
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "childChainId",
-        "type": "uint256"
+        "type": "uint32"
       },
       {
         "internalType": "address",
@@ -573,6 +551,21 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "rootToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32",
+        "name": "childChainId",
+        "type": "uint32"
+      },
+      {
         "internalType": "bytes",
         "name": "depositData",
         "type": "bytes"
@@ -585,11 +578,6 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "digest",
-        "type": "bytes32"
-      },
       {
         "internalType": "bytes",
         "name": "msg",

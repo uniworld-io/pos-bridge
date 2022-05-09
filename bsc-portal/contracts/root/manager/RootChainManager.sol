@@ -82,7 +82,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         emit DepositExecuted(rootChainId, childChainId, rootToken, _msgSender(), receiver, depositData);
     }
 
-    function withdrawExecuted(bytes32 digest, bytes calldata msg, bytes[] memory signatures) public {
+    function withdrawExecuted(bytes calldata msg, bytes[] memory signatures) public {
         _validateSign(msg, signatures);
 
         (uint32 childChainId, address childToken, address withdrawer, bytes memory withdrawData)
