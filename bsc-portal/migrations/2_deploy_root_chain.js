@@ -3,7 +3,7 @@ const ERC20Predicate = artifacts.require("ERC20Predicate");
 const RootManager = artifacts.require("RootChainManager");
 
 module.exports = async function (deployer) {
-    //
+
     // await deployer.deploy(RootTokenERC20, "RootTokenERC20", "RERC20");
     // const rootTokenERC20 = await RootTokenERC20.deployed();
     //

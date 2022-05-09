@@ -20,9 +20,9 @@ contract ERC20Predicate is ITokenPredicate, AccessControlUni, Initializable {
     event LockedERC20(address depositor, address rootToken, uint256 amount);
     event UnlockedERC20(address withdrawer, address rootToken, uint256 amount);
 
-    function initialize(address _owner) external initializer {
-        _setupRole(DEFAULT_ADMIN_ROLE, _owner);
-        _setupRole(MANAGER_ROLE, _owner);
+    function initialize(address rootManager) external initializer {
+        _setupRole(DEFAULT_ADMIN_ROLE, rootManager);
+        _setupRole(MANAGER_ROLE, rootManager);
         _setupContractId("ERC20Predicate");
     }
 

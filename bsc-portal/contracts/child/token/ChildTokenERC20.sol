@@ -10,6 +10,8 @@ import "../../common/AccessControlUni.sol";
 contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable {
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
+
 
     constructor(
         string memory name_,
@@ -21,6 +23,7 @@ contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable 
 //        _setupDecimals(decimals_);
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(MINTER_ROLE, childChainManager);
+        _setupRole(BURNER_ROLE, childChainManager);
     }
 
     function deposit(address user, bytes calldata depositData) override external only(MINTER_ROLE){
@@ -28,9 +31,10 @@ contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable 
         _mint(user, amount);
     }
 
-    function withdraw(bytes calldata withdrawData) override external {
+    function withdraw(address user, bytes calldata withdrawData) override external only(BURNER_ROLE){
         uint256 amount = abi.decode(withdrawData, (uint256));
-        _burn(_msgSender(), amount);
+        _burn(user, amount);
     }
+
 
 }

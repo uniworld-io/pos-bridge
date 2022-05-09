@@ -7,6 +7,7 @@ import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 
 
+//@Mocktest
 contract RootTokenERC20 is ERC20{
     event Deposited(address indexed payee, uint256 weiAmount);
     event Withdrawn(address indexed payee, uint256 weiAmount);
@@ -19,7 +20,6 @@ contract RootTokenERC20 is ERC20{
     function mint(uint256 amount) public {
         _mint(_msgSender(), amount);
     }
-
 
     function deposit() public payable{
         require(msg.value > 0, "RootTokenERC20: VALUE_LESS_THAN_ZERO");

@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 import "./ITokenPredicate.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "../../common/AccessControlUni.sol";
+import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
+
 
 contract ERC1155Predicate is ITokenPredicate, AccessControlUni, Initializable {
     bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
@@ -34,7 +36,7 @@ contract ERC1155Predicate is ITokenPredicate, AccessControlUni, Initializable {
     override external only(MANAGER_ROLE) {
         (
             uint256[] memory ids,
-            uint256[] memory amounts,
+            uint256[] memory amounts
         ) = abi.decode(data, (uint256[], uint256[]));
 
         IERC1155(rootToken).safeBatchTransferFrom(address(this), withdrawer, ids, amounts, bytes("")

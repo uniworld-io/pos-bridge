@@ -62,10 +62,7 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
 
     function withdraw(address withdrawer, address childToken, uint32 rootChainId, bytes calldata withdrawData) override external {
         require(childToRootToken[childToken] != address(0), "ChildChainManager: TOKEN_NOT_MAPPED");
-
-        IChildToken childContract = IChildToken(childToken);
-        childContract.withdraw(withdrawData);
-
+        IChildToken(childToken).withdraw(withdrawer, withdrawData);
         emit WithdrawExecuted(childChainId, rootChainId, childToken, _msgSender(), withdrawer, withdrawData);
     }
 

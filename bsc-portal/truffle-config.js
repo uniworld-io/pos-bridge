@@ -22,6 +22,10 @@
 require('dotenv').config();
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
+var privateKeys = [
+    '23e2eae41fca0f33e0fd3c1b901b1b114e75af8664fc6d88f18e48153a67aae0',
+    '145a1e59cabb9d002daa36d5cc21524c0a6be9e0357de86717a18ba211ffd2d7',
+];
 
 
 const private_key = process.env.MAIN_WALLET_PRIVATE_KEY;
@@ -67,17 +71,19 @@ module.exports = {
             skipDryRun: true
         },
         bscunitestnet: {
-            // provider: () => new HDWalletProvider(test_private_key, `http://18.141.168.229:9797`),
+            provider: () => new HDWalletProvider(privateKeys, `http://18.141.168.229:9797`),
             host: '18.141.168.229',
             port: 9797,
             network_id: 9797,
-            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb',
+            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
 
         },
         ethunitestnet: {
-            provider: () => new HDWalletProvider(test_private_key, `http://18.141.168.229:4242`),
+            // provider: () => new HDWalletProvider(privateKeys, `http://18.141.168.229:4242`),
             network_id: 4242,
-            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb',
+            host: '18.141.168.229',
+            port: 4242,
+            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
         }
     },
 

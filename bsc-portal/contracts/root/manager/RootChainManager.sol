@@ -66,7 +66,6 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         _depositFor(receiver, rootToken, childChainId, depositData);
     }
 
-
     function _depositFor(address receiver, address rootToken, uint32 childChainId, bytes memory depositData) private {
 
         bytes32 tokenType = tokenToType[rootToken];

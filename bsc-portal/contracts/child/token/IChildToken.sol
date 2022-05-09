@@ -4,5 +4,5 @@
 pragma solidity ^0.8.0;
 interface IChildToken {
     function deposit(address user, bytes calldata depositData) external;
-    function withdraw(bytes calldata withdrawData) external;
+    function withdraw(address user, bytes calldata withdrawData) external;
 }
