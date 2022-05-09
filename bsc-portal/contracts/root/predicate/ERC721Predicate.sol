@@ -4,14 +4,12 @@
 pragma solidity ^0.8.0;
 
 import "./ITokenPredicate.sol";
-import "../../common/Initializable.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "../../common/AccessControlUni.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 
 contract ERC721Predicate is ITokenPredicate, AccessControlUni, Initializable {
-    using SafeERC20 for IERC20;
 
     bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
 
