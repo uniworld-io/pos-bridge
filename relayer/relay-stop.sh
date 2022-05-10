@@ -1,5 +1,4 @@
 #!/bin/bash
-cd /home/ubuntu/pos-bridge
 test=`ps aux | grep RelayApp.js | grep -v grep -c`
 if [ $test -eq 0 ]; then
    echo "[INFO] Service is already stopped"
