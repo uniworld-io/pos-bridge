@@ -1,6 +1,5 @@
 #!/bin/bash
 cd /home/ubuntu/pos-bridge
-git pull
 cd validator
 test=`ps aux | grep /home/ubuntu/pos-bridge/validator | grep ValidatorApp.js | grep -v grep -c`
 if [ $test -eq 0 ]; then

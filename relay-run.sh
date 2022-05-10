@@ -1,6 +1,5 @@
 #!/bin/bash
 cd /home/ubuntu/pos-bridge
-git pull 
 cd relayer
 test=`ps aux | grep /home/ubuntu/pos-bridge/relayer | grep RelayApp.js | grep -v grep -c`
 if [ $test -eq 0 ]; then
