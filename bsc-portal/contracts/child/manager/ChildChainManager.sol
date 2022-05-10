@@ -13,9 +13,6 @@ import "../../common/SignaturesValidator.sol";
 contract ChildChainManager is IChildChainManager, AccessControlUni, Initializable, SignaturesValidator {
     mapping(uint32 => mapping(address => address)) rootToChildToken;
     mapping(address => address) childToRootToken;
-
-    bytes32 public constant DEPOSIT = keccak256("DEPOSIT");
-    bytes32 public constant STATE_SYNCER_ROLE = keccak256("STATE_SYNCER_ROLE");//@Todo
     uint32 childChainId;
 
     event WithdrawExecuted(uint32 childChainId, uint32 rootChainId, address childToken, address burner, address withdrawer, bytes value);
@@ -23,7 +20,6 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
 
     function initialize(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_, uint32 chainId_, address _owner) external initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
-        _setupRole(STATE_SYNCER_ROLE, _owner);
         childChainId = chainId_;
 
         consensusRate = consensusRate_;
@@ -67,7 +63,7 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
     }
 
     function depositExecuted(bytes calldata msg, bytes[] memory signatures) public {
-        _validateSign(msg, signatures);
+        validateSignatures(msg, signatures);
 
         (uint32 rootChainId, address rootToken,  address user, bytes memory depositData)
         = abi.decode(msg, (uint32, address, address, bytes));
@@ -79,9 +75,10 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
         childContract.deposit(user, depositData);
     }
 
-    function validatorChanged(address validator, address validatorPk, bytes[] memory signatures)
-    external only(DEFAULT_ADMIN_ROLE) {
-        //@TODo
+    function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_) external only(DEFAULT_ADMIN_ROLE) {
+        consensusRate = consensusRate_;
+        minValidator = minValidator_;
+        validators = validators_;
     }
 
 

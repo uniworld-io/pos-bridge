@@ -10,6 +10,8 @@ interface IRootChainManager {
 
     function deposit(address receiver, address rootToken, uint32 childChainId, bytes calldata depositData) external;
 
+    function registerPredicate(bytes32 tokenType, address predicateAddress) override external only(DEFAULT_ADMIN_ROLE);
+
     event TokenMapped(uint32 rootChainId, address rootToken, uint32 childChainId, address childToken, bytes32 typeToken);
 
 }

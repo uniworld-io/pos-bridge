@@ -35,9 +35,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         _setupContractId("RootChainManager");
     }
 
-
-    function mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken)
-    override external only(MAPPER_ROLE) {
+    function mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) override external only(MAPPER_ROLE) {
         require(rootToChildToken[rootToken] == address(0)
             && childToRootToken[childChainId][childToken] == address(0),
             "RootChainManager: ALREADY_MAPPED");
@@ -59,6 +57,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         rootToChildToken[rootToken] = address(0);
         childToRootToken[childChainId][childToken] = address(0);
         tokenToType[rootToken] = bytes32(0);
+
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken, tokenToType[rootToken]);
     }
 
@@ -83,7 +82,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     }
 
     function withdrawExecuted(bytes calldata msg, bytes[] memory signatures) public {
-        _validateSign(msg, signatures);
+        validateSignatures(msg, signatures);
 
         (uint32 childChainId, address childToken, address withdrawer, bytes memory withdrawData)
         = abi.decode(msg, (uint32, address, address, bytes));
@@ -98,15 +97,15 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         ITokenPredicate(predicateAddress).unlockTokens(withdrawer, rootToken, withdrawData);
     }
 
-    function registerPredicate(bytes32 tokenType, address predicateAddress) public only(DEFAULT_ADMIN_ROLE) {
+    function registerPredicate(bytes32 tokenType, address predicateAddress) override external only(DEFAULT_ADMIN_ROLE) {
         typeToPredicate[tokenType] = predicateAddress;
         emit PredicateRegistered(tokenType, predicateAddress);
     }
 
-
-    function validatorChanged(address validator, address validatorPk, bytes[] memory signatures)
-    external only(DEFAULT_ADMIN_ROLE) {
-        //@TODo
+    function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_) external only(DEFAULT_ADMIN_ROLE) {
+        consensusRate = consensusRate_;
+        minValidator = minValidator_;
+        validators = validators_;
     }
 
     receive() external payable {

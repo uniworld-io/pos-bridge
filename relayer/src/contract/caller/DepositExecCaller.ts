@@ -32,6 +32,7 @@ export class DepositExecCaller implements ICaller {
                 if (txHash)
                     console.log('TxHash: ', txHash)
             })
+            .then((result: any) => console.log(result))
     }
 
     //@todo
