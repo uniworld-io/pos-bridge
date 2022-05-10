@@ -1,0 +1,486 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0xA6ba1C02414957c5787aCf8557577e2dFB3e148d",
+    "txHash": "0x67b1711dc4cb0098bc5c40b0e1ca944d7cd2c93e56c588a75a8d80a2d09693c5"
+  },
+  "proxies": [
+    {
+      "address": "0x55717F7EE5074E9Dcb44363747422912edF6B801",
+      "txHash": "0xd83efb91af379943d13d8374f2c4476ce299d23c0def4e4b8b25b4fd5bae5960",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xfD281dd7867733CcC41Ab1c079dca207f3F81b6e",
+      "txHash": "0xf01d142d23ec68145276873507bbdb5da8f7359b8cc938f94710e3736039e84e",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x7d8c4c9EAf32864Ec81AA4B448CFBe9CfE883B5b",
+      "txHash": "0x77daa6aebdcf9c166a3c0ec46481758ba5e49bac1e76a02046206f40a46673f8",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x81c450E1f68b1382A97dA2b566AE0360782c871B",
+      "txHash": "0xa4c144f6d69f4e2f6c221b25c43de1703d5cf490258ac8f3d01bd54f185929bd",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x40e56BA4Ef1D1c347418f85Cd0d0A93D3bB94694",
+      "txHash": "0x98f47246dd2f27fc42c4fc5ef8a0e4ca6b966083f4e5adf29231374ef3ff482c",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x48106A3895c9BDdeF1C533f566BF2e3560DbCf64",
+      "txHash": "0x87e12d83a513c43de5ae08a4844f38029fd3365a59c5934abb048ceeda4d44da",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xDa7Dc512A552BD4e6390B268a3bD2AbF5B4e82D5",
+      "txHash": "0x04e9c521f6ac1ae3e659d301dbc00bfde538165344869486a8d21e9b50e409c3",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xf6D6B835b4d37f1248828C82cA55C07217C99F5F",
+      "txHash": "0xe44e4a49ad2beb3e63825b5586256e640a639f4727ef9d62cbdcba84d2c53b38",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xe79f89dEBa4b7289de0E82D4Ab31a54E2B360F43",
+      "txHash": "0x3b13dd4b159db00aa02f90c0a89657fc9313bb1e18269aa64c23edcbf00d8b7a",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xC87cA9b0f3e2E28dA51bcCD01cA35D1da46D8cbe",
+      "txHash": "0xbb81711acdc2310cf6e2185f86aea5c94eb9c3ea07ec0d34e49e1ed6276c3576",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xBD7855dca86A9c24F3F4E41E23Da6e5C1f6f6DC8",
+      "txHash": "0x78b09436a97cde97a3f47d0c1e58f69e41c0b516571ced005f63165995a72545",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x509767aBBC0EDC94630405fBC30bD1a43eC79030",
+      "txHash": "0x31a8ee748a021649aaeebde93ec8ebdf9632b9c6b05250f38084892aaf09bc3f",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6Faa9200CbBFc2E01C968dE8d586DBe8638af7D5",
+      "txHash": "0xd84240a087fb5bb4bf60bacf2c517603e9b433dc3dbe494b009f8ae88fb269f9",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x969Ba132054c6Fc064B2ea1d50E4EF2832ED31c5",
+      "txHash": "0x12f5d3c48e7a6db2def02ee6312377709e24a8c47b17e0df21e87b062676ab2e",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xF779865828FCdbbe99a65De12d9D7c673e65a321",
+      "txHash": "0x04ef531f3c40b211dedb1aab8548192724e876069b6ec34a73cd0088ff70cbf8",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x5b1CDF473905DC82da5d88EE9908dB2D2049F8CF",
+      "txHash": "0x1e2499465cca26039306f17540b9cd7bdc6f23d0a44607f699f4fe3eb51dfac6",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xC205Afd44C12261bc0D26073f4C904Ae93870c80",
+      "txHash": "0x32ae029478126cd95486e272eea430631db3a3ba54196f7bc72b7f07fc4ce768",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x3aDfEd3268E2Bf17bd38CeDcEcFaeb7e56867247",
+      "txHash": "0xecad67ddca89c950d242032d983f16537518f14049d230eeb54c3f60eddfc76b",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x21f1bbA4Ed655bBC4CB539D9a41A4cBBE9db6e1f",
+      "txHash": "0x3c12d95da918b55e65fdd95e777903f5f4aca5dcfb5a3820c2fe7bb269b6d19e",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "a49271c2a4bb5de5cc61944893f3a073d57eaef4f974a6cb0b5fc0194b64f86d": {
+      "address": "0xD43e7C1c33e9fDe5C4EBB9d767e694eb16b41c49",
+      "txHash": "0x911ba32dbc9fc73bee3b1f6381700656403bbe0b7840c11f31f92f1831d7fce7",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AccessControl",
+            "label": "_roles",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)336_storage)",
+            "src": "..\\@openzeppelin\\contracts\\access\\AccessControl.sol:55"
+          },
+          {
+            "contract": "AccessControlUni",
+            "label": "_revertMsg",
+            "type": "t_string_storage",
+            "src": "..\\project:\\contracts\\common\\AccessControlUni.sol:8"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:39"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:44"
+          },
+          {
+            "contract": "SignaturesValidator",
+            "label": "validators",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "..\\project:\\contracts\\common\\SignaturesValidator.sol:7"
+          },
+          {
+            "contract": "SignaturesValidator",
+            "label": "minValidator",
+            "type": "t_uint8",
+            "src": "..\\project:\\contracts\\common\\SignaturesValidator.sol:8"
+          },
+          {
+            "contract": "SignaturesValidator",
+            "label": "consensusRate",
+            "type": "t_uint8",
+            "src": "..\\project:\\contracts\\common\\SignaturesValidator.sol:9"
+          },
+          {
+            "contract": "ChildChainManager",
+            "label": "rootToChildToken",
+            "type": "t_mapping(t_uint32,t_mapping(t_address,t_address))",
+            "src": "..\\project:\\contracts\\child\\manager\\ChildChainManager.sol:14"
+          },
+          {
+            "contract": "ChildChainManager",
+            "label": "childToRootToken",
+            "type": "t_mapping(t_address,t_address)",
+            "src": "..\\project:\\contracts\\child\\manager\\ChildChainManager.sol:15"
+          },
+          {
+            "contract": "ChildChainManager",
+            "label": "childChainId",
+            "type": "t_uint32",
+            "src": "..\\project:\\contracts\\child\\manager\\ChildChainManager.sol:19"
+          }
+        ],
+        "types": {
+          "t_mapping(t_uint32,t_mapping(t_address,t_address))": {
+            "label": "mapping(uint32 => mapping(address => address))"
+          },
+          "t_uint32": {
+            "label": "uint32"
+          },
+          "t_mapping(t_address,t_address)": {
+            "label": "mapping(address => address)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_uint8": {
+            "label": "uint8"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)336_storage)": {
+            "label": "mapping(bytes32 => struct AccessControl.RoleData)"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_struct(RoleData)336_storage": {
+            "label": "struct AccessControl.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32"
+              }
+            ]
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          }
+        }
+      }
+    },
+    "7aa0a23fa5e42c282e52551f175acad2843caf10e71196e43e3aa0178ccc6153": {
+      "address": "0x75921dD932D0e81e98FeD7511343e5e4e171fD50",
+      "txHash": "0xb505bd9f34ff057282463b3fe6de6d7afb858914d30337b304c3f622e3409c78",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AccessControl",
+            "label": "_roles",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)336_storage)",
+            "src": "..\\@openzeppelin\\contracts\\access\\AccessControl.sol:55"
+          },
+          {
+            "contract": "AccessControlUni",
+            "label": "_revertMsg",
+            "type": "t_string_storage",
+            "src": "..\\project:\\contracts\\common\\AccessControlUni.sol:8"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:39"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:44"
+          },
+          {
+            "contract": "SignaturesValidator",
+            "label": "validators",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "..\\project:\\contracts\\common\\SignaturesValidator.sol:7"
+          },
+          {
+            "contract": "SignaturesValidator",
+            "label": "minValidator",
+            "type": "t_uint8",
+            "src": "..\\project:\\contracts\\common\\SignaturesValidator.sol:8"
+          },
+          {
+            "contract": "SignaturesValidator",
+            "label": "consensusRate",
+            "type": "t_uint8",
+            "src": "..\\project:\\contracts\\common\\SignaturesValidator.sol:9"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "rootToChildToken",
+            "type": "t_mapping(t_address,t_address)",
+            "src": "..\\project:\\contracts\\root\\manager\\RootChainManager.sol:13"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "childToRootToken",
+            "type": "t_mapping(t_uint32,t_mapping(t_address,t_address))",
+            "src": "..\\project:\\contracts\\root\\manager\\RootChainManager.sol:14"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "typeToPredicate",
+            "type": "t_mapping(t_bytes32,t_address)",
+            "src": "..\\project:\\contracts\\root\\manager\\RootChainManager.sol:15"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "tokenToType",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "src": "..\\project:\\contracts\\root\\manager\\RootChainManager.sol:16"
+          },
+          {
+            "contract": "RootChainManager",
+            "label": "rootChainId",
+            "type": "t_uint32",
+            "src": "..\\project:\\contracts\\root\\manager\\RootChainManager.sol:18"
+          }
+        ],
+        "types": {
+          "t_mapping(t_address,t_address)": {
+            "label": "mapping(address => address)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_mapping(t_uint32,t_mapping(t_address,t_address))": {
+            "label": "mapping(uint32 => mapping(address => address))"
+          },
+          "t_uint32": {
+            "label": "uint32"
+          },
+          "t_mapping(t_bytes32,t_address)": {
+            "label": "mapping(bytes32 => address)"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_mapping(t_address,t_bytes32)": {
+            "label": "mapping(address => bytes32)"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_uint8": {
+            "label": "uint8"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)336_storage)": {
+            "label": "mapping(bytes32 => struct AccessControl.RoleData)"
+          },
+          "t_struct(RoleData)336_storage": {
+            "label": "struct AccessControl.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32"
+              }
+            ]
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          }
+        }
+      }
+    },
+    "1cf4cc7b7ea4a022745c70f364eb447f1125f53ec65be2848fd919203f8fb19c": {
+      "address": "0x672CeafeFf47Ef11D4F224Cb7AFA5d77bde068e8",
+      "txHash": "0x49bd087e0eef2e0b7184ac6e73cd2ac4f7af9035babd913e80571de9634fb651",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AccessControl",
+            "label": "_roles",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)336_storage)",
+            "src": "..\\@openzeppelin\\contracts\\access\\AccessControl.sol:55"
+          },
+          {
+            "contract": "AccessControlUni",
+            "label": "_revertMsg",
+            "type": "t_string_storage",
+            "src": "..\\project:\\contracts\\common\\AccessControlUni.sol:8"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:39"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:44"
+          }
+        ],
+        "types": {
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)336_storage)": {
+            "label": "mapping(bytes32 => struct AccessControl.RoleData)"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_struct(RoleData)336_storage": {
+            "label": "struct AccessControl.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32"
+              }
+            ]
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          },
+          "t_address": {
+            "label": "address"
+          }
+        }
+      }
+    },
+    "be7e40ff549109c0687f173d32e4c856e8ac9462f2add0bf2dc4cc8c322e889d": {
+      "address": "0x0BF2256D6196402f6b2c4e02dc6B2e43d3723f1b",
+      "txHash": "0x51595d198f8da7c7e69ee1c6878b07c5c9b3cae94aaf7f7c02251732ea25502b",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AccessControl",
+            "label": "_roles",
+            "type": "t_mapping(t_bytes32,t_struct(RoleData)336_storage)",
+            "src": "..\\@openzeppelin\\contracts\\access\\AccessControl.sol:55"
+          },
+          {
+            "contract": "AccessControlUni",
+            "label": "_revertMsg",
+            "type": "t_string_storage",
+            "src": "..\\project:\\contracts\\common\\AccessControlUni.sol:8"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:39"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:44"
+          }
+        ],
+        "types": {
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_mapping(t_bytes32,t_struct(RoleData)336_storage)": {
+            "label": "mapping(bytes32 => struct AccessControl.RoleData)"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_struct(RoleData)336_storage": {
+            "label": "struct AccessControl.RoleData",
+            "members": [
+              {
+                "label": "members",
+                "type": "t_mapping(t_address,t_bool)"
+              },
+              {
+                "label": "adminRole",
+                "type": "t_bytes32"
+              }
+            ]
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          },
+          "t_address": {
+            "label": "address"
+          }
+        }
+      }
+    }
+  }
+}
