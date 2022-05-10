@@ -10,7 +10,7 @@ interface IChildChainManager {
 
     function withdraw(address withdrawer, address childToken, uint32 rootChainId, bytes calldata withdrawData) external;
 
-    function validatorChanged(address validator, address validatorPk, bytes[] memory signatures) external;
+    function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_) external;
 
     event TokenMapped(uint32 rootChainId, address rootToken, uint32 childChainId, address childToken);
 }

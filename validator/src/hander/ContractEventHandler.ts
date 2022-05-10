@@ -1,22 +1,18 @@
 import {IContractEventHandler} from "./IContractEventHandler";
-import {RELAY_APP, VALIDATOR} from "../config/ConfigEnv";
+import {RELAY_APP} from "../config/ConfigEnv";
 import {Verification} from "../entity/Verification";
-import {Crypto} from "../common/Crypto";
 import {Constant} from "../common/Constant";
 import {EventStandardization} from "../entity/EventStandardization";
+import {Utils} from "../common/Utils";
 const axios = require('axios').default;
-
 const _ = require('lodash');
-const Web3EthAbi = require('web3-eth-abi');
-import EthCrypto from 'eth-crypto';
-
-
+const logger = require('../common/Logger')
 export class ContractEventHandler implements IContractEventHandler {
 
 
     handle(result: EventStandardization): void {
         const verification = this.signMessage(result);
-
+        console.log('Verification: ', verification);
         const url = RELAY_APP.HOST + '/' + RELAY_APP.API.COLLECT_VERIFICATION;
         axios.post(url, verification)
             .then((res:any) => console.log(res.data))
@@ -25,44 +21,44 @@ export class ContractEventHandler implements IContractEventHandler {
 
 
     private signMessage(result: EventStandardization): Verification{
-        const eventType = result.eventName;
-        let pickMsg;
-        let msgHash;
-        let signature;
-        let msg;
-        let toChainId;
-
         if(result.eventName === Constant.WITHDRAW_EXEC){
-            pickMsg = _.pick(result.values, ['childChainId', 'rootChainId', 'childToken', 'burner', 'withdrawer', 'value']);
-            msg = Web3EthAbi.encodeParameters(
-                ['uint32', 'address', 'address', 'bytes'],
-                [
-                    Number(pickMsg.childChainId),
-                    pickMsg.childToken,
-                    pickMsg.receiver,
-                    pickMsg.value
-                ]);
-            msgHash = EthCrypto.hash.keccak256([{type: "bytes", value: msg}]);
-            signature = Crypto.getSignature(msgHash);
-            toChainId = Number(pickMsg.rootChainId);
+            return this.signWithdrawExec(result);
         }else if(result.eventName === Constant.DEPOSIT_EXEC){
-            pickMsg = _.pick(result.values, ['rootChainId', 'childChainId', 'rootToken', 'depositor', 'receiver', 'value']);
-            msg = Web3EthAbi.encodeParameters(
-                ['uint32', 'address', 'address', 'bytes'],
-                [
-                    Number(pickMsg.rootChainId),
-                    pickMsg.rootToken,
-                    pickMsg.receiver,
-                    pickMsg.value
-                ]);
-            msgHash = EthCrypto.hash.keccak256([{type: "bytes", value: msg}]);
-            signature = Crypto.getSignature(msgHash);
-            toChainId = Number(pickMsg.childChainId);
+            return this.signDepositExec(result);
         }else {
+            logger.error('Event undefined %s', result)
             throw new Error('Event undefined ' + result)
         }
+    }
 
-        return new Verification(toChainId, msgHash, msg, signature, eventType);
+    private signDepositExec(result: EventStandardization): any{
+        const pickMsg = _.pick(result.values, ['rootChainId', 'childChainId', 'rootToken', 'depositor', 'receiver', 'value']);
+        const msg = Utils.abiEncode(
+            ['uint32', 'address', 'address', 'bytes'],
+            [
+                Number(pickMsg.rootChainId),
+                pickMsg.rootToken,
+                pickMsg.receiver,
+                pickMsg.value
+            ]);
+        const msgHash = Utils.getHashKeccak256([{type: "bytes", value: msg}]);
+        const signature = Utils.getSignature(msgHash);
+        return new Verification(Number(pickMsg.childChainId), msgHash, msg, signature, result.eventName);
+    }
+
+    private signWithdrawExec(result: EventStandardization): any{
+        const pickMsg = _.pick(result.values, ['childChainId', 'rootChainId', 'childToken', 'burner', 'withdrawer', 'value']);
+        const msg = Utils.abiEncode(
+            ['uint32', 'address', 'address', 'bytes'],
+            [
+                Number(pickMsg.childChainId),
+                pickMsg.childToken,
+                pickMsg.withdrawer,
+                pickMsg.value
+            ]);
+        const msgHash = Utils.getHashKeccak256([{type: "bytes", value: msg}]);
+        const signature = Utils.getSignature(msgHash);
+        return new Verification(Number(pickMsg.rootChainId), msgHash, msg, signature, result.eventName);
     }
 
 }

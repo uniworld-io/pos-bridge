@@ -7,29 +7,29 @@ const EthCrypto = require('eth-crypto');
 const Web3 = require('web3')
 
 module.exports = async function (deployer) {
-    const erc20Token = await RootTokenERC20.at(mockValues.rootTokenErc20);
-    const rootChainManager = await RootChainManager.at(mockValues.rootChainManager);
-
-    const mint = await erc20Token.deposit({
-        value: 1000,
-        from: mockValues.accounts[3]
-    })
-    console.log('Min token: ', mint);
-
-
-    const approve = await erc20Token.approve(mockValues.erc20Predicate, mockValues.amounts[0], {
-        from: mockValues.accounts[3]
-    });
-    console.log('Approve for predicate: ', approve);
-
-
-    const deposit = await rootChainManager.deposit(mockValues.accounts[3],
-        mockValues.rootTokenErc20,
-        mockValues.childChainId,
-        abi.encode(['uint256'], [mockValues.amounts[0]]), {
-            from: mockValues.accounts[3]
-        })
-    console.log('RootChainManager deposit result: ', deposit)
+    // const erc20Token = await RootTokenERC20.at(mockValues.rootTokenErc20);
+    // const rootChainManager = await RootChainManager.at(mockValues.rootChainManager);
+    //
+    // const mint = await erc20Token.deposit({
+    //     value: 1000,
+    //     from: mockValues.accounts[3]
+    // })
+    // console.log('Min token: ', mint);
+    //
+    //
+    // const approve = await erc20Token.approve(mockValues.erc20Predicate, mockValues.amounts[0], {
+    //     from: mockValues.accounts[3]
+    // });
+    // console.log('Approve for predicate: ', approve);
+    //
+    //
+    // const deposit = await rootChainManager.deposit(mockValues.accounts[3],
+    //     mockValues.rootTokenErc20,
+    //     mockValues.childChainId,
+    //     abi.encode(['uint256'], [mockValues.amounts[0]]), {
+    //         from: mockValues.accounts[3]
+    //     })
+    // console.log('RootChainManager deposit result: ', deposit)
 
 
     // const msg = {

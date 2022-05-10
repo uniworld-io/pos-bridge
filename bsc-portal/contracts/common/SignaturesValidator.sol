@@ -8,7 +8,7 @@ contract SignaturesValidator is SignatureVerifier{
     uint8 internal minValidator;
     uint8 internal consensusRate;
 
-    function validateSignatures(bytes calldata msg, bytes[] memory signatures) external{
+    function validateSignatures(bytes calldata msg, bytes[] memory signatures) public view{
         _removeDuplicateSignature(signatures);
 
         bytes32 msgHash = keccak256(msg);
@@ -25,10 +25,10 @@ contract SignaturesValidator is SignatureVerifier{
             }
         }
         require(countVerify >= minValidator, "SignaturesValidator: LESS_THAN_MIN_VALIDATOR");
-        require(countVerify / validators.length >= consensusRate / 100, "SignaturesValidator: NOT_PASS_CONSENSUS_RATE");
+        require(countVerify / validators.length >= consensusRate / 100, "SignaturesValidator: LESS_THAN_CONSENSUS_RATE");
     }
 
-    function _removeDuplicateSignature(bytes[] memory signatures) private{
+    function _removeDuplicateSignature(bytes[] memory signatures) private pure{
         require(signatures.length > 0);
         for(uint8 i = 0; i < signatures.length; i++){
             for(uint8 j = i+1; j < i; j++){

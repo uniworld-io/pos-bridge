@@ -79,7 +79,7 @@ module.exports = {
 
         },
         ethunitestnet: {
-            // provider: () => new HDWalletProvider(privateKeys, `http://18.141.168.229:4242`),
+            provider: () => new HDWalletProvider(privateKeys, `http://18.141.168.229:4242`),
             network_id: 4242,
             host: '18.141.168.229',
             port: 4242,

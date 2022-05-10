@@ -3,18 +3,18 @@ const childRPC = 'http://18.141.168.229:4242';
 
 const mockValues = {
 
-    rootChainId: 9797,
-    childChainId: 4242,
+    rootChainId: 4242,
+    childChainId: 9797,
 
     consensusRate: 50,
     minValidators: 1,
 
-    childChainManager: '0x8c2ABBBC9514E14F4FCD4bf47dCcDE00437e2e34',
-    childTokenErc20: '0x0B545b1940B9D24c617248635D00217a490921f4',
+    childChainManager: '0xac3596A0A7CaAfB518B41382f537773cE6cF34E3',
+    childTokenErc20: '0x7C1809561F87e5f7C1Fb0bE2Cd8E3dfadaD41bfD',
 
-    rootChainManager: '0x8456B5e675ecCCB1947Ca22f4946C4e4D9f357Cc',
-    erc20Predicate: '0x3A2A1358F5fFDA0Becefa5159D0fECE1C90f611C',
-    rootTokenErc20:'0xA0699E3d2bA6186F75c2d8A1Aa6A348347bF9Dbd',
+    rootChainManager: '0xaB9a908825b95462158c106D4239F551c8850666',
+    erc20Predicate: '0x38558cb8A27033862AfDca5555E809C678f267DF',
+    rootTokenErc20:'0x4608b8DABd33F01a932901bA24ebB9bA7F22Ab3E',
 
 
     accounts:[

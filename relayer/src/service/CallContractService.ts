@@ -10,7 +10,7 @@ import {DepositExecCaller} from "../contract/caller/DepositExecCaller";
 import {WithdrawExecCaller} from "../contract/caller/WithdrawExecCaller";
 import {UniContractManager} from "../contract/UniContractManager";
 import {POOL_CONNECTOR} from '../config/PoolConnector';
-
+const logger = require('../common/Logger')
 export class CallContractService {
     private bufferEvent = BufferEvent.map;
 
@@ -32,23 +32,27 @@ export class CallContractService {
 
     doCallContract(): void {
         this.bufferEvent.forEach((value, key) => {
-            console.log("Loop event: ", value)
-            const verification = value as GroupVerification;
-            const manager = this.chainIdToManager(verification.toChainId) as IContractManager;
-            let caller;
+            try{
+                console.log("Loop event: ", value)
+                const verification = value as GroupVerification;
+                const manager = this.chainIdToManager(verification.toChainId) as IContractManager;
+                let caller;
 
-            switch (verification.event) {
-                case Constant.WITHDRAW_EXEC:
-                    caller = this.withdrawCaller;
-                    break;
-                case Constant.DEPOSIT_EXEC:
-                    caller = this.depositCaller;
-                    break;
-                default:
-                    console.log("Not mapped type event: ", verification.event)
-                    throw new Error("Not mapped type event");
+                switch (verification.event) {
+                    case Constant.WITHDRAW_EXEC:
+                        caller = this.withdrawCaller;
+                        break;
+                    case Constant.DEPOSIT_EXEC:
+                        caller = this.depositCaller;
+                        break;
+                    default:
+                        logger.error("Not mapped type event: %s", verification.event)
+                        return
+                }
+                caller.call(manager, verification);
+            }catch (e){
+                logger.error("Failure to call contract: %s, %s", value, e)
             }
-            caller.call(manager, verification);
         });
         this.bufferEvent.clear();
     }

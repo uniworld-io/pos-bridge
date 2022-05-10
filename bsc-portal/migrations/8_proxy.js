@@ -8,22 +8,22 @@ const ERC1155Predicate = artifacts.require('./root/predicate/ERC1155Predicate');
 module.exports = async function (deployer) {
     // Su dung deployProxy cua @openzeppelin/truffle-upgrades se tu dong gen ra admin proxy va dia chi vat ly
     //Link tham khao : https://docs.openzeppelin.com/upgrades-plugins/1.x/ -> cach deploy + viet code chuan proxy
-    const instanceChildChainManager = await deployProxy(ChildChainManager, [1,1,[process.env.MAIN_WALLET_ADDRESS],98,process.env.MAIN_WALLET_ADDRESS], { deployer ,initializer: 'initialize'});
-    console.log('Deployed ChildChainManager: ', instanceChildChainManager.address);
-
-    //Root chain
-
-    const instanceRoot = await deployProxy(RootChainManager, [1,1,[process.env.MAIN_WALLET_ADDRESS],98,process.env.MAIN_WALLET_ADDRESS], { deployer ,initializer: 'initialize'});
-    console.log('Deployed RootChainManager: ', instanceRoot.address);
-
-    const instanceERC20Pre =await deployProxy(ERC20Predicate, [instanceRoot.address], { deployer ,initializer: 'initialize'});
-    console.log('Deployed instanceErc20Predicate: ', instanceERC20Pre.address);
-
-    const instanceERC721Pre =await deployProxy(ERC721Predicate, [instanceRoot.address], { deployer ,initializer: 'initialize'});
-    console.log('Deployed instanceErc721Predicate: ', instanceERC721Pre.address);
-
-    const instanceERC1155Pre =await deployProxy(ERC721Predicate, [instanceRoot.address], { deployer ,initializer: 'initialize'});
-    console.log('Deployed instanceErc1155Predicate: ', instanceERC1155Pre.address);
+    // const instanceChild = await deployProxy(ChildChainManager, [1,1,[process.env.MAIN_WALLET_ADDRESS],98,process.env.MAIN_WALLET_ADDRESS], { deployer ,initializer: 'initialize'});
+    // console.log('Deployed ChildChainManager: ', instanceChild.address);
+    //
+    // //Root chain
+    //
+    // const instanceRoot = await deployProxy(RootChainManager, [1,1,[process.env.MAIN_WALLET_ADDRESS],98,process.env.MAIN_WALLET_ADDRESS], { deployer ,initializer: 'initialize'});
+    // console.log('Deployed RootChainManager: ', instanceRoot.address);
+    //
+    // const instanceERC20Pre =await deployProxy(ERC20Predicate, [instanceRoot.address], { deployer ,initializer: 'initialize'});
+    // console.log('Deployed instanceErc20Predicate: ', instanceERC20Pre.address);
+    //
+    // const instanceERC721Pre =await deployProxy(ERC721Predicate, [instanceRoot.address], { deployer ,initializer: 'initialize'});
+    // console.log('Deployed instanceErc721Predicate: ', instanceERC721Pre.address);
+    //
+    // const instanceERC1155Pre =await deployProxy(ERC721Predicate, [instanceRoot.address], { deployer ,initializer: 'initialize'});
+    // console.log('Deployed instanceErc1155Predicate: ', instanceERC1155Pre.address);
     //upgrade ....
     // const existing = await ChildChainManager.deployed();
     // await upgradeProxy(existing.address, MyContractUpgradeV2, { deployer });

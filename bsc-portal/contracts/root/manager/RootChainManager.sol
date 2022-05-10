@@ -61,7 +61,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken, tokenToType[rootToken]);
     }
 
-    function deposit(address receiver, address rootToken, uint32 childChainId, bytes calldata depositData) override external{
+    function depositFor(address receiver, address rootToken, uint32 childChainId, bytes calldata depositData) override external{
         _depositFor(receiver, rootToken, childChainId, depositData);
     }
 

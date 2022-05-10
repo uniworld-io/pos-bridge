@@ -3,7 +3,7 @@ import {IContractManager} from "../IContractManager";
 import {Contract} from "web3-eth-contract";
 import {GroupVerification} from "../../entity/GroupVerification";
 import {CHAIN, TRANSACTION} from "../../config/ConfigEnv";
-
+const logger = require('../../common/Logger')
 export class WithdrawExecCaller implements ICaller {
 
 
@@ -25,12 +25,9 @@ export class WithdrawExecCaller implements ICaller {
         const contract = manager.getRoot() as Contract;
         console.log("GroupVerification WithdrawExec: ", verification);
         contract.methods.withdrawExecuted(verification.msg, verification.signatures)
-            .send(TRANSACTION.OPTIONS, (error: any, txHash: any) => {
-                if(error)
-                    console.error('Error call function contract:', error)
-                if(txHash)
-                    console.log('TxHash: ', txHash)
-            })
+            .send(TRANSACTION.OPTIONS)
+            .then((result: any) => logger.info('Result call: %s', result))
+            .catch((error: any) => logger.error('Error call: %s', error))
     }
 
     //@todo

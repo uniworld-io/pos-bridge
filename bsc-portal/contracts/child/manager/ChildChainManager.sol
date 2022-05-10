@@ -75,7 +75,8 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
         childContract.deposit(user, depositData);
     }
 
-    function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_) external only(DEFAULT_ADMIN_ROLE) {
+    function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_)
+    override external only(DEFAULT_ADMIN_ROLE) {
         consensusRate = consensusRate_;
         minValidator = minValidator_;
         validators = validators_;
