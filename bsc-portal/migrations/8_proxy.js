@@ -4,6 +4,11 @@ const RootChainManager = artifacts.require('./root/manager/RootChainManager');
 const ERC20Predicate = artifacts.require('./root/predicate/ERC20Predicate');
 const ERC721Predicate = artifacts.require('./root/predicate/ERC721Predicate');
 const ERC1155Predicate = artifacts.require('./root/predicate/ERC1155Predicate');
+const {mockValues} = require('../test/helpers/constants');
+const {defaultAbiCoder} = require('ethers/utils/abi-coder');
+const abi = defaultAbiCoder;
+const RootChainManagerProxy = artifacts.require('RootChainManagerProxy');
+const ERC20_TYPE = '0x8ae85d849167ff996c04040c44924fd364217285e4cad818292c7ac37c0a345b';
 
 module.exports = async function (deployer) {
     // Su dung deployProxy cua @openzeppelin/truffle-upgrades se tu dong gen ra admin proxy va dia chi vat ly
@@ -28,4 +33,5 @@ module.exports = async function (deployer) {
     // const existing = await ChildChainManager.deployed();
     // await upgradeProxy(existing.address, MyContractUpgradeV2, { deployer });
     // await upgradeProxy("0x720B625a51c5b7920233ab8F48AD0Ed2e283f429", MyContractUpgradeV6, { deployer });
+
 };

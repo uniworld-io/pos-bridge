@@ -14,7 +14,6 @@ interface IRootChainManager {
 
     function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_) external;
 
-
     event TokenMapped(uint32 rootChainId, address rootToken, uint32 childChainId, address childToken, bytes32 typeToken);
 
 }

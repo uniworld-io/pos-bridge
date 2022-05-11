@@ -3,19 +3,32 @@ const childRPC = 'http://18.141.168.229:4242';
 
 const mockValues = {
 
-    rootChainId: 4242,
-    childChainId: 9797,
+    bsc:{
+        chainId: 9797,
+
+        rootTokenErc20: '0x7488EAFF3632A4Cc413c2F9a04c970ca972dc97C',
+        predicateErc20: '0x945244e38DB5909506AFF3de24ccAB25911cb713',
+        rootChainManager: '0xdE1e2bd624D7e1A6e31d67A6108dDB3455227123',
+        rootChainManagerProxy: '0x21141CFED11E08826ED40d9f29B4f37DE8F15674',
+
+        childChainManagerProxy: '0x9583E8628822Ad6A78b3280C82F70E9E2c33e1D3',
+        ethWrapToken: '0x1124E6E45c0D5460D65aBceB964dF6b5e10B98F4',
+    },
+
+    eth:{
+        chainId: 4242,
+
+        rootTokenErc20: '0xbdaC406241Af52f60bC7C03A28aF04130e11Bf81',
+        predicateErc20: '0xd2Cc05f28B92C68512B35a4f26D0561F68F0db00',
+        rootChainManager: '0x0051700454a1A76e6C9d653453232a574ba5a61d',
+        rootChainManagerProxy: '0x5391fD6ee15bB44FAeAb126dA104180A9C4adc76',
+
+        childChainManagerProxy: '0xB42957772af34BfCeb8Bf05212B1164A8cA08E04',
+        bnbWrapToken: '0x221B857710B314BEff8E635156B73f59c38C83C2',
+    },
 
     consensusRate: 50,
     minValidators: 1,
-
-    childChainManager: '0xac3596A0A7CaAfB518B41382f537773cE6cF34E3',
-    childTokenErc20: '0x7C1809561F87e5f7C1Fb0bE2Cd8E3dfadaD41bfD',
-
-    rootChainManager: '0xaB9a908825b95462158c106D4239F551c8850666',
-    erc20Predicate: '0x38558cb8A27033862AfDca5555E809C678f267DF',
-    rootTokenErc20:'0x4608b8DABd33F01a932901bA24ebB9bA7F22Ab3E',
-
 
     accounts:[
         '0xd5ef7a24bd2aa0872b16278017f4d1258b1c3deb',
@@ -35,7 +48,8 @@ const mockValues = {
     amounts:[
         1000,
         2000
-    ]
+    ],
+    erc20Type: '0x8ae85d849167ff996c04040c44924fd364217285e4cad818292c7ac37c0a345b'
 
 }
 module.exports = {

@@ -4,9 +4,9 @@ import "./SignatureVerifier.sol";
 
 contract SignaturesValidator is SignatureVerifier{
 
-    address[] internal validators;
-    uint8 internal minValidator;
-    uint8 internal consensusRate;
+    address[] public validators;
+    uint8 public minValidator;
+    uint8 public consensusRate;
 
     function validateSignatures(bytes calldata msg, bytes[] memory signatures) public view{
         _removeDuplicateSignature(signatures);

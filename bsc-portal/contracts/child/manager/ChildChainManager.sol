@@ -11,9 +11,9 @@ import "../../common/SignaturesValidator.sol";
 
 
 contract ChildChainManager is IChildChainManager, AccessControlUni, Initializable, SignaturesValidator {
-    mapping(uint32 => mapping(address => address)) rootToChildToken;
-    mapping(address => address) childToRootToken;
-    uint32 childChainId;
+    mapping(uint32 => mapping(address => address)) public rootToChildToken;
+    mapping(address => address) public childToRootToken;
+    uint32 public childChainId;
 
     event WithdrawExecuted(uint32 childChainId, uint32 rootChainId, address childToken, address burner, address withdrawer, bytes value);
 

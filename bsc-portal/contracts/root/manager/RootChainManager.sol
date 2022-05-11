@@ -10,12 +10,12 @@ import "../../common/AccessControlUni.sol";
 import "../../common/SignaturesValidator.sol";
 
 contract RootChainManager is IRootChainManager, AccessControlUni, Initializable, SignaturesValidator {
-    mapping(address => address) rootToChildToken;
-    mapping(uint32 => mapping(address => address)) childToRootToken;
-    mapping(bytes32 => address) typeToPredicate;
-    mapping(address => bytes32) tokenToType;
+    mapping(address => address) public rootToChildToken;
+    mapping(uint32 => mapping(address => address)) public childToRootToken;
+    mapping(bytes32 => address) public typeToPredicate;
+    mapping(address => bytes32) public tokenToType;
 
-    uint32 rootChainId;
+    uint32 public rootChainId;
 
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
     bytes32 public constant MAPPER_ROLE = keccak256("MAPPER_ROLE");
@@ -36,9 +36,11 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     }
 
     function mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) override external only(MAPPER_ROLE) {
-        require(rootToChildToken[rootToken] == address(0)
-            && childToRootToken[childChainId][childToken] == address(0),
-            "RootChainManager: ALREADY_MAPPED");
+        require(
+            rootToChildToken[rootToken] == address(0) &&
+            childToRootToken[childChainId][childToken] == address(0),
+            "RootChainManager: ALREADY_MAPPED"
+        );
         _mapToken(typeToken, rootToken, childChainId, childToken);
     }
 
@@ -66,10 +68,10 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     }
 
     function _depositFor(address receiver, address rootToken, uint32 childChainId, bytes memory depositData) private {
+        require(rootToChildToken[rootToken] != address(0x0), "RootChainManager: TOKEN_NOT_MAPPED");
 
         bytes32 tokenType = tokenToType[rootToken];
         require(tokenType != 0, "RootChainManager: TOKEN_TYPE_NOT_MAPPED");
-        require(rootToChildToken[rootToken] != address(0x0), "RootChainManager: TOKEN_NOT_MAPPED");
 
         address predicateAddress = typeToPredicate[tokenType];
         require(predicateAddress != address(0), "RootChainManager: PREDICATE_NOT_MAPPED");
@@ -106,9 +108,5 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         consensusRate = consensusRate_;
         minValidator = minValidator_;
         validators = validators_;
-    }
-
-    receive() external payable {
-        //@TODo
     }
 }
