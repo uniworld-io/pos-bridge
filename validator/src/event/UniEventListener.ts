@@ -1,10 +1,9 @@
 import {IContractEventHandler} from "../hander/IContractEventHandler";
-import {Constant} from "../common/Constant";
-import {UniEventResult} from "../entity/UniEventResult";
 import {CHAIN} from "../config/ConfigEnv";
 import {IEventListener} from "./IEventListener";
 import {POOL_EVENT_CONNECTOR} from "../config/PoolConnector";
 import {EventStandardization} from "../entity/EventStandardization";
+import axios from "axios";
 
 
 export class UniEventListener implements IEventListener {
@@ -24,22 +23,52 @@ export class UniEventListener implements IEventListener {
 
         console.log("=======================================LISTEN UNI CHAIN=======================================");
         console.log(uniChainConnector.eventServer)
-        console.log("=====> ROOT MANAGER CONTRACT:",this.rootChainManager.address)
+        console.log("=====> ROOT MANAGER CONTRACT:", this.rootChainManager.address)
         console.log("=====> CHILD MANAGER CONTRACT:", this.childChainManager.address)
 
     }
 
     listenEventDeposit(filter: any): void {
-        this.rootChainManager.DepositExecuted().watch(filter, (error: any, result: UniEventResult) => {
-            console.log(result)
-            this.handler.handle(EventStandardization.fromUni(result));
+        const subscribe = CHAIN.UNI.SUBSCRIBE;
+        this.subscribe(subscribe.deposit, subscribe.confirm, subscribe.since, subscribe.sort, (data: any) => {
+            if (!data || !data.length)
+                return
+            data.forEach((item: any) => {
+                console.log('Deposit event: ', item)
+                this.handler.handle(EventStandardization.fromUni(item));
+            })
         })
     }
 
     listenEventWithdraw(filter: any): void {
-        this.rootChainManager.WithdrawExecuted().watch(filter, (error: any, result: UniEventResult) => {
-            console.log(result)
-            this.handler.handle(EventStandardization.fromUni(result));
+        const subscribe = CHAIN.UNI.SUBSCRIBE;
+        this.subscribe(subscribe.withdraw, subscribe.confirm, subscribe.since, subscribe.sort, (data: any) => {
+            if (!data || !data.length)
+                return
+            data.forEach((item: any) => {
+                console.log('Withdraw event: ', item)
+                this.handler.handle(EventStandardization.fromUni(item));
+            })
         })
+
+        // this.rootChainManager.WithdrawExecuted().watch(filter, (error: any, result: UniEventResult) => {
+        //     console.log(result)
+        //     this.handler.handle(EventStandardization.fromUni(result));
+        // })
+    }
+
+    private subscribe(topic: any, confirm: boolean = true, since: number = Date.now(), sort: string = 'timeStamp', cb: any): void {
+        const timer = since
+        setInterval(async () => {
+            try {
+                const sinceNow = timer + 3000
+                console.log('SinceNow', new Date(sinceNow).toISOString());
+                const params = `?topic=${topic}&confirmed=${confirm}&since=${sinceNow}&sort=${sort}`;
+                const resp = await axios.get(CHAIN.UNI.EVENT_HOST + CHAIN.UNI.SUBSCRIBE.path + params)
+                cb(resp.data);
+            } catch (e) {
+                console.log('Listen event fail: ', e)
+            }
+        }, 3000)
     }
 }

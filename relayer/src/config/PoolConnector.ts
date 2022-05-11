@@ -16,7 +16,10 @@ class PoolConnector{
         this.bscChainConnector = new Web3(new Web3.providers.HttpProvider(CHAIN.BSC.CHAIN_HOST));
         this.bscChainConnector.eth.accounts.wallet.add(RELAYER.PRIVATE_KEY);
 
-        this.uniChainConnector = new UniChain({fullHost: CHAIN.UNI.CHAIN_HOST});
+        this.uniChainConnector = new UniChain({
+            fullHost: CHAIN.UNI.CHAIN_HOST,
+            privateKey: RELAYER.PRIVATE_KEY
+        });
 
         console.log('=============LISTENER EVENT===============');
         console.log('Connection ETH: ', this.ethChainConnector);

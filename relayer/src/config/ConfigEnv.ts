@@ -65,6 +65,9 @@ export const CHAIN = {
         ROOT_MANAGER:{
             ADDRESS: process.env.UNI_ROOT_MANAGER_ADDRESS as string,
             ABI: rootMngAbi as any
-        }
+        },
+        DEPOSIT_EXEC_PATH: '/wallet/posbridgedepositexec',
+        WITHDRAW_EXEC_PATH: '/wallet/posbridgewithdrawexec'
+
     }
 }

@@ -2,7 +2,7 @@ import {ICaller} from "./ICaller";
 import {IContractManager} from "../IContractManager";
 import {Contract} from "web3-eth-contract";
 import {GroupVerification} from "../../entity/GroupVerification";
-import {CHAIN, TRANSACTION} from "../../config/ConfigEnv";
+import {CHAIN, RELAYER, TRANSACTION} from "../../config/ConfigEnv";
 const logger = require('../../common/Logger')
 export class WithdrawExecCaller implements ICaller {
 
@@ -30,9 +30,18 @@ export class WithdrawExecCaller implements ICaller {
             .catch((error: any) => logger.error('Error call: %s', error))
     }
 
-    //@todo
-    private uniCall(manager: IContractManager, verification: GroupVerification) {
-
+    private async uniCall(manager: IContractManager, verification: GroupVerification) {
+        const unichain = manager.getConnector();
+        const data = {
+            owner_address: RELAYER.ACCOUNT,
+            message: verification.msg,
+            signatures: verification.signatures
+        }
+        const unsingedTx = await unichain.currentProviders().fullNode
+            .request(CHAIN.UNI.WITHDRAW_EXEC_PATH, data, 'post')
+        const signedTx = await unichain.unx.signTransaction(unsingedTx, RELAYER.PRIVATE_KEY, 0)
+        const res = await unichain.unx.sendRawTransaction(signedTx)
+        logger.info(res)
     }
 
 }

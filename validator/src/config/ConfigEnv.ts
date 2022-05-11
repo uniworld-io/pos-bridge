@@ -57,6 +57,14 @@ export const CHAIN = {
             FILTER:{
                 fromBlock: 'latest'
             }
+        },
+        SUBSCRIBE:{
+            deposit: 'TokenCreate',
+            withdraw: 'TokenCreate',
+            path: `/event/native`,
+            confirm: true,
+            sort: 'timestamp',
+            since: Date.now()
         }
     }
 

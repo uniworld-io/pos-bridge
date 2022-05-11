@@ -17,6 +17,8 @@ bscListener.listenEventWithdraw({});
 ethListener.listenEventDeposit({});
 ethListener.listenEventWithdraw({});
 
+uniListener.listenEventDeposit({});
+uniListener.listenEventWithdraw({});
 
 
 
