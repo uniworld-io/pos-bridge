@@ -65,8 +65,10 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
     function depositExecuted(bytes calldata msg, bytes[] memory signatures) public {
         validateSignatures(msg, signatures);
 
-        (uint32 rootChainId, address rootToken,  address user, bytes memory depositData)
-        = abi.decode(msg, (uint32, address, address, bytes));
+        (uint32 rootChainId, uint32 childChainId_,  address rootToken,  address user, bytes memory depositData)
+        = abi.decode(msg, (uint32, uint32, address, address, bytes));
+
+        require(childChainId == childChainId_, "ChildChainManager: NOT_MATCH_CHILD_CHAIN");
 
         address childToken = rootToChildToken[rootChainId][rootToken];
         require(childToken != address(0), "ChildChainManager: TOKEN_NOT_MAPPED");

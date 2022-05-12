@@ -6,25 +6,27 @@ const mockValues = {
     bsc:{
         chainId: 9797,
 
-        rootTokenErc20: '0x7488EAFF3632A4Cc413c2F9a04c970ca972dc97C',
-        predicateErc20: '0x945244e38DB5909506AFF3de24ccAB25911cb713',
-        rootChainManager: '0xdE1e2bd624D7e1A6e31d67A6108dDB3455227123',
-        rootChainManagerProxy: '0x21141CFED11E08826ED40d9f29B4f37DE8F15674',
+        rootTokenErc20: '0xAc2A4389Ead87041482f83A5025f8219F9516dB8',
+        predicateErc20: '0x6BC429a08A3dc51eC57210A809e58A1af7931B37',
+        rootChainManager: '0x1CF7312e1046c4ff91dF07abAd889b67a3c2a31C',
+        rootChainManagerProxy: '0x1CF7312e1046c4ff91dF07abAd889b67a3c2a31C',
 
-        childChainManagerProxy: '0x9583E8628822Ad6A78b3280C82F70E9E2c33e1D3',
-        ethWrapToken: '0x1124E6E45c0D5460D65aBceB964dF6b5e10B98F4',
+        childChainManagerProxy: '0x716c5D9DC784e4A9FC3E32fAE8315B8adf9b01DB',
+        childChainManager: '0x237C70105Ce27B34dFC5Bc4733044cabBF189917',
+        ethWrapToken: '0xABFFe48eEa6BE6f66fbd01BD78ba52220A4E6F6f',
     },
 
     eth:{
         chainId: 4242,
 
-        rootTokenErc20: '0xbdaC406241Af52f60bC7C03A28aF04130e11Bf81',
-        predicateErc20: '0xd2Cc05f28B92C68512B35a4f26D0561F68F0db00',
-        rootChainManager: '0x0051700454a1A76e6C9d653453232a574ba5a61d',
-        rootChainManagerProxy: '0x5391fD6ee15bB44FAeAb126dA104180A9C4adc76',
+        rootTokenErc20: '0x88D5C2d73cF34D3244f797722bD4F7c15F264410',
+        predicateErc20: '0x3fe2546d4B785013951bA610BF657177Edb1564A',
+        rootChainManager: '0x716c5D9DC784e4A9FC3E32fAE8315B8adf9b01DB',
+        rootChainManagerProxy: '0xA17aCA91241efA4fF55DC772D5D1eEDA9E6CE2D1',
 
-        childChainManagerProxy: '0xB42957772af34BfCeb8Bf05212B1164A8cA08E04',
-        bnbWrapToken: '0x221B857710B314BEff8E635156B73f59c38C83C2',
+        childChainManagerProxy: '0xeDa9995fBb82ED221e43e87adf561DA2798cB4F6',
+        childChainManager: '0xeDa9995fBb82ED221e43e87adf561DA2798cB4F6',
+        bnbWrapToken: '0x79Aa45e8Ef1419Be485c906eC327eA0ED1B6274C',
     },
 
     consensusRate: 50,

@@ -8,14 +8,14 @@ export const CHAIN = {
         ID: parseInt(process.env.ETH_CHAIN_ID as string),
         EVENT_HOST: process.env.ETH_EVENT_HOST as string,
         CHILD_MANAGER: {
-            ADDRESS: process.env.ETH_CHILD_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.ETH_CHILD_MANAGER_PROXY as string,
             ABI: childMngAbi as any,
             FILTER:{
                 fromBlock: 'latest'
             }
         },
         ROOT_MANAGER:{
-            ADDRESS: process.env.ETH_ROOT_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.ETH_ROOT_MANAGER_PROXY as string,
             ABI: rootMngAbi as any,
             FILTER:{
                 fromBlock: 'latest'
@@ -27,14 +27,14 @@ export const CHAIN = {
         ID: parseInt(process.env.BSC_CHAIN_ID as string),
         EVENT_HOST: process.env.BSC_EVENT_HOST as string,
         CHILD_MANAGER: {
-            ADDRESS: process.env.BSC_CHILD_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.BSC_CHILD_MANAGER_PROXY as string,
             ABI: childMngAbi as any,
             FILTER:{
                 fromBlock: 'latest'
             }
         },
         ROOT_MANAGER:{
-            ADDRESS: process.env.BSC_ROOT_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.BSC_ROOT_MANAGER_PROXY as string,
             ABI: rootMngAbi as any,
             FILTER:{
                 fromBlock: 'latest'
@@ -45,14 +45,14 @@ export const CHAIN = {
         ID: parseInt(process.env.UNI_CHAIN_ID as string),
         EVENT_HOST: process.env.UNI_EVENT_HOST as string,
         CHILD_MANAGER: {
-            ADDRESS: process.env.UNI_CHILD_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.UNI_CHILD_MANAGER_PROXY as string,
             ABI: childMngAbi as any,
             FILTER:{
                 fromBlock: 'latest'
             }
         },
         ROOT_MANAGER:{
-            ADDRESS: process.env.UNI_ROOT_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.UNI_ROOT_MANAGER_PROXY as string,
             ABI: rootMngAbi as any,
             FILTER:{
                 fromBlock: 'latest'

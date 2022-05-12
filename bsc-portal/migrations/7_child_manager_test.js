@@ -6,15 +6,15 @@ const WBNB = artifacts.require("WBNBToken");
 
 module.exports = async function (deployer) {
 
-    // const childChainManager = await ChildChainManager.at(mockValues.eth.childChainManagerProxy);
-    //
-    // const withdraw = await childChainManager.withdraw(mockValues.accounts[3],
-    //     mockValues.eth.bnbWrapToken,
-    //     mockValues.bsc.chainId,
-    //     abi.encode(['uint256'], [mockValues.amounts[0]]),{
-    //         from: mockValues.accounts[3]
-    //     });
-    // console.log("ChildChainManager withdraw: ", withdraw)
+    const childChainManager = await ChildChainManager.at(mockValues.eth.childChainManagerProxy);
+
+    const withdraw = await childChainManager.withdraw(mockValues.accounts[3],
+        mockValues.eth.bnbWrapToken,
+        mockValues.bsc.chainId,
+        abi.encode(['uint256'], [mockValues.amounts[0]]),{
+            from: mockValues.accounts[3]
+        });
+    console.log("ChildChainManager withdraw: ", withdraw)
 
 
     const childToken = await WBNB.at(mockValues.eth.bnbWrapToken);

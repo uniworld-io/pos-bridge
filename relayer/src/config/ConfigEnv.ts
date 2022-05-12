@@ -33,11 +33,11 @@ export const CHAIN = {
         ID: Number(process.env.ETH_CHAIN_ID),
         CHAIN_HOST: process.env.ETH_CHAIN_HOST as string,
         CHILD_MANAGER: {
-            ADDRESS: process.env.ETH_CHILD_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.ETH_CHILD_MANAGER_PROXY as string,
             ABI: childMngAbi as any
         },
         ROOT_MANAGER:{
-            ADDRESS: process.env.ETH_ROOT_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.ETH_ROOT_MANAGER_PROXY as string,
             ABI: rootMngAbi as any
         }
     },
@@ -46,11 +46,11 @@ export const CHAIN = {
         ID: Number(process.env.BSC_CHAIN_ID),
         CHAIN_HOST: process.env.BSC_CHAIN_HOST as string,
         CHILD_MANAGER: {
-            ADDRESS: process.env.BSC_CHILD_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.BSC_CHILD_MANAGER_PROXY as string,
             ABI: childMngAbi as any
         },
         ROOT_MANAGER:{
-            ADDRESS: process.env.BSC_ROOT_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.BSC_ROOT_MANAGER_PROXY as string,
             ABI: rootMngAbi as any
         }
     },
@@ -59,11 +59,11 @@ export const CHAIN = {
         ID: Number(process.env.UNI_CHAIN_ID),
         CHAIN_HOST: process.env.UNI_CHAIN_HOST as string,
         CHILD_MANAGER: {
-            ADDRESS: process.env.UNI_CHILD_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.UNI_CHILD_MANAGER_PROXY as string,
             ABI: childMngAbi as any
         },
         ROOT_MANAGER:{
-            ADDRESS: process.env.UNI_ROOT_MANAGER_ADDRESS as string,
+            ADDRESS: process.env.UNI_ROOT_MANAGER_PROXY as string,
             ABI: rootMngAbi as any
         },
         DEPOSIT_EXEC_PATH: '/wallet/posbridgedepositexec',

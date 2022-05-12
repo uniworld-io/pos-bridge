@@ -86,8 +86,10 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     function withdrawExecuted(bytes calldata msg, bytes[] memory signatures) public {
         validateSignatures(msg, signatures);
 
-        (uint32 childChainId, address childToken, address withdrawer, bytes memory withdrawData)
-        = abi.decode(msg, (uint32, address, address, bytes));
+        (uint32 childChainId, uint32 rootChainId_, address childToken, address withdrawer, bytes memory withdrawData)
+        = abi.decode(msg, (uint32, uint32, address, address, bytes));
+
+        require(rootChainId_ == rootChainId, "RootChainManager: NOT_MATCH_ROOT_CHAIN");
 
         address rootToken = childToRootToken[childChainId][childToken];
         bytes32 tokenType = tokenToType[rootToken];

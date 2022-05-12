@@ -7,7 +7,6 @@ contract SignaturesValidator is SignatureVerifier{
     address[] public validators;
     uint8 public minValidator;
     uint8 public consensusRate;
-
     function validateSignatures(bytes calldata msg, bytes[] memory signatures) public view{
         _removeDuplicateSignature(signatures);
 

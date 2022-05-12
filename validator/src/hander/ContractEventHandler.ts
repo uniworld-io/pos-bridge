@@ -4,9 +4,11 @@ import {Verification} from "../entity/Verification";
 import {Constant} from "../common/Constant";
 import {EventStandardization} from "../entity/EventStandardization";
 import {Utils} from "../common/Utils";
+
 const axios = require('axios').default;
 const _ = require('lodash');
 const logger = require('../common/Logger')
+
 export class ContractEventHandler implements IContractEventHandler {
 
 
@@ -15,28 +17,29 @@ export class ContractEventHandler implements IContractEventHandler {
         console.log('Verification: ', verification);
         const url = RELAY_APP.HOST + '/' + RELAY_APP.API.COLLECT_VERIFICATION;
         axios.post(url, verification)
-            .then((res:any) => console.log(res.data))
+            .then((res: any) => console.log(res.data))
             .catch((error: any) => console.error(error));
     }
 
 
-    private signMessage(result: EventStandardization): Verification{
-        if(result.eventName === Constant.WITHDRAW_EXEC){
+    private signMessage(result: EventStandardization): Verification {
+        if (result.eventName === Constant.WITHDRAW_EXEC) {
             return this.signWithdrawExec(result);
-        }else if(result.eventName === Constant.DEPOSIT_EXEC){
+        } else if (result.eventName === Constant.DEPOSIT_EXEC) {
             return this.signDepositExec(result);
-        }else {
+        } else {
             logger.error('Event undefined %s', result)
             throw new Error('Event undefined ' + result)
         }
     }
 
-    private signDepositExec(result: EventStandardization): any{
+    private signDepositExec(result: EventStandardization): any {
         const pickMsg = _.pick(result.values, ['rootChainId', 'childChainId', 'rootToken', 'depositor', 'receiver', 'value']);
         const msg = Utils.abiEncode(
-            ['uint32', 'address', 'address', 'bytes'],
+            ['uint32', 'uint32', 'address', 'address', 'bytes'],
             [
                 Number(pickMsg.rootChainId),
+                Number(pickMsg.childChainId),
                 pickMsg.rootToken,
                 pickMsg.receiver,
                 pickMsg.value
@@ -46,12 +49,13 @@ export class ContractEventHandler implements IContractEventHandler {
         return new Verification(Number(pickMsg.childChainId), msgHash, msg, signature, result.eventName);
     }
 
-    private signWithdrawExec(result: EventStandardization): any{
+    private signWithdrawExec(result: EventStandardization): any {
         const pickMsg = _.pick(result.values, ['childChainId', 'rootChainId', 'childToken', 'burner', 'withdrawer', 'value']);
         const msg = Utils.abiEncode(
-            ['uint32', 'address', 'address', 'bytes'],
+            ['uint32', 'uint32', 'address', 'address', 'bytes'],
             [
                 Number(pickMsg.childChainId),
+                Number(pickMsg.rootChainId),
                 pickMsg.childToken,
                 pickMsg.withdrawer,
                 pickMsg.value

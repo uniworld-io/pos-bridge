@@ -3,16 +3,16 @@ const ChildChainManager = artifacts.require("ChildChainManager");
 const RootChainManager = artifacts.require("RootChainManager");
 
 module.exports = async function (deployer) {
-    // const rootChainManagerImpl = await RootChainManager.at(mockValues.eth.rootChainManagerProxy);
-    // const childChainManagerImpl = await ChildChainManager.at(mockValues.eth.childChainManagerProxy);
+    // const rootChainManager = await RootChainManager.at(mockValues.eth.rootChainManager);
+    // const childChainManager = await ChildChainManager.at(mockValues.eth.childChainManager);
     //
-    // const registerPredicateErc20 = await rootChainManagerImpl.registerPredicate(
+    // const registerPredicateErc20 = await rootChainManager.registerPredicate(
     //     mockValues.erc20Type,
     //     mockValues.eth.predicateErc20
     // );
     // console.log('Register predicate: ', registerPredicateErc20)
     //
-    // const rootMap = await rootChainManagerImpl.mapToken(
+    // const rootMap = await rootChainManager.mapToken(
     //     mockValues.erc20Type,
     //     mockValues.eth.rootTokenErc20,
     //     mockValues.bsc.chainId,
@@ -20,7 +20,7 @@ module.exports = async function (deployer) {
     // console.log('Root map: ', rootMap)
     //
     //
-    // const childMap = await childChainManagerImpl.mapToken(
+    // const childMap = await childChainManager.mapToken(
     //     mockValues.eth.bnbWrapToken,
     //     mockValues.bsc.chainId,
     //     mockValues.bsc.rootTokenErc20
