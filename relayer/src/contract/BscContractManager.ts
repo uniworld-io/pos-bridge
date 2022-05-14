@@ -1,6 +1,6 @@
 import Web3 from "web3";
 import {Contract} from "web3-eth-contract";
-import {CHAIN} from "../config/ConfigEnv";
+import {CHAIN, RELAYER} from "../config/ConfigEnv";
 import {IContractManager} from "./IContractManager";
 
 const BSC = CHAIN.BSC;
@@ -12,7 +12,6 @@ export class BscContractManager implements IContractManager{
 
     constructor(connector: Web3) {
         this.connector = connector;
-        connector.eth.accounts.wallet.add('23e2eae41fca0f33e0fd3c1b901b1b114e75af8664fc6d88f18e48153a67aae0');
 
         const childMng = BSC.CHILD_MANAGER;
         this.childMngContract = new connector.eth.Contract(childMng.ABI, childMng.ADDRESS);

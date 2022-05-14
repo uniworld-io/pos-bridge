@@ -8,7 +8,7 @@ const ChildChainManager = artifacts.require("ChildChainManager");
 const WETHToken = artifacts.require("WETHToken");
 
 module.exports = async function (deployer) {
-    // // root
+    // root
     // const instanceRoot = await deployProxy(RootChainManager,
     //     [
     //         mockValues.consensusRate,

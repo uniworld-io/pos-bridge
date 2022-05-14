@@ -8,33 +8,33 @@ const Web3 = require('web3')
 const WBNBToken = artifacts.require('WBNBToken')
 
 module.exports = async function (deployer) {
-    // const erc20Token = await RootTokenERC20.at(mockValues.bsc.rootTokenErc20);
-    // const rootChainManager = await RootChainManager.at(mockValues.bsc.rootChainManagerProxy);
-    //
-    // const mint = await erc20Token.deposit({
-    //     value: 1000,
-    //     from: mockValues.accounts[3]
-    // })
-    // console.log('Min token: ', mint);
-    //
-    //
-    // const approve = await erc20Token.approve(
-    //     mockValues.bsc.predicateErc20,
-    //     mockValues.amounts[0],
-    //     {
-    //         from: mockValues.accounts[3]
-    //     });
-    // console.log('Approve for predicate: ', approve.tx);
-    //
-    //
-    // const deposit = await rootChainManager.depositFor(
-    //     mockValues.accounts[3],
-    //     mockValues.bsc.rootTokenErc20,
-    //     mockValues.eth.chainId,
-    //     abi.encode(['uint256'], [mockValues.amounts[0]]), {
-    //         from: mockValues.accounts[3]
-    //     })
-    // console.log('RootChainManager deposit result: ', deposit)
+    const erc20Token = await RootTokenERC20.at(mockValues.bsc.rootTokenErc20);
+    const rootChainManager = await RootChainManager.at(mockValues.bsc.rootChainManagerProxy);
+
+    const mint = await erc20Token.deposit({
+        value: 1000,
+        from: mockValues.accounts[3]
+    })
+    console.log('Min token: ', mint);
+
+
+    const approve = await erc20Token.approve(
+        mockValues.bsc.predicateErc20,
+        mockValues.amounts[0],
+        {
+            from: mockValues.accounts[3]
+        });
+    console.log('Approve for predicate: ', approve.tx);
+
+
+    const deposit = await rootChainManager.depositFor(
+        mockValues.accounts[3],
+        mockValues.bsc.rootTokenErc20,
+        mockValues.eth.chainId,
+        abi.encode(['uint256'], [mockValues.amounts[0]]), {
+            from: mockValues.accounts[3]
+        })
+    console.log('RootChainManager deposit result: ', deposit)
 
 
     // const erc20Token = await RootTokenERC20.at(mockValues.eth.rootTokenErc20);

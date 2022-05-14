@@ -58,6 +58,7 @@ export const CHAIN = {
     UNI: {
         ID: Number(process.env.UNI_CHAIN_ID),
         CHAIN_HOST: process.env.UNI_CHAIN_HOST as string,
+        CHAIN_RELAY: process.env.UNI_CHAIN_RELAY as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.UNI_CHILD_MANAGER_PROXY as string,
             ABI: childMngAbi as any
@@ -67,7 +68,17 @@ export const CHAIN = {
             ABI: rootMngAbi as any
         },
         DEPOSIT_EXEC_PATH: '/wallet/posbridgedepositexec',
-        WITHDRAW_EXEC_PATH: '/wallet/posbridgewithdrawexec'
+        WITHDRAW_EXEC_PATH: '/wallet/posbridgewithdrawexec',
 
+        TEST:{
+            privateKey: '966acb704ec6a830e0a8acc91cb0ac943b0a90f0f72cbc2c42966a3872a9cdf0',
+            paths: {
+                setup: '/wallet/posbridgesetup',
+                deposit: '/wallet/posbridgedeposit',
+                withdraw: '/wallet/posbridgewithdraw',
+                mapToken: '/wallet/posbridgemaptoken',
+                unmapToken: '/wallet/posbridgeunmaptoken',
+            }
+        }
     }
 }

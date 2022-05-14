@@ -13,6 +13,7 @@ export class EthContractManager implements IContractManager{
 
     constructor(connector: Web3) {
         this.connector = connector;
+
         const childMng = ETH.CHILD_MANAGER;
         this.childMngContract = new connector.eth.Contract(childMng.ABI, childMng.ADDRESS);
 

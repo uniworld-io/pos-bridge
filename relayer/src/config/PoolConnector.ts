@@ -18,6 +18,7 @@ class PoolConnector{
 
         this.uniChainConnector = new UniChain({
             fullHost: CHAIN.UNI.CHAIN_HOST,
+            solidityNode: CHAIN.UNI.CHAIN_RELAY,
             privateKey: RELAYER.PRIVATE_KEY
         });
 
@@ -30,4 +31,4 @@ class PoolConnector{
     }
 }
 
-export const POOL_CONNECTOR = new PoolConnector();
+export const poolConnector = new PoolConnector();
