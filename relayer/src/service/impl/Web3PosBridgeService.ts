@@ -17,7 +17,7 @@ export class Web3PosBridgeService implements PosBridgeService{
     public async depositExec(verification: GroupVerification): Promise<any> {
         const contract = this.manager.getChild() as Contract;
         console.log('GroupVerification: ', verification)
-        contract.methods.depositExecuted(verification.msg, verification.signatures)
+        contract.methods.depositExecuted(verification.message, verification.signatures)
             .send(TRANSACTION.OPTIONS)
             .then((result: any) => logger.info('Result call: %s', result))
             .catch((error: any) => logger.error('Error call: %s', error))
@@ -26,7 +26,7 @@ export class Web3PosBridgeService implements PosBridgeService{
     public async withdrawExec(verification: GroupVerification): Promise<any> {
         const contract = this.manager.getRoot() as Contract;
         console.log("GroupVerification WithdrawExec: ", verification);
-        contract.methods.withdrawExecuted(verification.msg, verification.signatures)
+        contract.methods.withdrawExecuted(verification.message, verification.signatures)
             .send(TRANSACTION.OPTIONS)
             .then((result: any) => logger.info('Result call: %s', result))
             .catch((error: any) => logger.error('Error call: %s', error))

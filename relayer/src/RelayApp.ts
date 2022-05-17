@@ -6,4 +6,3 @@ const job = new CallContractSchedule();
 job.start();
 
 App.listen(SERVER.PORT, () => console.log('Relay app running with port', SERVER.PORT));
-

@@ -4,39 +4,56 @@ const childRPC = 'http://18.141.168.229:4242';
 const mockValues = {
 
     bsc:{
-        chainId: 9797,
+        chainId: 97,
 
-        rootTokenErc20: '0xAc2A4389Ead87041482f83A5025f8219F9516dB8',
-        predicateErc20: '0x6BC429a08A3dc51eC57210A809e58A1af7931B37',
-        rootChainManager: '0x1CF7312e1046c4ff91dF07abAd889b67a3c2a31C',
-        rootChainManagerProxy: '0x1CF7312e1046c4ff91dF07abAd889b67a3c2a31C',
+        rootTokenErc20: '0xe45E7368FA8Ca77F98291534C93d073E5aa73769',
+        predicateErc20: '0x4f7c7D517eE156e04b25Cf310DCD42ED8886Ae51',
+        rootChainManager: '0xb639167bd7DFA0aD783bb4a3F57DFB656e2da171',
+        rootChainManagerProxy: '0xb639167bd7DFA0aD783bb4a3F57DFB656e2da171',
 
-        childChainManagerProxy: '0x716c5D9DC784e4A9FC3E32fAE8315B8adf9b01DB',
-        childChainManager: '0x237C70105Ce27B34dFC5Bc4733044cabBF189917',
-        ethWrapToken: '0xABFFe48eEa6BE6f66fbd01BD78ba52220A4E6F6f',
+        childChainManagerProxy: '0x8b4BbCBf113e26B9faF62386567fdFcbe93B7bA7',
+        childChainManager: '0x8b4BbCBf113e26B9faF62386567fdFcbe93B7bA7',
+        ethWrapToken: '0x3092532b7Ec583bd9CA88F12Bcf9A33475028995',
+        uniWrapToken: '0x75C7Df0CF14eD170d1166f6a065Ab816C1c8eB8C',
     },
 
     eth:{
-        chainId: 4242,
+        chainId: 42,
+
+        rootTokenErc20: '0x12C1f59c3Fe0Bbe0f0248a4c3B0D2D9fA5C9b069',
+        predicateErc20: '0x4bEeEcADa4D0077Cce370Fa90751F13DCDB49aC0',
+        rootChainManager: '0x17d0eFb21Aa057EA3fF45336F8923C0007a4E592',
+        rootChainManagerProxy: '0x17d0eFb21Aa057EA3fF45336F8923C0007a4E592',
+
+        childChainManagerProxy: '0xA51af17357788d8Dd85bbC20206801D90284B184',
+        childChainManager: '0xA51af17357788d8Dd85bbC20206801D90284B184',
+        bnbWrapToken: '0xA06E4509d594422D36832f8aaa6B575504d710F1',
+        uniWrapToken: '0xb639167bd7DFA0aD783bb4a3F57DFB656e2da171',
+
+    },
+    uni:{
+        chainId: 68,
 
         rootTokenErc20: '0x88D5C2d73cF34D3244f797722bD4F7c15F264410',
-        predicateErc20: '0x3fe2546d4B785013951bA610BF657177Edb1564A',
-        rootChainManager: '0x716c5D9DC784e4A9FC3E32fAE8315B8adf9b01DB',
-        rootChainManagerProxy: '0xA17aCA91241efA4fF55DC772D5D1eEDA9E6CE2D1',
+        tokenNative: '0x16748f8d05163e917388fa79050bafe5a30faa2f',
 
-        childChainManagerProxy: '0xeDa9995fBb82ED221e43e87adf561DA2798cB4F6',
-        childChainManager: '0xeDa9995fBb82ED221e43e87adf561DA2798cB4F6',
-        bnbWrapToken: '0x79Aa45e8Ef1419Be485c906eC327eA0ED1B6274C',
+        predicateErc20: '0x44e3cc20e8ed7024b382942f55084c97885af3ddac',
+        predicateErc721: '0x44d1cc7d4af6b7a4df3f34396406f8fce2333627eb',
+        predicateNative: '0x44b4d72725cd653156208a1c21dfb43463e555a0e2',
+
+        bnbWrapToken: '0xc24c477786d49f148dd5bcac8107cc79bf0f9c36',
+        ethWrapToken: '0x79Aa45e8Ef1419Be485c906eC327eA0ED1B6274C',
+        admin: '0x44FFF11519410945baAe942B9b8dA46eb1aECf7897',
     },
 
     consensusRate: 50,
     minValidators: 1,
 
     accounts:[
-        '0xd5ef7a24bd2aa0872b16278017f4d1258b1c3deb',
-        '0x672b8515E5B5baFf4a5C51a0482eeac5baa9e457',
         '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb',
-        '0x3ca8b76a67Aa25482dCd70cAbfc05561f8F67fd3',
+        '0x672b8515E5B5baFf4a5C51a0482eeac5baa9e457',
+        '0x1eABA7D736f85D723730f71c2D9322c1c82be0eB',
+        '0x4B58913337d93BE4755072E3d0F45Ca942E11751',
     ],
 
     validators:[

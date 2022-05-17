@@ -13,6 +13,7 @@ import "../../common/SignaturesValidator.sol";
 contract ChildChainManager is IChildChainManager, AccessControlUni, Initializable, SignaturesValidator {
     mapping(uint32 => mapping(address => address)) public rootToChildToken;
     mapping(address => address) public childToRootToken;
+    mapping(address => uint32) public rootToChainId;
     uint32 public childChainId;
 
     event WithdrawExecuted(uint32 childChainId, uint32 rootChainId, address childToken, address burner, address withdrawer, bytes value);
@@ -46,6 +47,7 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
 
         rootToChildToken[rootChainId][rootToken] = childToken;
         childToRootToken[childToken] = rootToken;
+        rootToChainId[rootToken] = rootChainId;
 
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken);
     }
@@ -53,12 +55,16 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
     function unmapToken(address childToken, uint32 rootChainId, address rootToken) override external {
         rootToChildToken[rootChainId][rootToken] = address(0);
         childToRootToken[childToken] = address(0);
+        rootToChainId[rootToken] = 0;
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken);
     }
 
-    function withdraw(address withdrawer, address childToken, uint32 rootChainId, bytes calldata withdrawData) override external {
-        require(childToRootToken[childToken] != address(0), "ChildChainManager: TOKEN_NOT_MAPPED");
-        IChildToken(childToken).withdraw(withdrawer, withdrawData);
+    function withdraw(address withdrawer, address childToken, bytes calldata withdrawData) override external {
+        address rootToken = childToRootToken[childToken];
+        uint32 rootChainId = rootToChainId[rootToken];
+        require(rootToken != address(0) && rootChainId != 0, "ChildChainManager: ROOT_CHAIN_NOT_MAPPED");
+
+        IChildToken(childToken).withdraw(_msgSender(), withdrawData);
         emit WithdrawExecuted(childChainId, rootChainId, childToken, _msgSender(), withdrawer, withdrawData);
     }
 

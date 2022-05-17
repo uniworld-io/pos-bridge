@@ -59,8 +59,8 @@ export const CHAIN = {
             }
         },
         SUBSCRIBE:{
-            deposit: 'TokenCreate',
-            withdraw: 'TokenCreate',
+            deposit: 'PosBridgeDepositExecuted',
+            withdraw: 'PosBridgeWithdrawExecuted',
             path: `/event/native`,
             confirm: true,
             sort: 'timestamp',

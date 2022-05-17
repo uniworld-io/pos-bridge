@@ -6,9 +6,10 @@ const {deployProxy, upgradeProxy} = require('@openzeppelin/truffle-upgrades')
 
 const ChildChainManager = artifacts.require("ChildChainManager");
 const WETHToken = artifacts.require("WETHToken");
+const WUNWToken = artifacts.require("WUNWToken");
 
 module.exports = async function (deployer) {
-    // root
+    // // root
     // const instanceRoot = await deployProxy(RootChainManager,
     //     [
     //         mockValues.consensusRate,
@@ -43,14 +44,18 @@ module.exports = async function (deployer) {
     //     });
     //
     // await deployer.deploy(WETHToken, instanceChild.address);
-    // const wrapToken = await WETHToken.deployed();
+    // const weth = await WETHToken.deployed();
+    //
+    // await deployer.deploy(WUNWToken, instanceChild.address);
+    // const wunw = await WUNWToken.deployed();
     //
     //
-    // console.log('network', deployer.network);
     // console.log("RootTokenERC20:", rootTokenERC20.address);
     // console.log("Erc20Predicate address:", instanceERC20Pre.address);
     // console.log("RootManager address:", instanceRoot.address);
     // console.log("ChildChain address:", instanceChild.address);
-    // console.log("WrapToken address:", wrapToken.address);
+    // console.log("WETH address:", weth.address);
+    // console.log("WUNW address:", wunw.address);
+
 
 };
