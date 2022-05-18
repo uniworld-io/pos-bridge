@@ -12,7 +12,7 @@ const mockValues = {
         },
         token: {
             native: '0x000000000000000000000000000000000000dEaD',
-            wunw: '0xBA40c0B27017e60050dD4A9D3Eadef5736B634f7',
+            wunw: '0x58Bd5ef524DD583Be25bea5251df558197D469F0',
             weth: '0x99Be24b8D22D79e945792D2942816dd52969f9C2'
         },
         manager: {

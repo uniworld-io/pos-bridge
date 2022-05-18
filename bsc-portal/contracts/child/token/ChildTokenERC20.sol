@@ -11,6 +11,7 @@ contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable 
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
+    uint8 private _decimals;
 
     constructor(
         string memory name_,
@@ -19,7 +20,7 @@ contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable 
         address childChainManager
     ) public ERC20(name_, symbol_) {
         _setupContractId("ChildERC20");
-//        _setupDecimals(decimals_);
+        _decimals = decimals_;
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(MINTER_ROLE, childChainManager);
         _setupRole(BURNER_ROLE, childChainManager);
@@ -35,5 +36,9 @@ contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable 
         _burn(user, amount);
     }
 
+
+    function decimals() public view virtual override returns (uint8) {
+        return _decimals;
+    }
 
 }

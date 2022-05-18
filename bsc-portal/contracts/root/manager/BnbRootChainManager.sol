@@ -11,7 +11,7 @@ import "../../common/SignaturesValidator.sol";
 import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
 import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 
-contract RootChainManager is IRootChainManager, AccessControlUni, Initializable, SignaturesValidator {
+contract BnbRootChainManager is IRootChainManager, AccessControlUni, Initializable, SignaturesValidator {
     mapping(address => address) public rootToChildToken;
     mapping(uint32 => mapping(address => address)) public childToRootToken;
     mapping(bytes32 => address) public typeToPredicate;

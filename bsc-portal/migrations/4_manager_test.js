@@ -25,16 +25,16 @@ module.exports = async function (deployer) {
 
 
     //Withdraw WUNW to UNW
-    const childChainManager = await ChildChainManager.at(mockValues.bsc.manager.child_proxy);
-    const withdraw = await childChainManager.withdraw(
-        mockValues.accounts[3],
-        mockValues.bsc.token.wunw,
-        "0x00000000000000000000000000000000000000000000000000000000000003e8",
-        {
-            from: mockValues.accounts[3]
-        }
-    )
-    console.log("Result withdraw: ", withdraw);
+    // const childChainManager = await ChildChainManager.at(mockValues.bsc.manager.child_proxy);
+    // const withdraw = await childChainManager.withdraw(
+    //     mockValues.accounts[3],
+    //     mockValues.bsc.token.wunw,
+    //     "0x00000000000000000000000000000000000000000000000000000000000003e8",
+    //     {
+    //         from: mockValues.accounts[3]
+    //     }
+    // )
+    // console.log("Result withdraw: ", withdraw);
 
 
 
