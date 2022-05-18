@@ -30,6 +30,8 @@ export class UniEventListener implements IEventListener {
 
     listenEventDeposit(filter: any): void {
         const subscribe = CHAIN.UNI.SUBSCRIBE;
+        console.log(subscribe)
+
         this.subscribe(subscribe.deposit, subscribe.confirm, subscribe.since, subscribe.sort, (data: any) => {
             if (!data || !data.length)
                 return
@@ -42,6 +44,7 @@ export class UniEventListener implements IEventListener {
 
     listenEventWithdraw(filter: any): void {
         const subscribe = CHAIN.UNI.SUBSCRIBE;
+        console.log(subscribe)
         this.subscribe(subscribe.withdraw, subscribe.confirm, subscribe.since, subscribe.sort, (data: any) => {
             if (!data || !data.length)
                 return
@@ -58,13 +61,14 @@ export class UniEventListener implements IEventListener {
     }
 
     private subscribe(topic: any, confirm: boolean = true, since: number = Date.now(), sort: string = 'timeStamp', cb: any): void {
-        const timer = since
         setInterval(async () => {
             try {
-                const sinceNow = timer + 3000
-                console.log('SinceNow', new Date(sinceNow).toISOString());
-                const params = `?topic=${topic}&confirmed=${confirm}&since=${sinceNow}&sort=${sort}`;
-                const resp = await axios.get(CHAIN.UNI.EVENT_HOST + CHAIN.UNI.SUBSCRIBE.path + params)
+                const timer = Date.now() - 3000;
+                console.log('SinceNow', new Date(timer).toISOString());
+                const params = `?topic=${topic}&confirmed=${confirm}&since=${timer}&sort=${sort}`;
+                const url = CHAIN.UNI.EVENT_HOST + CHAIN.UNI.SUBSCRIBE.path + params;
+                console.log(url)
+                const resp = await axios.get(url)
                 cb(resp.data);
             } catch (e) {
                 console.log('Listen event fail: ', e)

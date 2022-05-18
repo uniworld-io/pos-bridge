@@ -5,7 +5,7 @@ import {UniEventResult} from "./UniEventResult";
 export class EventStandardization{
     constructor(public txHash: string,
                 public blockNumber: number,
-                public contract: string,
+                public contract: string | undefined,
                 public values: any,
                 public eventName: string) {
     }
@@ -23,10 +23,10 @@ export class EventStandardization{
     public static fromUni(data: UniEventResult): EventStandardization{
 
         return new EventStandardization(
-            data.transaction,
-            data.block,
-            data.contract,
-            data.result,
-            data.name);
+            data.transactionId,
+            data.blockNumber,
+            undefined,
+            JSON.parse(data.rawData),
+            data.topic);
     }
 }

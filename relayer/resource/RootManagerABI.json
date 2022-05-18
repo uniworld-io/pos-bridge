@@ -35,7 +35,7 @@
       {
         "indexed": false,
         "internalType": "bytes",
-        "name": "value",
+        "name": "depositData",
         "type": "bytes"
       }
     ],
@@ -191,6 +191,20 @@
     ],
     "name": "ValidatorChanged",
     "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "BNB_ADDRESS",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -562,6 +576,11 @@
     "constant": true
   },
   {
+    "stateMutability": "payable",
+    "type": "receive",
+    "payable": true
+  },
+  {
     "inputs": [
       {
         "internalType": "uint8",
@@ -644,6 +663,25 @@
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32",
+        "name": "childChainId",
+        "type": "uint32"
+      }
+    ],
+    "name": "depositNativeFor",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [

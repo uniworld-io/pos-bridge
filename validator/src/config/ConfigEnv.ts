@@ -59,10 +59,10 @@ export const CHAIN = {
             }
         },
         SUBSCRIBE:{
-            deposit: 'PosBridgeDepositExecuted',
-            withdraw: 'PosBridgeWithdrawExecuted',
+            deposit: process.env.UNI_EVENT_SUBSCRIBE_DEPOSIT_EXEC as string,
+            withdraw: process.env.UNI_EVENT_SUBSCRIBE_WITHDRAW_EXEC as string,
             path: `/event/native`,
-            confirm: true,
+            confirm:  JSON.parse(process.env.UNI_EVENT_SUBSCRIBE_COMFIRM as string),
             sort: 'timestamp',
             since: Date.now()
         }

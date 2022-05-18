@@ -16,7 +16,7 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
     mapping(address => uint32) public rootToChainId;
     uint32 public childChainId;
 
-    event WithdrawExecuted(uint32 childChainId, uint32 rootChainId, address childToken, address burner, address withdrawer, bytes value);
+    event WithdrawExecuted(uint32 childChainId, uint32 rootChainId, address childToken, address burner, address withdrawer, bytes withdrawData);
 
 
     function initialize(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_, uint32 chainId_, address _owner) external initializer {
@@ -79,8 +79,7 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
         address childToken = rootToChildToken[rootChainId][rootToken];
         require(childToken != address(0), "ChildChainManager: TOKEN_NOT_MAPPED");
 
-        IChildToken childContract = IChildToken(childToken);
-        childContract.deposit(user, depositData);
+        IChildToken(childToken).deposit(user, depositData);
     }
 
     function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_)

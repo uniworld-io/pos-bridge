@@ -1,13 +1,15 @@
 
 export class UniEventResult{
-    constructor(public block: number,
+    constructor(public id: string,
                 public timestamp: number,
-                public contract: string,
-                public name: string,
-                public transaction: string,
-                public result: any,
-                public resourceNode: string,
-                public unconfirmed: string,
-                public fingerprint: string) {
+                public blockHash: string,
+                public blockNumber: number,
+                public latestSolidifiedBlockNumber: string,
+                public transactionId: string,
+                public index: number,
+                public contractType: string,
+                public topic: string,
+                public signature: string,
+                public rawData: any) {
     }
 }

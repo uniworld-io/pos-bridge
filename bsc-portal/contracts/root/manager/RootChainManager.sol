@@ -8,6 +8,8 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "../predicate/ITokenPredicate.sol";
 import "../../common/AccessControlUni.sol";
 import "../../common/SignaturesValidator.sol";
+import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 
 contract RootChainManager is IRootChainManager, AccessControlUni, Initializable, SignaturesValidator {
     mapping(address => address) public rootToChildToken;
@@ -19,8 +21,9 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
 
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
     bytes32 public constant MAPPER_ROLE = keccak256("MAPPER_ROLE");
+    address public constant BNB_ADDRESS = 0x000000000000000000000000000000000000dEaD;
 
-    event DepositExecuted(uint32 rootChainId, uint32 childChainId, address rootToken, address depositor, address receiver, bytes value);
+    event DepositExecuted(uint32 rootChainId, uint32 childChainId, address rootToken, address depositor, address receiver, bytes depositData);
     event PredicateRegistered(bytes32 tokenType, address tokenAddress);
     event ValidatorChanged(address validator, bytes data);
 
@@ -33,6 +36,14 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         minValidator = minValidator_;
         validators = validators_;
         _setupContractId("RootChainManager");
+    }
+
+    /**
+   * @notice Deposit ether by directly sending to the contract
+     * The account sending ether receives WBNB on child chain
+     */
+    receive() external payable {
+        typeToPredicate[tokenToType[BNB_ADDRESS]].call{value: msg.value}("");
     }
 
     function mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) override external only(MAPPER_ROLE) {
@@ -62,6 +73,24 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
 
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken, tokenToType[rootToken]);
     }
+
+    function depositNativeFor(address receiver, uint32 childChainId) external payable{
+        _depositNativeFor(receiver, childChainId);
+    }
+
+
+    function _depositNativeFor(address receiver, uint32 childChainId) private {
+        // payable(typeToPredicate[tokenToType[BNB_ADDRESS]]).transfer(msg.value);
+        // transfer doesn't work as expected when receiving contract is proxified so using call
+        (bool success, /* bytes memory data */) = typeToPredicate[tokenToType[BNB_ADDRESS]].call{value: msg.value}("");
+        if (success) {
+            bytes memory depositData = abi.encode(msg.value);
+            _depositFor(receiver, BNB_ADDRESS, childChainId, depositData);
+        }else{
+            revert("RootChainManager: BNB_TRANSFER_FAILED");
+        }
+    }
+
 
     function depositFor(address receiver, address rootToken, uint32 childChainId, bytes calldata depositData) override external{
         _depositFor(receiver, rootToken, childChainId, depositData);
@@ -96,7 +125,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
         require(rootToken != address(0x0) && tokenType != 0, "RootChainManager: Token not mapped");
 
         address predicateAddress = typeToPredicate[tokenType];
-        require(predicateAddress != address(0), "RootChainManager: Invalid token type");
+        require(predicateAddress != address(0), "RootChainManager: Not found predicate");
 
         ITokenPredicate(predicateAddress).unlockTokens(withdrawer, rootToken, withdrawData);
     }

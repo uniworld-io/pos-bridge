@@ -5,68 +5,44 @@ const RootTokenERC20 = artifacts.require("RootTokenERC20");
 const abi = defaultAbiCoder;
 const EthCrypto = require('eth-crypto');
 const Web3 = require('web3')
-const {ChildChainManager} = require("../test/helpers/contracts");
+const ChildChainManager = artifacts.require("ChildChainManager");
+const {createTransactionResult} = require("truffle-assertions");
 const WBNBToken = artifacts.require('WBNBToken')
+const WUNWToken = artifacts.require('WUNWToken')
 
 module.exports = async function (deployer) {
-    // const erc20Token = await RootTokenERC20.at(mockValues.bsc.rootTokenErc20);
-    // const rootChainManager = await RootChainManager.at(mockValues.bsc.rootChainManagerProxy);
-    //
-    // const mint = await erc20Token.deposit({
-    //     value: 1000,
-    //     from: mockValues.accounts[2]
-    // })
-    // console.log('Min token: ', mint);
-    //
-    //
-    // const approve = await erc20Token.approve(
-    //     mockValues.bsc.predicateErc20,
-    //     mockValues.amounts[0],
-    //     {
-    //         from: mockValues.accounts[2]
-    //     });
-    // console.log('Approve for predicate: ', approve.tx);
-    //
-    //
-    // const deposit = await rootChainManager.depositFor(
+    //Deposit BNB to WBNB
+    // const rootChainManager = await RootChainManager.at(mockValues.bsc.manager.root_proxy);
+    // const depositBnb = await rootChainManager.depositNativeFor(
     //     mockValues.accounts[3],
-    //     mockValues.bsc.rootTokenErc20,
     //     mockValues.uni.chainId,
-    //     abi.encode(['uint256'], [mockValues.amounts[0]]), {
-    //         from: mockValues.accounts[2]
-    //     })
-    // console.log('RootChainManager deposit result: ', deposit)
-
-
-
-    // const erc20Token = await RootTokenERC20.at(mockValues.eth.rootTokenErc20);
-    // const rootChainManager = await RootChainManager.at(mockValues.eth.rootChainManagerProxy);
-    //
-    // const mint = await erc20Token.deposit({
-    //     value: 1000,
-    //     from: mockValues.accounts[3]
-    // })
-    // console.log('Min token: ', mint);
-    //
-    //
-    // const approve = await erc20Token.approve(
-    //     mockValues.eth.predicateErc20,
-    //     mockValues.amounts[0],
     //     {
-    //         from: mockValues.accounts[3]
-    //     });
-    // console.log('Approve for predicate: ', approve.tx);
-    //
-    //
-    // const deposit = await rootChainManager.depositFor(
-    //     mockValues.accounts[3],
-    //     mockValues.eth.rootTokenErc20,
-    //     mockValues.bsc.chainId,
-    //     abi.encode(['uint256'], [mockValues.amounts[0]]),
-    //     {
-    //         from: mockValues.accounts[3]
-    //     })
-    // console.log('RootChainManager deposit result: ', deposit)
-    //
+    //         from: mockValues.accounts[3],
+    //         value: 1000
+    //     }
+    // )
+    // console.log("Result deposit: ", depositBnb);
+
+
+    //Withdraw WUNW to UNW
+    const childChainManager = await ChildChainManager.at(mockValues.bsc.manager.child_proxy);
+    const withdraw = await childChainManager.withdraw(
+        mockValues.accounts[3],
+        mockValues.bsc.token.wunw,
+        "0x00000000000000000000000000000000000000000000000000000000000003e8",
+        {
+            from: mockValues.accounts[3]
+        }
+    )
+    console.log("Result withdraw: ", withdraw);
+
+
+
+
+    //Show WUNW
+    // const wunw = await WUNWToken.at(mockValues.bsc.token.wunw);
+    // const blanceOfAcc2 = await wunw.balanceOf(mockValues.accounts[3]);
+    // console.log(blanceOfAcc2)
+
 
 };

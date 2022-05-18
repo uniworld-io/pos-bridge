@@ -8,6 +8,8 @@ interface IRootChainManager {
 
     function unmapToken(address rootToken, uint32 childChainId, address childToken) external;
 
+    function depositNativeFor(address receiver, uint32 childChainId) external payable;
+
     function depositFor(address receiver, address rootToken, uint32 childChainId, bytes calldata depositData) external;
 
     function registerPredicate(bytes32 tokenType, address predicateAddress) external;
