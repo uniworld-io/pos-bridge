@@ -11,10 +11,6 @@ contract ERC1155Predicate is ITokenPredicate, AccessControlUni, Initializable {
 
     bytes32 public constant TOKEN_TYPE = keccak256("ERC1155");
 
-    event LockedBatchERC1155(address indexed depositor, address indexed rootToken, uint256[] ids, uint256[] amounts);
-
-    event UnlockERC1155(address indexed withdrawer, address indexed rootToken, uint256[] ids, uint256[] amounts);
-
     function initialize(address _owner) external initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(MANAGER_ROLE, _owner);
@@ -29,7 +25,6 @@ contract ERC1155Predicate is ITokenPredicate, AccessControlUni, Initializable {
         ) = abi.decode(depositData, (uint256[], uint256[], bytes));
 
         IERC1155(rootToken).safeBatchTransferFrom(depositor, address(this), ids, amounts, data);
-        emit LockedBatchERC1155(depositor, rootToken, ids, amounts);
     }
 
     function unlockTokens(address withdrawer, address rootToken, bytes calldata data)
@@ -39,9 +34,6 @@ contract ERC1155Predicate is ITokenPredicate, AccessControlUni, Initializable {
             uint256[] memory amounts
         ) = abi.decode(data, (uint256[], uint256[]));
 
-        IERC1155(rootToken).safeBatchTransferFrom(address(this), withdrawer, ids, amounts, bytes("")
-        );
-
-        emit UnlockERC1155(withdrawer, rootToken, ids, amounts);
+        IERC1155(rootToken).safeBatchTransferFrom(address(this), withdrawer, ids, amounts, bytes(""));
     }
 }

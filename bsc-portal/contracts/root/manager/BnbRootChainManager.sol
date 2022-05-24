@@ -24,6 +24,7 @@ contract BnbRootChainManager is IRootChainManager, AccessControlUni, Initializab
     address public constant BNB_ADDRESS = 0x000000000000000000000000000000000000dEaD;
 
     event DepositExecuted(uint32 rootChainId, uint32 childChainId, address rootToken, address depositor, address receiver, bytes depositData);
+
     event PredicateRegistered(bytes32 tokenType, address tokenAddress);
     event ValidatorChanged(address validator, bytes data);
 
@@ -43,7 +44,7 @@ contract BnbRootChainManager is IRootChainManager, AccessControlUni, Initializab
      * The account sending ether receives WBNB on child chain
      */
     receive() external payable {
-        typeToPredicate[tokenToType[BNB_ADDRESS]].call{value: msg.value}("");
+        _msgSender().call{value: msg.value}("");
     }
 
     function mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) override external only(MAPPER_ROLE) {

@@ -43,7 +43,7 @@ contract EthRootChainManager is IRootChainManager, AccessControlUni, Initializab
      * The account sending ether receives WBNB on child chain
      */
     receive() external payable {
-        typeToPredicate[tokenToType[ETH_ADDRESS]].call{value: msg.value}("");
+        _msgSender().call{value: msg.value}("");
     }
 
     function mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) override external only(MAPPER_ROLE) {
