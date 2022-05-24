@@ -5,11 +5,12 @@ pragma solidity ^0.8.0;
 
 import "./ITokenPredicate.sol";
 import "../../common/AccessControlUni.sol";
+import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 
-contract ERC721Predicate is ITokenPredicate, AccessControlUni, Initializable {
+contract ERC721Predicate is ITokenPredicate, AccessControlUni, Initializable, IERC721Receiver {
 
     bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
 
@@ -23,11 +24,15 @@ contract ERC721Predicate is ITokenPredicate, AccessControlUni, Initializable {
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
     }
 
+    function onERC721Received(address, address, uint256, bytes calldata) external override returns (bytes4){
+        return IERC721Receiver.onERC721Received.selector;
+    }
+
 
     function lockTokens(address depositor, address rootToken, bytes calldata depositData)
     override external only(MANAGER_ROLE) {
         //@TODO batch later
-        uint256 tokenId = abi.decode(depositData, (uint256));
+        (uint256 tokenId,) = abi.decode(depositData, (uint256, string));
         IERC721(rootToken).safeTransferFrom(depositor, address(this), tokenId);
         emit LockedERC721(depositor, rootToken, tokenId);
     }

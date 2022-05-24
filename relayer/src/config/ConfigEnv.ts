@@ -20,14 +20,6 @@ export const RELAYER = {
     ACCOUNT: process.env.RELAYER_ADDRESS as string,
 }
 
-export const TRANSACTION = {
-    OPTIONS: {
-        from: RELAYER.ACCOUNT,
-        gas: 3000000,
-        gasPrice: 0
-    }
-}
-
 export const CHAIN = {
     ETH: {
         ID: Number(process.env.ETH_CHAIN_ID),

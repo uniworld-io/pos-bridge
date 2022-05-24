@@ -2,7 +2,6 @@ import {BscEventListener} from "./event/BscEventListener";
 import {ContractEventHandler} from "./hander/ContractEventHandler";
 import {EthEventListener} from "./event/EthEventListener";
 import {UniEventListener} from "./event/UniEventListener";
-import {Utils} from "./common/Utils";
 
 
 const contractEventHandler = new ContractEventHandler();

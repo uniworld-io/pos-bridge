@@ -3,19 +3,20 @@ import {RelayService} from "../service/RelayService";
 import {Verification} from "../entity/Verification";
 import {API} from "../config/ConfigEnv";
 import {UniPosBridgeService} from "../service/impl/UniPosBridgeService";
-import {UniDepositContract, UniSetupPosBridge, UniWithdrawContract} from "../entity/UniPosBridgeContract";
-import {UniMapToken} from "../entity/UniPosBridgeContract";
+import {UniDepositContract, UniMapToken, UniSetupPosBridge, UniWithdrawContract} from "../entity/UniPosBridgeContract";
 import {GroupVerification} from "../entity/GroupVerification";
 const relayService = new RelayService();
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}`})
 
 export const App = express();
+
 const bodyParser = require('body-parser');
 App.use(express.static(__dirname + '/public'));
 App.use(bodyParser.json());
 App.use(bodyParser.urlencoded({
     extended: false
 }));
+
 App.get(API.HOME, (req, res) => res.send('Relay application: hello'));
 
 App.post('/collect-verification', (req, res) => {
@@ -25,8 +26,6 @@ App.post('/collect-verification', (req, res) => {
     res.status(200).send('OK');
 });
 
-
-//test api
 const uniPosBridgeService = new UniPosBridgeService();
 
 App.post('/test/uni/setup', (req, res) => {
@@ -70,6 +69,8 @@ App.post('/test/uni/withdraw-exec', (req, res) => {
     const data = req.body as GroupVerification;
     uniPosBridgeService.withdrawExec(data).then(r => res.status(200).send(r));
 });
+
+
 
 
 

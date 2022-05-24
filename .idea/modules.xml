@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../Polygon/.idea/Polygon.iml" filepath="$PROJECT_DIR$/../Polygon/.idea/Polygon.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/pos-bridge.iml" filepath="$PROJECT_DIR$/.idea/pos-bridge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../posbrigde-swap/.idea/posbrigde-swap.iml" filepath="$PROJECT_DIR$/../posbrigde-swap/.idea/posbrigde-swap.iml" />
     </modules>
   </component>
 </project>

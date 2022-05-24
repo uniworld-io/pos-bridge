@@ -30,7 +30,7 @@ export class UniPosBridgeService implements PosBridgeService{
     }
 
     public async deposit(deposit: UniDepositContract): Promise<any> {
-        const privateKey = CHAIN.UNI.TEST.account1.privateKey;
+        const privateKey = CHAIN.UNI.TEST.account2.privateKey;
         deposit.owner_address = unichain.address.toHex(unichain.address.fromPrivateKey(privateKey));
         return this.createTransaction(CHAIN.UNI.TEST.paths.deposit, privateKey, deposit);
     }
@@ -73,7 +73,7 @@ export class UniPosBridgeService implements PosBridgeService{
             return result;
         } catch (e) {
             logger.error('Failure create transaction to UNI: %s', e)
-            return null;
+            return e;
         }
 
     }

@@ -8,12 +8,15 @@ const mockValues = {
         predicate: {
             native: '0x32444db7378c4A124536B592b0b93b4BAce2846f',
             erc20: '0x7F0E1F065811A7E58CbC9fa70300f131EFed6c06',
-            erc721: '0xA2853066f71e87dbE06d47A2E24BA04162bceCf3'
+            erc721: '0x497553045258B0CF735cdff64D640f864880f2bE'
         },
         token: {
             native: '0x000000000000000000000000000000000000dEaD',
             wunw: '0x58Bd5ef524DD583Be25bea5251df558197D469F0',
-            weth: '0x99Be24b8D22D79e945792D2942816dd52969f9C2'
+            weth: '0x99Be24b8D22D79e945792D2942816dd52969f9C2',
+
+            root_nft: '0x3fe2546d4B785013951bA610BF657177Edb1564A',
+            wunft: '0x07DE2d63131Fc8b0fF881Ea891D9fc8BbD94f3A5'
         },
         manager: {
             root_proxy: '0x11247CF68D548947e492c0412b399FC3E4560D7F',
@@ -32,6 +35,9 @@ const mockValues = {
         token: {
             native: '0x16748f8d05163e917388fa79050bafe5a30faa2f',
             wbnb: '0xc24c477786d49f148dd5bcac8107cc79bf0f9c36',
+
+            root_nft: '0x6a1352002a49983dea9a3c4d9b543908d03c0e1c',
+            wbnft: '0x16fed11bd296e0398fef759f3e4f40831bae782d'
         },
 
         manager: {
