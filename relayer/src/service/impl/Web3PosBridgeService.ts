@@ -3,7 +3,6 @@ import {Contract} from "web3-eth-contract";
 import {GroupVerification} from "../../entity/GroupVerification";
 import {IContractManager} from "../../contract/IContractManager";
 import {PosBridgeService} from "../PosBridgeService";
-import Web3 from "web3";
 
 
 const logger = require('../../common/Logger');
