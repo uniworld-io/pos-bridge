@@ -16,6 +16,7 @@
  * public/private key pairs. If you're publishing your code to GitHub make sure you load this
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
+ * migrate --network mainnet
  */
 
 // move the config here
@@ -72,7 +73,7 @@ module.exports = {
             timeoutBlocks: 200,
             skipDryRun: true
         },
-        bscunitestnet: {
+        bscdev: {
             provider: () => new HDWalletProvider(privateKeys, `http://18.141.168.229:9797`),
             host: '18.141.168.229',
             port: 9797,
@@ -80,7 +81,7 @@ module.exports = {
             from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
 
         },
-        ethunitestnet: {
+        ethdev: {
             provider: () => new HDWalletProvider(privateKeys, `http://18.141.168.229:4242`),
             network_id: 4242,
             host: '18.141.168.229',
