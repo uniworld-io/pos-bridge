@@ -1,40 +1,38 @@
-//
-//pragma solidity ^0.8.0;
-//
-//abstract contract Proxy{
-//
-//    //@TODO
-//    function _delegated(address _impl) internal {
-//
-//        assembly {
-//            let ptr := mload(0x40)
-//
-//        // (1) copy incoming call data
-//            calldatacopy(ptr, 0, calldatasize())
-//
-//        // (2) forward call to logic contract
-//            let result := delegatecall(gas, _impl, ptr, calldatasize(), 0, 0)
-//            let size := returndatasize()
-//
-//        // (3) retrieve return data
-//            returndatacopy(ptr, 0, size)
-//
-//        // (4) forward return data back to caller
-//            switch result
-//            case 0 { revert(ptr, size) }
-//            default { return(ptr, size) }
-//        }
-//    }
-//
-//    fallback() external payable {
-//        _delegated(implementation());
-//    }
-//
-//    receive() external payable {
-//        _delegated(implementation());
-//    }
-//
-//    function implementation() virtual internal view returns(address);
-//
-//    function proxyOwner() virtual internal view returns(address);
-//}
+
+pragma solidity ^0.8.0;
+
+abstract contract Proxy{
+
+    function delegatedFwd(address implementation) internal {
+        assembly {
+        // Copy msg.data. We take full control of memory in this inline assembly
+        // block because it will not return to Solidity code. We overwrite the
+        // Solidity scratch pad at memory position 0.
+            calldatacopy(0, 0, calldatasize())
+
+        // Call the implementation.
+        // out and outsize are 0 because we don't know the size yet.
+            let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)
+
+        // Copy the returned data.
+            returndatacopy(0, 0, returndatasize())
+
+            switch result
+            // delegatecall returns 0 on error.
+            case 0 { revert(0, returndatasize()) }
+            default { return(0, returndatasize()) }
+        }
+    }
+
+    fallback() external payable {
+        delegatedFwd(implementation());
+    }
+
+    receive() external payable {
+        delegatedFwd(implementation());
+    }
+
+    function implementation() virtual internal view returns(address);
+
+    function proxyOwner() virtual internal view returns(address);
+}

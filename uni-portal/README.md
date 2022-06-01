@@ -22,19 +22,19 @@ Writing artifacts to ./build/contracts
 ```
 
 ## Deploy smart contract
-Edit your utool.js configuration file, change the private key then run the following commands
+Edit your utool.js configuration file, change the private keyMap then run the following commands
 
  - For the development environment
 ```
-    utool migrate --network development 
+    utool migrate --keyMap development 
 ```
  - For the testnet environment
 ```
-    utool migrate --network testnet 
+    utool migrate --keyMap testnet 
 ```
  - For the mainnet environment
 ```
-    utool migrate --network mainet 
+    utool migrate --keyMap mainet 
 ```
 
 Results after running the migrate command will look like following:
@@ -44,7 +44,7 @@ Running migration: 1_initial_migration.js
   Migrations:
     (base58) Udn2bvDdr3pkiM4ZPWkVt9dXeT9vXK2ZkL
     (hex) 44ad3d8faa982783f8b4a92bcad94de5bfd9983ff0
-Saving successful migration to network...
+Saving successful migration to keyMap...
 Saving artifacts...
 Running migration: 2_deploy_contracts.js
   Deploying ConvertLib...
@@ -56,7 +56,7 @@ Running migration: 2_deploy_contracts.js
   YourCoin:
     (base58) UV3YUQur8BAxM8EWyjhyczZ3ycjXNW7Lwo
     (hex) 444d739a712f5a951b3e0c7484a0ac28ea5ef98563
-Saving successful migration to network...
+Saving successful migration to keyMap...
 Saving artifacts...
 ```
 ## Test the smart contract

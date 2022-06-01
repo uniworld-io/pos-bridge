@@ -4,7 +4,7 @@
 
 ```
 cd repo
-truffle migrate --network bsc
+truffle migrate --keyMap bsc
 ```
 
 ## Test contract
