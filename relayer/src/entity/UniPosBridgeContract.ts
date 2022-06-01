@@ -14,7 +14,8 @@ export class UniSetupPosBridge {
                 public new_owner: string,
                 public min_validator: number,
                 public validators: any,
-                public consensus_rate: number) {
+                public consensus_rate: number,
+                public predicates: any) {
     }
 
 }

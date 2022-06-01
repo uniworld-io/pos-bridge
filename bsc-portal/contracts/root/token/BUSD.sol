@@ -7,9 +7,9 @@ import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 
 //@Mocktest
-contract UniTestERC20 is ERC20{
+contract BUSD is ERC20{
 
-    constructor(string memory name_, string memory symbol_) public ERC20(name_, symbol_){
+    constructor() public ERC20("Root test udt", "BUSD"){
         uint256 amount = 10**10 * (10**18);
         _mint(_msgSender(), amount);
     }
@@ -19,7 +19,7 @@ contract UniTestERC20 is ERC20{
     }
 
     function decimals() public view virtual override returns (uint8) {
-        return 6;
+        return 18;
     }
 
 }
