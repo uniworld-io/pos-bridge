@@ -7,11 +7,11 @@ import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 
 //@Mocktest
-contract BNFT is ERC721 {
+contract RootTestNFT is ERC721 {
 
     mapping(uint256 => string) private _tokenURIs;
 
-    constructor() public ERC721("Root test nft", "BNFT"){
+    constructor() public ERC721("Root test nft", "RNFT"){
     }
 
     function mint(uint256 tokenId) public {

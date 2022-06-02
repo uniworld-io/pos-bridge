@@ -7,9 +7,9 @@ import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 
 //@Mocktest
-contract BUSD is ERC20{
+contract RootTestUSD is ERC20{
 
-    constructor() public ERC20("Root test udt", "BUSD"){
+    constructor() public ERC20("Root test udt", "RUSD"){
         uint256 amount = 10**10 * (10**18);
         _mint(_msgSender(), amount);
     }
