@@ -28,7 +28,13 @@ contract BnbRootChainManager is IRootChainManager, AccessControlUni, Initializab
     event PredicateRegistered(bytes32 tokenType, address tokenAddress);
     event ValidatorChanged(address validator, bytes data);
 
-    function initialize(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_, uint32 chainId_, address _owner) external initializer {
+    function initialize(
+        uint8 consensusRate_,
+        uint8 minValidator_,
+        address[] memory validators_,
+        uint32 chainId_,
+        address _owner
+    ) external initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
         _setupRole(MAPPER_ROLE, _owner);
         rootChainId = chainId_;
@@ -44,7 +50,7 @@ contract BnbRootChainManager is IRootChainManager, AccessControlUni, Initializab
      * The account sending ether receives WBNB on child chain
      */
     receive() external payable {
-        _msgSender().call{value: msg.value}("");
+        _msgSender().call{value : msg.value}("");
     }
 
     function mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) override external only(MAPPER_ROLE) {
@@ -75,7 +81,7 @@ contract BnbRootChainManager is IRootChainManager, AccessControlUni, Initializab
         emit TokenMapped(rootChainId, rootToken, childChainId, childToken, tokenToType[rootToken]);
     }
 
-    function depositNativeFor(address receiver, uint32 childChainId) external payable{
+    function depositNativeFor(address receiver, uint32 childChainId) external payable {
         _depositNativeFor(receiver, childChainId);
     }
 
@@ -83,17 +89,17 @@ contract BnbRootChainManager is IRootChainManager, AccessControlUni, Initializab
     function _depositNativeFor(address receiver, uint32 childChainId) private {
         // payable(typeToPredicate[tokenToType[BNB_ADDRESS]]).transfer(msg.value);
         // transfer doesn't work as expected when receiving contract is proxified so using call
-        (bool success, /* bytes memory data */) = typeToPredicate[tokenToType[BNB_ADDRESS]].call{value: msg.value}("");
+        (bool success, /* bytes memory data */) = typeToPredicate[tokenToType[BNB_ADDRESS]].call{value : msg.value}("");
         if (success) {
             bytes memory depositData = abi.encode(msg.value);
             _depositFor(receiver, BNB_ADDRESS, childChainId, depositData);
-        }else{
+        } else {
             revert("RootChainManager: BNB_TRANSFER_FAILED");
         }
     }
 
 
-    function depositFor(address receiver, address rootToken, uint32 childChainId, bytes calldata depositData) override external{
+    function depositFor(address receiver, address rootToken, uint32 childChainId, bytes calldata depositData) override external {
         _depositFor(receiver, rootToken, childChainId, depositData);
     }
 

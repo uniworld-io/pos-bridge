@@ -1,22 +1,25 @@
 const BnbRootChainManager = artifacts.require('BnbRootChainManager')
-
+const EthRootChainManager = artifacts.require('EthRootChainManager')
 const ERC20Predicate = artifacts.require('ERC20Predicate')
-
 const ERC721Predicate = artifacts.require('ERC721Predicate')
-
-
-const BnbPredicate = artifacts.require('BnbPredicate')
+const NativePredicate = artifacts.require('NativePredicate')
 
 const utils = require('./utils')
 
-module.exports = async(deployer) => {
-    const contractAddresses = utils.getContractAddresses()
+module.exports = async (deployer, network) => {
+    const contractAddresses = utils.getContractAddresses(network)
 
-    const RootChainManagerInstance = await BnbRootChainManager.at(contractAddresses.root.RootChainManagerProxy)
-
+    let RootChainManagerInstance
+    if (utils.isNetworkBsc(network)) {
+        RootChainManagerInstance = await BnbRootChainManager.at(contractAddresses.root.RootChainManagerProxy)
+    }
+    if (utils.isNetworkEth(network)) {
+        RootChainManagerInstance = await EthRootChainManager.at(contractAddresses.root.RootChainManagerProxy)
+    }
+    const NativePredicateInstance = await NativePredicate.at(contractAddresses.root.NativePredicate)
     const ERC20PredicateInstance = await ERC20Predicate.at(contractAddresses.root.ERC20Predicate)
     const ERC721PredicateInstance = await ERC721Predicate.at(contractAddresses.root.ERC721Predicate)
-    const BnbPredicateInstance = await BnbPredicate.at(contractAddresses.root.BnbPredicate)
+
 
     //
     // console.log('Granting manager role on ERC20Predicate')
@@ -61,18 +64,21 @@ module.exports = async(deployer) => {
     const ERC721Type = await ERC721PredicateInstance.TOKEN_TYPE();
     await RootChainManagerInstance.registerPredicate(ERC721Type, ERC721PredicateInstance.address)
 
-    console.log('Registering BnbPredicate')
-    const BnbType = await BnbPredicateInstance.TOKEN_TYPE();
-    await RootChainManagerInstance.registerPredicate(BnbType, BnbPredicateInstance.address)
+    console.log('Registering NativePredicate')
+    const NativeType = await NativePredicateInstance.TOKEN_TYPE();
+    await RootChainManagerInstance.registerPredicate(NativeType, NativePredicateInstance.address)
 
-
-    //Mapping
     console.log('Mapping ERC20')
-    await RootChainManagerInstance.mapToken(ERC20Type, contractAddresses.root.BUSD, utils.uni.chain_id, contractAddresses.child.WBUSD)
-
+    await RootChainManagerInstance.mapToken(ERC20Type, contractAddresses.root.RUSD, utils.uni.chain_id, contractAddresses.child.WRUSD)
     console.log('Mapping ERC721')
-    await RootChainManagerInstance.mapToken(ERC721Type, contractAddresses.root.BNFT, utils.uni.chain_id, contractAddresses.child.WBNFT)
+    await RootChainManagerInstance.mapToken(ERC721Type, contractAddresses.root.RNFT, utils.uni.chain_id, contractAddresses.child.WRNFT)
 
-    console.log('Mapping Bnb')
-    await RootChainManagerInstance.mapToken(BnbType, contractAddresses.root.BNB, utils.uni.chain_id, contractAddresses.child.WBNB)
+    if (utils.isNetworkBsc(network)) {
+        console.log('Mapping Bnb')
+        await RootChainManagerInstance.mapToken(NativeType, contractAddresses.root.BNB, utils.uni.chain_id, contractAddresses.child.WBNB)
+    }
+    if (utils.isNetworkEth(network)) {
+        console.log('Mapping Eth')
+        await RootChainManagerInstance.mapToken(NativeType, contractAddresses.root.ETH, utils.uni.chain_id, contractAddresses.child.WETH)
+    }
 }

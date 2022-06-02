@@ -13,9 +13,21 @@ module.exports = {
     uni: {
         chain_id: 68
     },
-    getContractAddresses: () => {
+    eth: {
+        chain_id: 4242
+    },
+
+    isNetworkBsc: (network) => {
+        return network.startsWith('bsc');
+    },
+
+    isNetworkEth: (network) => {
+        return network.startsWith('eth');
+    },
+
+    getContractAddresses: (network) => {
         try {
-            return JSON.parse(fs.readFileSync(`${process.cwd()}/contractAddresses.json`).toString())
+            return JSON.parse(fs.readFileSync(`${process.cwd()}/contractAddresses-${network}.json`).toString())
         } catch (e) {
             return {
                 root: {},
@@ -23,9 +35,9 @@ module.exports = {
             }
         }
     },
-    writeContractAddresses: (contractAddresses) => {
+    writeContractAddresses: (contractAddresses, network) => {
         fs.writeFileSync(
-            `${process.cwd()}/contractAddresses.json`,
+            `${process.cwd()}/contractAddresses-${network}.json`,
             JSON.stringify(contractAddresses, null, 2) // Indent 2 spaces
         )
     }

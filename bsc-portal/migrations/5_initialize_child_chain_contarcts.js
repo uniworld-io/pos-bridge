@@ -2,7 +2,7 @@ const ChildChainManager = artifacts.require('ChildChainManager')
 
 const utils = require('./utils')
 
-module.exports = async (deployer) => {
+module.exports = async (deployer, network) => {
     const contractAddresses = utils.getContractAddresses()
 
     const ChildChainManagerInstance = await ChildChainManager.at(contractAddresses.child.ChildChainManagerProxy)
@@ -14,5 +14,7 @@ module.exports = async (deployer) => {
     await ChildChainManagerInstance.mapToken(contractAddresses.child.WUNFT, utils.uni.chain_id, contractAddresses.root.UNFT)
 
     console.log('Mapping WUNW')
-    await ChildChainManagerInstance.mapToken( contractAddresses.child.WUNW, utils.uni.chain_id, contractAddresses.root.UNW)
+    await ChildChainManagerInstance.mapToken(contractAddresses.child.WUNW, utils.uni.chain_id, contractAddresses.root.UNW)
+
+
 }

@@ -9,13 +9,19 @@ const utils = require('./utils')
 
 module.exports = async(deployer, network, accounts) => {
     deployer.then(async() => {
+        let chainID;
+        if(utils.isNetworkBsc(network))
+            chainID = utils.bsc.chain_id;
+        if(utils.isNetworkEth(network))
+            chainID = utils.eth.chain_id;
+
         const childChainManager = await deployer.deploy(ChildChainManager)
         const childChainManagerProxy = await deployer.deploy(ChildChainManagerProxy, '0x0000000000000000000000000000000000000000')
         await childChainManagerProxy.updateAndCall(childChainManager.address, childChainManager.contract.methods.initialize(
             utils.consensusRate,
             utils.minValidators,
             utils.validators,
-            utils.bsc.chain_id,
+            chainID,
             accounts[0]
         ).encodeABI())
 
@@ -25,7 +31,7 @@ module.exports = async(deployer, network, accounts) => {
         await deployer.deploy(WUNFTToken, ChildChainManagerProxy.address)
 
 
-        const contractAddresses = utils.getContractAddresses();
+        const contractAddresses = utils.getContractAddresses(network);
 
         contractAddresses.child.ChildChainManager = ChildChainManager.address
         contractAddresses.child.ChildChainManagerProxy = ChildChainManagerProxy.address
