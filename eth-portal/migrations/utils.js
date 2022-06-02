@@ -17,6 +17,14 @@ module.exports = {
         chain_id: 4242
     },
 
+    isNetworkBsc: (network) => {
+        return network.startsWith('bsc');
+    },
+
+    isNetworkEth: (network) => {
+        return network.startsWith('eth');
+    },
+
     getContractAddresses: (network) => {
         try {
             return JSON.parse(fs.readFileSync(`${process.cwd()}/contractAddresses-${network}.json`).toString())

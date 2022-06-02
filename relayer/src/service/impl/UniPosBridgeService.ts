@@ -67,6 +67,7 @@ export class UniPosBridgeService implements PosBridgeService{
         try {
             console.log('Before transaction: ', data);
             const unsingedTx = await unichain.currentProviders().fullNode.request(path, data, 'post')
+            console.log('UnsingedTx: ', unsingedTx);
             const signedTx = await unichain.unx.signTransaction(unsingedTx, privateKey, 0)
             const result = await unichain.unx.sendRawTransaction(signedTx);
             console.log(result);

@@ -1,18 +1,18 @@
 const RootChainManager = artifacts.require('RootChainManager')
 const ERC20Predicate = artifacts.require('ERC20Predicate')
 const ERC721Predicate = artifacts.require('ERC721Predicate')
-const BnbPredicate = artifacts.require('BnbPredicate')
+const EtherPredicate = artifacts.require('EtherPredicate')
 
 const utils = require('./utils')
 
 module.exports = async (deployer, network) => {
     const contractAddresses = utils.getContractAddresses(network)
 
+
     const RootChainManagerInstance = await RootChainManager.at(contractAddresses.root.RootChainManagerProxy)
-    const BnbPredicateInstance = await BnbPredicate.at(contractAddresses.root.BnbPredicate)
+    const NativePredicateInstance = await EtherPredicate.at(contractAddresses.root.EtherPredicate)
     const ERC20PredicateInstance = await ERC20Predicate.at(contractAddresses.root.ERC20Predicate)
     const ERC721PredicateInstance = await ERC721Predicate.at(contractAddresses.root.ERC721Predicate)
-
 
     //Register predicate
     console.log('Registering ERC20Predicate')
@@ -24,16 +24,13 @@ module.exports = async (deployer, network) => {
     await RootChainManagerInstance.registerPredicate(ERC721Type, ERC721PredicateInstance.address)
 
     console.log('Registering NativePredicate')
-    const NativeType = await BnbPredicateInstance.TOKEN_TYPE();
-    await RootChainManagerInstance.registerPredicate(NativeType, BnbPredicateInstance.address)
+    const NativeType = await EtherPredicate.TOKEN_TYPE();
+    await RootChainManagerInstance.registerPredicate(NativeType, NativePredicateInstance.address)
 
     console.log('Mapping ERC20')
-    await RootChainManagerInstance.mapToken(ERC20Type, contractAddresses.root.BUSD, utils.uni.chain_id, contractAddresses.child.UniWBUSD)
+    await RootChainManagerInstance.mapToken(ERC20Type, contractAddresses.root.EUSD, utils.uni.chain_id, contractAddresses.child.UniWEUSD)
     console.log('Mapping ERC721')
-    await RootChainManagerInstance.mapToken(ERC721Type, contractAddresses.root.BNFT, utils.uni.chain_id, contractAddresses.child.UniWBNFT)
-
-    console.log('Mapping Bnb')
-    await RootChainManagerInstance.mapToken(NativeType, contractAddresses.root.BNB, utils.uni.chain_id, contractAddresses.child.UniWBNB)
-
-
+    await RootChainManagerInstance.mapToken(ERC721Type, contractAddresses.root.ENFT, utils.uni.chain_id, contractAddresses.child.UniWENFT)
+    console.log('Mapping Ether')
+    await RootChainManagerInstance.mapToken(NativeType, contractAddresses.root.ETH, utils.uni.chain_id, contractAddresses.child.UniWETH)
 }
