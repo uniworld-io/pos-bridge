@@ -1,48 +1,26 @@
-const rootRPC = 'http://18.141.168.229:9797';
-const childRPC = 'http://18.141.168.229:4242';
+const bscRPC = 'http://18.141.168.229:9797';
+const ethRpc = 'http://18.141.168.229:4242';
 
 const mockValues = {
 
     bsc: {
-        chainId: 97,
-        predicate: {
-            native: '0x32444db7378c4A124536B592b0b93b4BAce2846f',
-            erc20: '0x7F0E1F065811A7E58CbC9fa70300f131EFed6c06',
-            erc721: '0x497553045258B0CF735cdff64D640f864880f2bE'
-        },
-        token: {
-            native: '0x000000000000000000000000000000000000dEaD',
-            wunw: '0x58Bd5ef524DD583Be25bea5251df558197D469F0',
-            weth: '0x99Be24b8D22D79e945792D2942816dd52969f9C2',
-
-            root_nft: '0x3fe2546d4B785013951bA610BF657177Edb1564A',
-            wunft: '0x07DE2d63131Fc8b0fF881Ea891D9fc8BbD94f3A5'
-        },
-        manager: {
-            root_proxy: '0x11247CF68D548947e492c0412b399FC3E4560D7F',
-            child_proxy: '0xdea1332e5DAdfe20f029D37046AC46CC133D765E',
-        },
+        chainId: 9797,
+        BNB: "0x000000000000000000000000000000000000dEaD",
+        BUSD: "",
+        BNFT: "",
+        UNW: "",
+        CENT: "",
+        UNFT: "",
     },
 
     uni: {
         chainId: 68,
-        predicate: {
-            native: '0x44b4d72725cd653156208a1c21dfb43463e555a0e2',
-            erc20: '0x44e3cc20e8ed7024b382942f55084c97885af3ddac',
-            erc721: '0x44d1cc7d4af6b7a4df3f34396406f8fce2333627eb',
-        },
-
-        token: {
-            native: '0x16748f8d05163e917388fa79050bafe5a30faa2f',
-            wbnb: '0xc24c477786d49f148dd5bcac8107cc79bf0f9c36',
-
-            root_nft: '0x6a1352002a49983dea9a3c4d9b543908d03c0e1c',
-            wbnft: '0x16fed11bd296e0398fef759f3e4f40831bae782d'
-        },
-
-        manager: {
-            admin: '0x44FFF11519410945baAe942B9b8dA46eb1aECf7897',
-        },
+        BNB: "",
+        BUSD: "",
+        BNFT: "",
+        UNW: "0xb4d72725cd653156208a1c21dfb43463e555a0e2",
+        CENT: "",
+        UNFT: "",
     },
     token_type:{
         erc20: '0x8ae85d849167ff996c04040c44924fd364217285e4cad818292c7ac37c0a345b',//ERC20,
