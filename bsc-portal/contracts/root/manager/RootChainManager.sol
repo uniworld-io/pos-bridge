@@ -12,7 +12,7 @@ import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
 import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 
 contract RootChainManager is IRootChainManager, AccessControlUni, Initializable, SignaturesValidator {
-    mapping(address => address) public rootToChildToken;
+    mapping(uint32 => mapping(address => address)) public rootToChildToken;
     mapping(uint32 => mapping(address => address)) public childToRootToken;
     mapping(bytes32 => address) public typeToPredicate;
     mapping(address => bytes32) public tokenToType;
@@ -55,17 +55,33 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
 
     function mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) override external only(MAPPER_ROLE) {
         require(
-            rootToChildToken[rootToken] == address(0) &&
+            rootToChildToken[childChainId][rootToken] == address(0) &&
             childToRootToken[childChainId][childToken] == address(0),
             "RootChainManager: ALREADY_MAPPED"
         );
         _mapToken(typeToken, rootToken, childChainId, childToken);
     }
 
+    function remapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) override external only(MAPPER_ROLE) {
+        // cleanup old mapping
+        address oldChildToken = rootToChildToken[childChainId][rootToken];
+        address oldRootToken = childToRootToken[childChainId][childToken];
+
+        if (rootToChildToken[childChainId][oldRootToken] != address(0)) {
+            rootToChildToken[childChainId][oldRootToken] = address(0);
+            tokenToType[oldRootToken] = bytes32(0);
+        }
+
+        if (childToRootToken[childChainId][oldChildToken] != address(0)) {
+            childToRootToken[childChainId][oldChildToken] = address(0);
+        }
+        _mapToken(typeToken, rootToken, childChainId, childToken);
+    }
+
     function _mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) private {
         require(typeToPredicate[typeToken] != address(0), "RootChainManager: TYPE_NOT_SUPPORT");
 
-        rootToChildToken[rootToken] = childToken;
+        rootToChildToken[childChainId][rootToken] = childToken;
         childToRootToken[childChainId][childToken] = rootToken;
         tokenToType[rootToken] = typeToken;
 
@@ -74,7 +90,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
 
     function unmapToken(address rootToken, uint32 childChainId, address childToken)
     override external only(MAPPER_ROLE) {
-        rootToChildToken[rootToken] = address(0);
+        rootToChildToken[childChainId][rootToken] = address(0);
         childToRootToken[childChainId][childToken] = address(0);
         tokenToType[rootToken] = bytes32(0);
 
@@ -104,7 +120,7 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     }
 
     function _depositFor(address receiver, address rootToken, uint32 childChainId, bytes memory depositData) private {
-        require(rootToChildToken[rootToken] != address(0x0), "RootChainManager: TOKEN_NOT_MAPPED");
+        require(rootToChildToken[childChainId][rootToken] != address(0x0), "RootChainManager: TOKEN_NOT_MAPPED");
 
         bytes32 tokenType = tokenToType[rootToken];
         require(tokenType != 0, "RootChainManager: TOKEN_TYPE_NOT_MAPPED");

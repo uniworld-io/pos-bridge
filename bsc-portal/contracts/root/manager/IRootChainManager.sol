@@ -6,6 +6,8 @@ pragma solidity ^0.8.0;
 interface IRootChainManager {
     function mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) external;
 
+    function remapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) external;
+
     function unmapToken(address rootToken, uint32 childChainId, address childToken) external;
 
     function depositNativeFor(address receiver, uint32 childChainId) external payable;
