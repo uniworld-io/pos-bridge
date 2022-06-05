@@ -12,7 +12,7 @@ import "../../common/AccessControlUni.sol";
 contract BnbPredicate is ITokenPredicate, AccessControlUni, Initializable {
 
     bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
-    bytes32 public constant TOKEN_TYPE = keccak256("BNB");
+    bytes32 public constant TOKEN_TYPE = keccak256("NATIVE");
 
 
     function initialize(address rootManager) external initializer {

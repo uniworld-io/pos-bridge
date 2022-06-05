@@ -22,33 +22,6 @@ const mockValues = {
         CENT: "",
         UNFT: "",
     },
-    token_type:{
-        erc20: '0x8ae85d849167ff996c04040c44924fd364217285e4cad818292c7ac37c0a345b',//ERC20,
-        erc721: '0x73ad2146b3d3a286642c794379d750360a2d53a3459a11b3e5d6cc900f55f44a',//ERC721
-        erc1155: '0x973bb64086f173ec8099b7ed3d43da984f4a332e4417a08bc6a286e6402b0586',//ERC1155
-        bnb: '0x3ed03c38e59dc60c7b69c2a4bf68f9214acd953252b5a90e8f5f59583e9bc3ae',//BNB
-        eth: '0xaaaebeba3810b1e6b70781f14b2d72c1cb89c0b2b320c43bb67ff79f562f5ff4',//ETH,
-    },
-    eth: {
-        chainId: 42,
-        predicate: {
-            native: '',
-            erc20: ''
-        },
-
-        token: {
-            native: '0x000000000000000000000000000000000000dEaD',
-            erc20: {
-                root: '',
-                wunw: '',
-            }
-        },
-
-        manager: {
-            root_proxy: '',
-            child_proxy: '',
-        },
-    },
     consensusRate: 50,
     minValidators: 1,
 
