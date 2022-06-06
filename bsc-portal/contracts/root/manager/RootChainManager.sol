@@ -24,7 +24,6 @@ contract RootChainManager is IRootChainManager, AccessControlUni, Initializable,
     address public constant BNB_ADDRESS = 0x000000000000000000000000000000000000dEaD;
 
     event DepositExecuted(uint32 rootChainId, uint32 childChainId, address rootToken, address depositor, address receiver, bytes depositData);
-
     event PredicateRegistered(bytes32 tokenType, address tokenAddress);
     event ValidatorChanged(address validator, bytes data);
 

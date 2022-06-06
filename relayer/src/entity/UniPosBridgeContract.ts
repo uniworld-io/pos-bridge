@@ -15,7 +15,9 @@ export class UniSetupPosBridge {
                 public min_validator: number,
                 public validators: any,
                 public consensus_rate: number,
-                public predicates: any) {
+                public predicate_native: string,
+                public predicate_token: string,
+                public predicate_nft: string) {
     }
 
 }

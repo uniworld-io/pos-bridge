@@ -24,9 +24,9 @@ require('dotenv').config();
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 var privateKeys = [
+    '2746e2d905ffaa2d27cbb3f8786bc6a187f0765dc37e9993a6499e6b650a1e07',
     '23e2eae41fca0f33e0fd3c1b901b1b114e75af8664fc6d88f18e48153a67aae0',
     '145a1e59cabb9d002daa36d5cc21524c0a6be9e0357de86717a18ba211ffd2d7',
-    '2746e2d905ffaa2d27cbb3f8786bc6a187f0765dc37e9993a6499e6b650a1e07',
     'c2e18d816b025f333ed25f6be1566cfd3b401a69e2e409a7456e900665eb62e3'
 ];
 
@@ -78,7 +78,7 @@ module.exports = {
             host: '18.141.168.229',
             port: 9797,
             network_id: 9797,
-            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
+            from: '0x4B58913337d93BE4755072E3d0F45Ca942E11751'
 
         },
         ethdev: {
