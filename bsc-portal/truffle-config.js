@@ -78,7 +78,7 @@ module.exports = {
             host: '18.141.168.229',
             port: 9797,
             network_id: 9797,
-            from: '0x4B58913337d93BE4755072E3d0F45Ca942E11751'
+            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
 
         },
         ethdev: {

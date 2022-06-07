@@ -10,10 +10,8 @@ module.exports = async (deployer, network) => {
     //Mapping Uni
     console.log('Mapping ERC20')
     await ChildChainManagerInstance.mapToken(contractAddresses.child.WCENT, utils.uni.chain_id, contractAddresses.root.CENT)
-
     console.log('Mapping ERC721')
     await ChildChainManagerInstance.mapToken(contractAddresses.child.WUNFT, utils.uni.chain_id, contractAddresses.root.UNFT)
-
     console.log('Mapping WUNW')
     await ChildChainManagerInstance.mapToken(contractAddresses.child.WUNW, utils.uni.chain_id, contractAddresses.root.UNW)
 

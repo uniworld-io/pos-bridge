@@ -31,7 +31,6 @@ module.exports = async (deployer, network) => {
     await RootChainManagerInstance.mapToken(ERC20Type, contractAddresses.root.BUSD, utils.uni.chain_id, contractAddresses.child.UniWBUSD)
     console.log('Mapping ERC721')
     await RootChainManagerInstance.mapToken(ERC721Type, contractAddresses.root.BNFT, utils.uni.chain_id, contractAddresses.child.UniWBNFT)
-
     console.log('Mapping Bnb')
     await RootChainManagerInstance.mapToken(NativeType, contractAddresses.root.BNB, utils.uni.chain_id, contractAddresses.child.UniWBNB)
 
