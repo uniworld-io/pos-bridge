@@ -17,22 +17,34 @@ module.exports = async (deployer, network) => {
     //Register predicate
     console.log('Registering ERC20Predicate')
     const ERC20Type = await ERC20PredicateInstance.TOKEN_TYPE();
-    await RootChainManagerInstance.registerPredicate(ERC20Type, ERC20PredicateInstance.address)
+    const registerPredicateErc20 = await RootChainManagerInstance.registerPredicate(ERC20Type, ERC20PredicateInstance.address)
+    console.log(registerPredicateErc20)
 
     console.log('Registering ERC721Predicate')
     const ERC721Type = await ERC721PredicateInstance.TOKEN_TYPE();
-    await RootChainManagerInstance.registerPredicate(ERC721Type, ERC721PredicateInstance.address)
+    const registerPredicateErc721 = await RootChainManagerInstance.registerPredicate(ERC721Type, ERC721PredicateInstance.address)
+    console.log(registerPredicateErc721)
 
     console.log('Registering NativePredicate')
     const NativeType = await BnbPredicateInstance.TOKEN_TYPE();
-    await RootChainManagerInstance.registerPredicate(NativeType, BnbPredicateInstance.address)
+    const registerPredicateBnb = await RootChainManagerInstance.registerPredicate(NativeType, BnbPredicateInstance.address)
+    console.log(registerPredicateBnb)
+
 
     console.log('Mapping ERC20')
-    await RootChainManagerInstance.mapToken(ERC20Type, contractAddresses.root.BUSD, utils.uni.chain_id, contractAddresses.child.UniWBUSD)
+    const mapErc20 = await RootChainManagerInstance.mapToken(ERC20Type, contractAddresses.root.BUSD, utils.uni.chain_id, contractAddresses.child.UniWBUSD)
+    console.log(mapErc20)
+
     console.log('Mapping ERC721')
-    await RootChainManagerInstance.mapToken(ERC721Type, contractAddresses.root.BNFT, utils.uni.chain_id, contractAddresses.child.UniWBNFT)
+    const mapErc721 = await RootChainManagerInstance.mapToken(ERC721Type, contractAddresses.root.BNFT, utils.uni.chain_id, contractAddresses.child.UniWBNFT)
+    console.log(mapErc721)
+
     console.log('Mapping Bnb')
-    await RootChainManagerInstance.mapToken(NativeType, contractAddresses.root.BNB, utils.uni.chain_id, contractAddresses.child.UniWBNB)
+    const mapBNB = await RootChainManagerInstance.mapToken(NativeType, contractAddresses.root.BNB, utils.uni.chain_id, contractAddresses.child.UniWBNB)
+    console.log(mapBNB)
+
+
+
 
 
 }
