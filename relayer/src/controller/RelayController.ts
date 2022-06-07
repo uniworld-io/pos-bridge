@@ -5,6 +5,7 @@ import {API} from "../config/ConfigEnv";
 import {UniPosBridgeService} from "../service/impl/UniPosBridgeService";
 import {UniDepositContract, UniMapToken, UniSetupPosBridge, UniWithdrawContract} from "../entity/UniPosBridgeContract";
 import {GroupVerification} from "../entity/GroupVerification";
+import {Urc20Burn} from "../entity/Urc20";
 const relayService = new RelayService();
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}`})
 
@@ -68,6 +69,12 @@ App.post('/test/uni/withdraw-exec', (req, res) => {
     console.log('RestApi post data: ', req.body);
     const data = req.body as GroupVerification;
     uniPosBridgeService.withdrawExec(data).then(r => res.status(200).send(r));
+});
+
+App.post('/test/uni/urc20/burn', (req, res) => {
+    console.log('RestApi post data: ', req.body);
+    const data = req.body as Urc20Burn;
+    uniPosBridgeService.urc20Burn(data).then(r => res.status(200).send(r));
 });
 
 

@@ -4,6 +4,7 @@ import {poolConnector} from "../../config/PoolConnector";
 import {CHAIN} from "../../config/ConfigEnv";
 import {GroupVerification} from "../../entity/GroupVerification";
 import {PosBridgeService} from "../PosBridgeService";
+import {Urc20Burn} from "../../entity/Urc20";
 
 const unichain = poolConnector.uniChainConnector;
 const logger = require('../../common/Logger')
@@ -59,6 +60,13 @@ export class UniPosBridgeService implements PosBridgeService{
             signatures: verification.signatures
         }
         return this.createTransaction(CHAIN.UNI.WITHDRAW_EXEC_PATH, privateKey, withdrawExec);
+    }
+
+
+    public async urc20Burn(burner: Urc20Burn): Promise<any> {
+        const privateKey = CHAIN.UNI.TEST.admin.privateKey;
+        burner.owner_address = unichain.address.toHex(unichain.address.fromPrivateKey(privateKey));
+        return this.createTransaction("/wallet/urc20burn", privateKey, burner);
     }
 
 
