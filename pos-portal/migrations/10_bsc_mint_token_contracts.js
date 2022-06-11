@@ -6,22 +6,16 @@ const BUSD = artifacts.require('BUSD');
 module.exports = async (deployer, network, accounts) => {
     const contractAddresses = utils.getContractAddresses(network)
 
-    const Bnft = await BNFT.at(contractAddresses.root.BNFT);
-    const Busd = await BUSD.at(contractAddresses.root.BUSD);
+    const Bnft = await BNFT.at(contractAddresses.root.bsc.BNFT);
+    const Busd = await BUSD.at(contractAddresses.root.bsc.BUSD);
 
-    const mintBusd = await Busd.mint(new BN('1000000000000000000000'), {
-        from: accounts[1]
-    })
+    const mintBusd = await Busd.mint(accounts[1], new BN('1000000000000000000000'))
     console.log(mintBusd)
 
-    const mint1501 = await Bnft.mint(1501, {
-        from: accounts[1]
-    });
+    const mint1501 = await Bnft.mint(accounts[1], 1501);
     console.log(mint1501)
 
-    const mint2889 = await Bnft.mint(2889, {
-        from: accounts[1]
-    });
+    const mint2889 = await Bnft.mint(accounts[1], 2889);
     console.log(mint2889)
 
 

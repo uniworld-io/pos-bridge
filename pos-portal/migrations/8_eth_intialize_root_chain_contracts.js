@@ -23,7 +23,7 @@ module.exports = async (deployer, network) => {
     await RootChainManagerInstance.registerPredicate(ERC721Type, ERC721PredicateInstance.address)
 
     console.log('Registering NativePredicate')
-    const NativeType = await EtherPredicate.TOKEN_TYPE();
+    const NativeType = await NativePredicateInstance.TOKEN_TYPE();
     await RootChainManagerInstance.registerPredicate(NativeType, NativePredicateInstance.address)
 
     console.log('Mapping ERC20')

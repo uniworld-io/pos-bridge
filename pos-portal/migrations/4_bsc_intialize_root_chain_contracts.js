@@ -18,20 +18,15 @@ module.exports = async (deployer, network) => {
     //Register predicate
     console.log('Registering ERC20Predicate')
     const ERC20Type = await ERC20PredicateInstance.TOKEN_TYPE();
-    const registerPredicateErc20 = await RootChainManagerInstance.registerPredicate(ERC20Type, ERC20PredicateInstance.address)
-    console.log(registerPredicateErc20)
+    await RootChainManagerInstance.registerPredicate(ERC20Type, ERC20PredicateInstance.address)
 
     console.log('Registering ERC721Predicate')
     const ERC721Type = await ERC721PredicateInstance.TOKEN_TYPE();
-    const registerPredicateErc721 = await RootChainManagerInstance.registerPredicate(ERC721Type, ERC721PredicateInstance.address)
-    console.log(registerPredicateErc721)
+    await RootChainManagerInstance.registerPredicate(ERC721Type, ERC721PredicateInstance.address)
 
     console.log('Registering NativePredicate')
     const NativeType = await BnbPredicateInstance.TOKEN_TYPE();
-    const registerPredicateBnb = await RootChainManagerInstance.registerPredicate(NativeType, BnbPredicateInstance.address)
-    console.log(registerPredicateBnb)
-
-
+    await RootChainManagerInstance.registerPredicate(NativeType, BnbPredicateInstance.address)
 
     console.log('Mapping Bnb')
     await RootChainManagerInstance.mapToken(NativeType, contractAddresses.root.bsc.BNB, utils.uni.chain_id, contractAddresses.child.uni.WBNB)

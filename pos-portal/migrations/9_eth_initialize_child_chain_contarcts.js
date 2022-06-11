@@ -12,7 +12,7 @@ module.exports = async (deployer, network) => {
     await ChildChainManagerInstance.mapToken(contractAddresses.child.eth.WBUSD, utils.bsc.chain_id, contractAddresses.root.bsc.BUSD)
 
     console.log('Mapping ERC721')
-    await ChildChainManagerInstance.mapToken(contractAddresses.child.eth.WUNFT, utils.uni.chain_id, contractAddresses.root.eth.UNFT)
+    await ChildChainManagerInstance.mapToken(contractAddresses.child.eth.WUNFT, utils.uni.chain_id, contractAddresses.root.uni.UNFT)
     await ChildChainManagerInstance.mapToken(contractAddresses.child.eth.WBNFT, utils.bsc.chain_id, contractAddresses.root.bsc.BNFT)
 
     console.log('Mapping NATIVE')
