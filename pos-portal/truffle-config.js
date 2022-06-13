@@ -26,13 +26,9 @@ require('dotenv').config();
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 var privateKeys = [
-    '23e2eae41fca0f33e0fd3c1b901b1b114e75af8664fc6d88f18e48153a67aae0',
-    '2746e2d905ffaa2d27cbb3f8786bc6a187f0765dc37e9993a6499e6b650a1e07'
+    process.env.DEPLOYER_PRIVATE_KEY,
+    process.env.ACCOUNT_TEST_1
 ];
-
-
-const private_key = process.env.MAIN_WALLET_PRIVATE_KEY;
-const test_private_key = process.env.TEST_WALLET_PRIVATE_KEY;
 
 
 module.exports = {
@@ -59,15 +55,31 @@ module.exports = {
             network_id: "*"    // Any network (default: none)
         },
         bsctestnet: {
-            provider: () => new HDWalletProvider(test_private_key, `https://data-seed-prebsc-1-s1.binance.org:8545/`),
+            provider: () => new HDWalletProvider(privateKeys, `https://data-seed-prebsc-1-s3.binance.org:8545/`),
             network_id: 97,
-            timeoutBlocks: 2000,
+            timeoutBlocks: 100000,
+            networkCheckTimeout: 1000000,
+            skipDryRun: true,
+            websocket: true,
+            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
+        },
+        ethtestnet: {
+            provider: () => new HDWalletProvider(privateKeys, `https://kovan.infura.io/v3/9d4c7aa0db484c24ae3130619cb558da`),
+            network_id: 42,
+            timeoutBlocks: 100000,
             skipDryRun: true,
             networkCheckTimeout: 1000000,
-            gas: 8000000      //make sure this gas allocation isn't over 4M, which is the max
+            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
         },
         bscmainnet: {
-            provider: () => new HDWalletProvider(private_key, `https://bsc-dataseed1.binance.org`),
+            provider: () => new HDWalletProvider(privateKeys, `https://bsc-dataseed1.binance.org`),
+            network_id: 56,
+            confirmations: 3,
+            timeoutBlocks: 200,
+            skipDryRun: true
+        },
+        ethmainnet: {
+            provider: () => new HDWalletProvider(privateKeys, `https://bsc-dataseed1.binance.org`),
             network_id: 56,
             confirmations: 3,
             timeoutBlocks: 200,
@@ -79,7 +91,6 @@ module.exports = {
             port: 9797,
             network_id: 9797,
             from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
-
         },
         ethdev: {
             provider: () => new HDWalletProvider(privateKeys, `http://18.141.168.229:4242`),
