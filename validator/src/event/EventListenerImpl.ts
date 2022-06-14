@@ -22,12 +22,12 @@ export class EventListenerImpl implements IEventListener {
 
 
     public listenEventDeposit(filter: any): void {
-        const events = this.rootChainManager.events.DepositExecuted();
+        const events = this.rootChainManager.events.DepositExecuted(filter);
         this.listen(events)
     }
 
     public listenEventWithdraw(filter: any): void {
-        const events = this.childChainManager.events.WithdrawExecuted()
+        const events = this.childChainManager.events.WithdrawExecuted(filter)
         this.listen(events);
     }
 

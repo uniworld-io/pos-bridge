@@ -11,7 +11,6 @@ export class BscEventListener extends EventListenerImpl{
     constructor(handler: IContractEventHandler) {
         const chain = CHAIN.BSC;
         const chainConnector = POOL_EVENT_CONNECTOR.bscChainConnector;
-
         const rootChainManager = new chainConnector.eth.Contract(chain.ROOT_MANAGER.ABI, chain.ROOT_MANAGER.ADDRESS);
         const childChainManager = new chainConnector.eth.Contract(chain.CHILD_MANAGER.ABI, chain.CHILD_MANAGER.ADDRESS);
         super(chain.ID, handler, rootChainManager, childChainManager);

@@ -19,9 +19,31 @@ class PoolConnector{
             // }
         };
 
-        this.ethChainConnector = new Web3(new Web3.providers.WebsocketProvider(CHAIN.ETH.EVENT_HOST));
-        this.bscChainConnector = new Web3(new Web3.providers.WebsocketProvider(CHAIN.BSC.EVENT_HOST));
+        const bscProvider = new Web3.providers.WebsocketProvider(CHAIN.BSC.EVENT_HOST);
+        const ethProvider = new Web3.providers.WebsocketProvider(CHAIN.ETH.EVENT_HOST);
+
+        this.ethChainConnector = new Web3(ethProvider);
+        this.bscChainConnector = new Web3(bscProvider);
         this.uniChainConnector = new UniChain({fullHost: CHAIN.UNI.EVENT_HOST});
+
+        this.onProvider(ethProvider, this.ethChainConnector, CHAIN.ETH.EVENT_HOST);
+        this.onProvider(bscProvider, this.bscChainConnector, CHAIN.BSC.EVENT_HOST);
+    }
+
+    private onProvider(provider: any, web3: Web3, wssHost: string){
+        provider.on('error', (e: any) => {
+            console.error('WS Infura Error', e);
+        });
+
+        provider.on('end', (e: any) => {
+            console.log('WS closed');
+            console.log('Attempting to reconnect...');
+            provider = new Web3.providers.WebsocketProvider(wssHost);
+            provider.on('connect', function () {
+                console.log('WSS Reconnected');
+            });
+            web3.setProvider(provider);
+        });
     }
 }
 
