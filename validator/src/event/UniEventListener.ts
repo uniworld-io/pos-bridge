@@ -64,10 +64,8 @@ export class UniEventListener implements IEventListener {
         setInterval(async () => {
             try {
                 const timer = Date.now() - 3000;
-                console.log('SinceNow', new Date(timer).toISOString());
                 const params = `?topic=${topic}&confirmed=${confirm}&since=${timer}&sort=${sort}`;
                 const url = CHAIN.UNI.EVENT_HOST + CHAIN.UNI.SUBSCRIBE.path + params;
-                console.log(url)
                 const resp = await axios.get(url)
                 cb(resp.data);
             } catch (e) {
