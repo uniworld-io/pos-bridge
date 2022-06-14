@@ -6,6 +6,10 @@ const EtherPredicate = artifacts.require('EtherPredicate')
 const utils = require('./utils')
 
 module.exports = async (deployer, network) => {
+
+    await deployer
+    console.log('deploying contracts...', deployer.options.network_id)
+
     const contractAddresses = utils.getContractAddresses(network)
 
     const RootChainManagerInstance = await EthRootChainManager.at(contractAddresses.root.eth.RootChainManagerProxy)

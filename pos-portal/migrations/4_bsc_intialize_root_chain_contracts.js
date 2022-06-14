@@ -6,8 +6,8 @@ const utils = require('./utils')
 
 module.exports = async (deployer, network) => {
     await deployer;
+    console.log('initialize contracts...', deployer[network])
     const contractAddresses = utils.getContractAddresses(network)
-
     /////////BSC CHAIN
     const RootChainManagerInstance = await BscRootChainManager.at(contractAddresses.root.bsc.RootChainManagerProxy)
     const BnbPredicateInstance = await BnbPredicate.at(contractAddresses.root.bsc.BnbPredicate)

@@ -14,14 +14,15 @@ const utils = require('./utils')
 
 module.exports = async(deployer, network, accounts) => {
     await deployer
-    console.log('deploying contracts...')
+
+    console.log('deploying contracts...', deployer[network])
     const RootChainManager = await deployer.deploy(BscRootChainManager)
     const RootChainManagerProxy = await deployer.deploy(BscRootChainManagerProxy, '0x0000000000000000000000000000000000000000')
     await RootChainManagerProxy.updateAndCall(BscRootChainManager.address, RootChainManager.contract.methods.initialize(
         utils.consensusRate,
         utils.minValidators,
         utils.validators,
-        utils.bsc.chain_id,
+        deployer.options.network_id,
         accounts[0]
     ).encodeABI())
 

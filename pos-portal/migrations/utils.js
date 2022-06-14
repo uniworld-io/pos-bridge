@@ -2,20 +2,16 @@ const fs = require('fs')
 
 module.exports = {
 
-    consensusRate: 50,
-    minValidators: 1,
-    validators: [
-        '0x4b194A3fdd790c31C0559b221f182eEdC049be3f',
-        '0xc0e370c9D7b37Ba906b6E853DdE9Af13b1728bD6'
-    ],
+    consensusRate: process.env.CONSENSUS_RATE,
+    minValidators: process.env.MIN_VALIDATOR,
+    validators: JSON.parse(process.env.VALIDATORS),
     bsc: {
-        chain_id: 9797,
-        deployer: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
+        chain_id: process.env.BSC_CHAIN_ID
     },
     uni: {
-        chain_id: 68,
+        chain_id: process.env.UNI_CHAIN_ID,
         admin: {
-            privateKey: '966acb704ec6a830e0a8acc91cb0ac943b0a90f0f72cbc2c42966a3872a9cdf0'
+            privateKey: process.env.DEPLOYER_PRIVATE_KEY
         },
         predicate:{
             native: '0x44b4d72725cd653156208a1c21dfb43463e555a0e2',
@@ -24,7 +20,7 @@ module.exports = {
         }
     },
     eth: {
-        chain_id: 4242
+        chain_id: process.env.ETH_CHAIN_ID
     },
 
     getContractAddresses: (network) => {

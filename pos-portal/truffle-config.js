@@ -25,10 +25,12 @@
 require('dotenv').config();
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-var privateKeys = [
+const privateKeys = [
     process.env.DEPLOYER_PRIVATE_KEY,
     process.env.ACCOUNT_TEST_1
 ];
+
+const deployerAddress = process.env.DEPLOYER_ADDRESS;
 
 
 module.exports = {
@@ -56,48 +58,50 @@ module.exports = {
         },
         bsctestnet: {
             provider: () => new HDWalletProvider(privateKeys, `https://data-seed-prebsc-1-s3.binance.org:8545/`),
-            network_id: 97,
+            network_id: "*",
             timeoutBlocks: 100000,
             networkCheckTimeout: 1000000,
             skipDryRun: true,
             websocket: true,
-            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
+            from: deployerAddress
         },
         ethtestnet: {
             provider: () => new HDWalletProvider(privateKeys, `https://kovan.infura.io/v3/9d4c7aa0db484c24ae3130619cb558da`),
-            network_id: 42,
+            network_id: "*",
             timeoutBlocks: 100000,
             skipDryRun: true,
             networkCheckTimeout: 1000000,
-            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
+            from: deployerAddress
         },
         bscmainnet: {
             provider: () => new HDWalletProvider(privateKeys, `https://bsc-dataseed1.binance.org`),
-            network_id: 56,
-            confirmations: 3,
-            timeoutBlocks: 200,
-            skipDryRun: true
+            network_id: "*",
+            timeoutBlocks: 100000,
+            skipDryRun: true,
+            networkCheckTimeout: 1000000,
+            from: deployerAddress
         },
         ethmainnet: {
             provider: () => new HDWalletProvider(privateKeys, `https://bsc-dataseed1.binance.org`),
-            network_id: 56,
-            confirmations: 3,
-            timeoutBlocks: 200,
-            skipDryRun: true
+            network_id: "*",
+            timeoutBlocks: 100000,
+            skipDryRun: true,
+            networkCheckTimeout: 1000000,
+            from: deployerAddress
         },
         bscdev: {
             provider: () => new HDWalletProvider(privateKeys, `http://18.141.168.229:9797`),
             host: '18.141.168.229',
             port: 9797,
-            network_id: 9797,
-            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
+            network_id: "*",
+            from: deployerAddress
         },
         ethdev: {
             provider: () => new HDWalletProvider(privateKeys, `http://18.141.168.229:4242`),
-            network_id: 4242,
+            network_id: "*",
             host: '18.141.168.229',
             port: 4242,
-            from: '0xD5EF7A24BD2Aa0872b16278017F4d1258b1c3deb'
+            from: deployerAddress
         }
     },
 

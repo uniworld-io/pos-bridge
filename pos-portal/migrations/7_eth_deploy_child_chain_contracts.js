@@ -13,14 +13,14 @@ const utils = require('./utils')
 
 module.exports = async(deployer, network, accounts) => {
     await deployer
-
+    console.log('deploying contracts...', deployer.options)
     const childChainManager = await deployer.deploy(ChildChainManager)
     const childChainManagerProxy = await deployer.deploy(ChildChainManagerProxy, '0x0000000000000000000000000000000000000000')
     await childChainManagerProxy.updateAndCall(ChildChainManager.address, childChainManager.contract.methods.initialize(
         utils.consensusRate,
         utils.minValidators,
         utils.validators,
-        utils.eth.chain_id,
+        deployer.options.network_id,
         accounts[0]
     ).encodeABI())
 
