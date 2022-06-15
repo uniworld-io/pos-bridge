@@ -13,7 +13,7 @@ class PoolConnector{
         const options = {
             reconnect: {
                 auto: true,
-                delay: 5000, // ms
+                delay: 1000, // ms
                 maxAttempts: 5,
                 onTimeout: false
             }
@@ -26,8 +26,8 @@ class PoolConnector{
         this.bscChainConnector = new Web3(bscProvider);
         this.uniChainConnector = new UniChain({fullHost: CHAIN.UNI.EVENT_HOST});
 
-        this.onProvider(ethProvider, this.ethChainConnector, CHAIN.ETH.EVENT_HOST);
-        this.onProvider(bscProvider, this.bscChainConnector, CHAIN.BSC.EVENT_HOST);
+        // this.onProvider(ethProvider, this.ethChainConnector, CHAIN.ETH.EVENT_HOST);
+        // this.onProvider(bscProvider, this.bscChainConnector, CHAIN.BSC.EVENT_HOST);
     }
 
     private onProvider(provider: any, web3: Web3, wssHost: string){

@@ -1,7 +1,8 @@
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}`})
 
 import childMngAbi from '../../resource/ChildManagerABI.json';
-import rootMngAbi from '../../resource/RootManagerABI.json';
+import ethRootMngAbi from '../../resource/EthRootManagerABI.json';
+import bscRootMngAbi from '../../resource/BscRootManagerABI.json';
 
 export const CHAIN = {
     ETH: {
@@ -9,17 +10,11 @@ export const CHAIN = {
         EVENT_HOST: process.env.ETH_EVENT_HOST as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.ETH_CHILD_MANAGER_PROXY as string,
-            ABI: childMngAbi as any,
-            FILTER:{
-                fromBlock: 'latest'
-            }
+            ABI: childMngAbi as any
         },
         ROOT_MANAGER:{
             ADDRESS: process.env.ETH_ROOT_MANAGER_PROXY as string,
-            ABI: rootMngAbi as any,
-            FILTER:{
-                fromBlock: 'latest'
-            }
+            ABI: ethRootMngAbi as any
         }
     },
 
@@ -28,17 +23,11 @@ export const CHAIN = {
         EVENT_HOST: process.env.BSC_EVENT_HOST as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.BSC_CHILD_MANAGER_PROXY as string,
-            ABI: childMngAbi as any,
-            FILTER:{
-                fromBlock: 'latest'
-            }
+            ABI: childMngAbi as any
         },
         ROOT_MANAGER:{
             ADDRESS: process.env.BSC_ROOT_MANAGER_PROXY as string,
-            ABI: rootMngAbi as any,
-            FILTER:{
-                fromBlock: 'latest'
-            }
+            ABI: bscRootMngAbi as any,
         }
     },
     UNI: {
@@ -46,17 +35,11 @@ export const CHAIN = {
         EVENT_HOST: process.env.UNI_EVENT_HOST as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.UNI_CHILD_MANAGER_PROXY as string,
-            ABI: childMngAbi as any,
-            FILTER:{
-                fromBlock: 'latest'
-            }
+            ABI: childMngAbi as any
         },
         ROOT_MANAGER:{
             ADDRESS: process.env.UNI_ROOT_MANAGER_PROXY as string,
-            ABI: rootMngAbi as any,
-            FILTER:{
-                fromBlock: 'latest'
-            }
+            ABI: bscRootMngAbi as any,
         },
         SUBSCRIBE:{
             deposit: process.env.UNI_EVENT_SUBSCRIBE_DEPOSIT_EXEC as string,

@@ -194,12 +194,12 @@
   },
   {
     "inputs": [],
-    "name": "BNB_ADDRESS",
+    "name": "DEFAULT_ADMIN_ROLE",
     "outputs": [
       {
-        "internalType": "address",
+        "internalType": "bytes32",
         "name": "",
-        "type": "address"
+        "type": "bytes32"
       }
     ],
     "stateMutability": "view",
@@ -208,12 +208,12 @@
   },
   {
     "inputs": [],
-    "name": "DEFAULT_ADMIN_ROLE",
+    "name": "ETH_ADDRESS",
     "outputs": [
       {
-        "internalType": "bytes32",
+        "internalType": "address",
         "name": "",
-        "type": "bytes32"
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -449,6 +449,11 @@
   {
     "inputs": [
       {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
+      },
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
@@ -637,6 +642,34 @@
       }
     ],
     "name": "mapToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "typeToken",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "rootToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32",
+        "name": "childChainId",
+        "type": "uint32"
+      },
+      {
+        "internalType": "address",
+        "name": "childToken",
+        "type": "address"
+      }
+    ],
+    "name": "remapToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
