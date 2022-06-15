@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^2.5.0",
-    "@uniworld/unichain-js": "^0.1.6",
+    "@uniworld/unichain-js": "^1.0.9",
     "cron": "^1.8.2",
     "eth-crypto": "^2.3.0",
     "express": "^4.17.3",
