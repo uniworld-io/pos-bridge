@@ -11,16 +11,16 @@ class PoolConnector{
 
     constructor() {
         const options = {
-            // reconnect: {
+            reconnect: {
                 auto: true,
-            //     delay: 1000, // ms
-            //     // maxAttempts: 5,
-            //     onTimeout: false
-            // }
+                delay: 5000, // ms
+                maxAttempts: 5,
+                onTimeout: false
+            }
         };
 
-        const bscProvider = new Web3.providers.WebsocketProvider(CHAIN.BSC.EVENT_HOST);
-        const ethProvider = new Web3.providers.WebsocketProvider(CHAIN.ETH.EVENT_HOST);
+        const bscProvider = new Web3.providers.WebsocketProvider(CHAIN.BSC.EVENT_HOST, options);
+        const ethProvider = new Web3.providers.WebsocketProvider(CHAIN.ETH.EVENT_HOST, options);
 
         this.ethChainConnector = new Web3(ethProvider);
         this.bscChainConnector = new Web3(bscProvider);
@@ -36,7 +36,7 @@ class PoolConnector{
         });
 
         provider.on('end', (e: any) => {
-            console.log('WS closed');
+            console.error('WS closed: ', e);
             console.log('Attempting to reconnect...');
             provider = new Web3.providers.WebsocketProvider(wssHost);
             provider.on('connect', function () {
