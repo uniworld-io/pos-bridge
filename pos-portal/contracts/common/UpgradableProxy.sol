@@ -72,6 +72,8 @@ contract UpgradableProxy is Proxy {
         updateImplementation(_newProxyTo);
 
         (bool success, bytes memory returnData) = address(this).call{value : msg.value}(data);
+//        (bool success, bytes memory returnData) = _newProxyTo.delegatecall(data);
+
         require(success, string(returnData));
     }
 

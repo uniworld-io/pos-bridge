@@ -17,7 +17,7 @@ module.exports = async (deployer, network) => {
     await ChildChainManagerInstance.mapToken(contractAddresses.child.bsc.WUNFT, utils.uni.chain_id, contractAddresses.root.uni.UNFT)
     await ChildChainManagerInstance.mapToken(contractAddresses.child.bsc.WENFT, utils.eth.chain_id, contractAddresses.root.eth.ENFT)
 
-    console.log('Mapping WUNW')
+    console.log('Mapping Native')
     await ChildChainManagerInstance.mapToken(contractAddresses.child.bsc.WUNW, utils.uni.chain_id, contractAddresses.root.uni.UNW)
     await ChildChainManagerInstance.mapToken(contractAddresses.child.bsc.WETH, utils.eth.chain_id, contractAddresses.root.eth.ETH)
 }
