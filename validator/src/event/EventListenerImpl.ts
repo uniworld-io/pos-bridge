@@ -2,6 +2,7 @@ import {Contract} from "web3-eth-contract";
 import {IContractEventHandler} from "../hander/IContractEventHandler";
 import {IEventListener} from "./IEventListener";
 import {EventStandardization} from "../entity/EventStandardization";
+import e from "express";
 
 
 const logger = require('../common/Logger');
@@ -46,9 +47,18 @@ export class EventListenerImpl implements IEventListener {
             logger.info('CaptureEvent: %o', result);
             this.handler.handle(EventStandardization.from(result));
         })
-        events.on('changed', (changed: any) => console.log('Changed event: ', changed))
-        events.on('error', (err: any) => logger.error('Error event from chain-id %s: %s, %s', this.chainId, err.message, err.stack))
-        events.on('connected', (str: any) => console.log('Connected event: ', str))
+        events.on('changed', (changed: any) => {
+            console.log('Changed event: ', changed)
+            logger.info('Changed event: %o', changed)
+        })
+        events.on('error', (err: any) => {
+            console.error(err)
+            logger.error('Error event from chain-id %s: %s, %s', this.chainId, err.message, err.stack)
+        })
+        events.on('connected', (str: any) => {
+            console.log('Connected event: ', str)
+            logger.info('Connected event: %o', str)
+        })
     }
 
 }
