@@ -11,25 +11,24 @@ const ethListener = new EthEventListener(contractEventHandler);
 const uniListener = new UniEventListener(contractEventHandler);
 
 bscListener.listenEventDeposit({
-    toBlock: 'latest'
+    fromBlock: 'latest'
 });
 bscListener.listenEventWithdraw({
-    toBlock: 'latest'
+    fromBlock: 'latest',
 });
-
 
 ethListener.listenEventDeposit({
-    toBlock: 'latest'
+    fromBlock: 'latest',
 });
 ethListener.listenEventWithdraw({
-    toBlock: 'latest'
+    fromBlock: 'latest',
 });
 
 uniListener.listenEventDeposit({
-    toBlock: 'latest'
+    fromBlock: 'latest',
 });
 uniListener.listenEventWithdraw({
-    toBlock: 'latest'
+    fromBlock: 'latest',
 });
 
 
