@@ -16,11 +16,8 @@ async function main() {
     try{
         await bscListener.listenEventDeposit((event: any) => contractEventHandler.handle(EventStandardization.from(event)));
         await bscListener.listenEventWithdraw((event: any) => contractEventHandler.handle(EventStandardization.from(event)));
-
         await ethListener.listenEventDeposit((event: any) => contractEventHandler.handle(EventStandardization.from(event)));
         await ethListener.listenEventWithdraw((event: any) => contractEventHandler.handle(EventStandardization.from(event)));
-
-
         uniListener.listenEventDeposit((event: any) => contractEventHandler.handle(EventStandardization.fromUni(event)));
         uniListener.listenEventWithdraw((event: any) => contractEventHandler.handle(EventStandardization.fromUni(event)));
     }catch (e: any){

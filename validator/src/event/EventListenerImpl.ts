@@ -31,29 +31,39 @@ export class EventListenerImpl implements IEventListener {
     public pastEvent(contract: Contract, topic: string, from: number, cb: any): void {
         contract.getPastEvents(topic, {
             fromBlock: from,
-            toBlock: from + 100
-        }).then(events => events.forEach(value => {
-            logger.info('Capture event %s: %o', topic, value)
-            cb(value)
-        }))
+            toBlock: 'latest'
+        }).then(events => {
+            events.forEach(data => {
+                logger.info('Capture event %s: %o', topic, data)
+                cb(data)
+            })
+        })
     }
 
     public async listenEventDeposit(handler: any): Promise<void> {
-        let currentBlockNumber = (await this.web3.eth.getBlock('latest')).number;
+        let latest = (await this.web3.eth.getBlock('latest')).number;
+        let fromBlock = latest;
         setInterval(async () => {
-            logger.info('Start pull event deposit from block: %s', currentBlockNumber)
-            this.pastEvent(this.rootChainManager, 'DepositExecuted', currentBlockNumber, handler);
-            currentBlockNumber += 100;
-        }, 10000);
+            if(fromBlock <= latest){
+                logger.info('Start pull event deposit from block %s to %s', fromBlock, latest)
+                this.pastEvent(this.rootChainManager, 'DepositExecuted', fromBlock, handler);
+                fromBlock = latest + 1;
+                latest = (await this.web3.eth.getBlock('latest')).number;
+            }
+        }, 5000);
     }
 
     public async listenEventWithdraw(handler: any): Promise<any> {
-        let currentBlockNumber = (await this.web3.eth.getBlock('latest')).number;
+        let latest = (await this.web3.eth.getBlock('latest')).number;
+        let fromBlock = latest;
         setInterval(async () => {
-            logger.info('Start pull event withdraw from block: %s', currentBlockNumber)
-            this.pastEvent(this.childChainManager, 'WithdrawExecuted', currentBlockNumber, handler);
-            currentBlockNumber += 100;
-        }, 10000);
+            if(fromBlock <= latest){
+                logger.info('Start pull event withdraw from block %s to %s', fromBlock, latest)
+                this.pastEvent(this.childChainManager, 'WithdrawExecuted', fromBlock, handler);
+                fromBlock = latest + 1;
+                latest = (await this.web3.eth.getBlock('latest')).number;
+            }
+        }, 5000);
 
     }
 
