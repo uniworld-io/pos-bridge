@@ -2,9 +2,6 @@ import {Contract} from "web3-eth-contract";
 import {IContractEventHandler} from "../hander/IContractEventHandler";
 import {IEventListener} from "./IEventListener";
 import {EventStandardization} from "../entity/EventStandardization";
-import e from "express";
-
-
 const logger = require('../common/Logger');
 
 export class EventListenerImpl implements IEventListener {
@@ -22,43 +19,42 @@ export class EventListenerImpl implements IEventListener {
     }
 
 
-    public listenEventDeposit(filter: any): void {
-        try{
-            const events = this.rootChainManager.events.DepositExecuted(filter);
+    public listenEventDeposit(options: any): void {
+        try {
+            const events = this.rootChainManager.events.DepositExecuted(options);
             this.listen(events)
-        }catch (e:any){
+        } catch (e: any) {
             console.error(e);
             logger.error('%s', e.stack)
         }
     }
 
-    public listenEventWithdraw(filter: any): void {
-        try{
-            const events = this.childChainManager.events.WithdrawExecuted(filter)
+    public listenEventWithdraw(options: any): void {
+        try {
+            const events = this.childChainManager.events.WithdrawExecuted(options)
             this.listen(events);
-        }catch (e: any){
+        } catch (e: any) {
             console.error(e);
             logger.error('%s', e.stack)
         }
     }
 
     private listen(events: any): void {
-        events.on('data', (result: any) => {
-            logger.info('CaptureEvent: %o', result);
-            this.handler.handle(EventStandardization.from(result));
-        })
-        events.on('changed', (changed: any) => {
-            console.log('Changed event: ', changed)
-            logger.info('Changed event: %o', changed)
-        })
-        events.on('error', (err: any) => {
-            console.error(err)
-            logger.error('Error event from chain-id %s: %s, %s', this.chainId, err.message, err.stack)
-        })
-        events.on('connected', (str: any) => {
-            console.log('Connected event: ', str)
-            logger.info('Connected event: %o', str)
-        })
+        events
+            .on('connected', (str: any) => {
+                logger.info('Connected event: %o', str)
+            })
+            .on('data', (result: any) => {
+                logger.info('CaptureEvent: %o', result);
+                this.handler.handle(EventStandardization.from(result));
+            })
+            .on('changed', (changed: any) => {
+                logger.info('Changed event: %o', changed)
+            })
+            .on('error', (err: any) => {
+                console.error(err)
+                logger.error('Error event from chain-id %s: %s', this.chainId, err.stack)
+            })
     }
 
 }

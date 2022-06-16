@@ -12,19 +12,20 @@ const ethListener = new EthEventListener(contractEventHandler);
 const uniListener = new UniEventListener(contractEventHandler);
 
 
-const filter = {
+const options = {
+    filter: {},
     fromBlock: 'latest'
 }
 
 try{
-    bscListener.listenEventDeposit(filter);
-    bscListener.listenEventWithdraw(filter);
+    bscListener.listenEventDeposit(options);
+    bscListener.listenEventWithdraw(options);
 
-    ethListener.listenEventDeposit(filter);
-    ethListener.listenEventWithdraw(filter);
+    ethListener.listenEventDeposit(options);
+    ethListener.listenEventWithdraw(options);
 
-    uniListener.listenEventDeposit(filter);
-    uniListener.listenEventWithdraw(filter);
+    uniListener.listenEventDeposit(options);
+    uniListener.listenEventWithdraw(options);
 }catch (e: any){
     console.error(e);
     logger.error('%s', e.stack)
