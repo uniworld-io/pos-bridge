@@ -28,10 +28,10 @@ export class EventListenerImpl implements IEventListener {
     }
 
 
-    public pastEvent(contract: Contract, topic: string, from: number, cb: any): void {
+    public pastEvent(contract: Contract, topic: string, from: number, to: number, cb: any): void {
         contract.getPastEvents(topic, {
             fromBlock: from,
-            toBlock: 'latest'
+            toBlock: to
         }).then(events => {
             events.forEach(data => {
                 logger.info('Capture event %s: %o', topic, data)
@@ -46,7 +46,7 @@ export class EventListenerImpl implements IEventListener {
         setInterval(async () => {
             if(fromBlock <= latest){
                 logger.info('Start pull event deposit from block %s to %s', fromBlock, latest)
-                this.pastEvent(this.rootChainManager, 'DepositExecuted', fromBlock, handler);
+                this.pastEvent(this.rootChainManager, 'DepositExecuted', fromBlock, latest, handler);
                 fromBlock = latest + 1;
                 latest = (await this.web3.eth.getBlock('latest')).number;
             }
@@ -59,7 +59,7 @@ export class EventListenerImpl implements IEventListener {
         setInterval(async () => {
             if(fromBlock <= latest){
                 logger.info('Start pull event withdraw from block %s to %s', fromBlock, latest)
-                this.pastEvent(this.childChainManager, 'WithdrawExecuted', fromBlock, handler);
+                this.pastEvent(this.childChainManager, 'WithdrawExecuted', fromBlock, latest,  handler);
                 fromBlock = latest + 1;
                 latest = (await this.web3.eth.getBlock('latest')).number;
             }
