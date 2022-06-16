@@ -1,7 +1,7 @@
 import {IContractEventHandler} from "../hander/IContractEventHandler";
 import {CHAIN} from "../config/ConfigEnv";
 import {IEventListener} from "./IEventListener";
-import {POOL_EVENT_CONNECTOR} from "../config/PoolConnector";
+import {POOL_CONNECTOR} from "../config/PoolConnector";
 import {EventStandardization} from "../entity/EventStandardization";
 import axios from "axios";
 
@@ -13,7 +13,7 @@ export class UniEventListener implements IEventListener {
     private readonly handler: IContractEventHandler;
 
     constructor(handler: IContractEventHandler) {
-        const uniChainConnector = POOL_EVENT_CONNECTOR.uniChainConnector;
+        const uniChainConnector = POOL_CONNECTOR.uniChainConnector;
         const chain = CHAIN.UNI;
 
         this.handler = handler;
@@ -28,7 +28,7 @@ export class UniEventListener implements IEventListener {
 
     }
 
-    listenEventDeposit(filter: any): void {
+    listenEventDeposit(cb: any): void {
         const subscribe = CHAIN.UNI.SUBSCRIBE;
         console.log(subscribe)
 
@@ -37,12 +37,12 @@ export class UniEventListener implements IEventListener {
                 return
             data.forEach((item: any) => {
                 console.log('Deposit event: ', item)
-                this.handler.handle(EventStandardization.fromUni(item));
+                cb(item)
             })
         })
     }
 
-    listenEventWithdraw(filter: any): void {
+    listenEventWithdraw(cb: any): void {
         const subscribe = CHAIN.UNI.SUBSCRIBE;
         console.log(subscribe)
         this.subscribe(subscribe.withdraw, subscribe.confirm, subscribe.since, subscribe.sort, (data: any) => {
@@ -50,7 +50,7 @@ export class UniEventListener implements IEventListener {
                 return
             data.forEach((item: any) => {
                 console.log('Withdraw event: ', item)
-                this.handler.handle(EventStandardization.fromUni(item));
+                cb(item);
             })
         })
 

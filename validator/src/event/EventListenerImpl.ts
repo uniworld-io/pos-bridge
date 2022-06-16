@@ -2,6 +2,7 @@ import {Contract} from "web3-eth-contract";
 import {IContractEventHandler} from "../hander/IContractEventHandler";
 import {IEventListener} from "./IEventListener";
 import {EventStandardization} from "../entity/EventStandardization";
+import Web3 from "web3";
 
 const logger = require('../common/Logger');
 
@@ -11,8 +12,15 @@ export class EventListenerImpl implements IEventListener {
     protected childChainManager: Contract;
     private readonly handler: IContractEventHandler;
     private readonly chainId: number;
+    private readonly web3: Web3;
 
-    constructor(chainId: number, handler: IContractEventHandler, rootChainManager: Contract, childChainManager: Contract) {
+    constructor(chainId: number,
+                handler: IContractEventHandler,
+                web3: Web3,
+                rootChainManager: Contract,
+                childChainManager: Contract) {
+
+        this.web3 = web3;
         this.chainId = chainId;
         this.rootChainManager = rootChainManager;
         this.childChainManager = childChainManager;
@@ -20,45 +28,35 @@ export class EventListenerImpl implements IEventListener {
     }
 
 
-    public listenEventDeposit(options: any): void {
-        try {
-            const events = this.rootChainManager.events.DepositExecuted(options);
-            this.listen(events, (result: any) => {
-                logger.info('Capture EventDeposit: %o', result);
-                this.handler.handle(EventStandardization.from(result));
-            })
-        } catch (e: any) {
-            console.error(e);
-            logger.error('%s', e.stack)
-        }
+    public pastEvent(contract: Contract, topic: string, from: number, cb: any): void {
+        contract.getPastEvents(topic, {
+            fromBlock: from,
+            toBlock: from + 100
+        }).then(events => events.forEach(value => {
+            logger.info('Capture event %s: %o', topic, value)
+            cb(value)
+        }))
     }
 
-    public listenEventWithdraw(options: any): void {
-        try {
-            const events = this.childChainManager.events.WithdrawExecuted(options)
-            this.listen(events, (result: any) => {
-                logger.info('Capture EventWithdraw: %o', result);
-                this.handler.handle(EventStandardization.from(result));
-            });
-        } catch (e: any) {
-            console.error(e);
-            logger.error('%s', e.stack)
-        }
+    public async listenEventDeposit(handler: any): Promise<void> {
+        let currentBlockNumber = (await this.web3.eth.getBlock('latest')).number;
+        setInterval(async () => {
+            logger.info('Start pull event deposit from block: %s', currentBlockNumber)
+            this.pastEvent(this.rootChainManager, 'DepositExecuted', currentBlockNumber, handler);
+            currentBlockNumber += 100;
+        }, 10000);
     }
 
-    private listen(events: any, cb: any): void {
-        events
-            .on('connected', (str: any) => {
-                logger.info('Connected event: %o', str)
-            })
-            .on('data', cb)
-            .on('changed', (changed: any) => {
-                logger.info('Changed event: %o', changed)
-            })
-            .on('error', (err: any) => {
-                console.error(err)
-                logger.error('Error event from chain-id %s: %s', this.chainId, err.stack)
-            })
+    public async listenEventWithdraw(handler: any): Promise<any> {
+        let currentBlockNumber = (await this.web3.eth.getBlock('latest')).number;
+        setInterval(async () => {
+            logger.info('Start pull event withdraw from block: %s', currentBlockNumber)
+            this.pastEvent(this.childChainManager, 'WithdrawExecuted', currentBlockNumber, handler);
+            currentBlockNumber += 100;
+        }, 10000);
+
     }
+
+
 
 }

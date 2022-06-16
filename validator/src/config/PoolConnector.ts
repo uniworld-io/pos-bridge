@@ -47,4 +47,4 @@ class PoolConnector{
     }
 }
 
-export const POOL_EVENT_CONNECTOR = new PoolConnector();
+export const POOL_CONNECTOR = new PoolConnector();

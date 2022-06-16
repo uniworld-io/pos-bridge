@@ -1,5 +1,5 @@
 
 export interface IEventListener {
-    listenEventDeposit(filter: any): void;
-    listenEventWithdraw(filter: any): void;
+    listenEventDeposit(cb: any): void;
+    listenEventWithdraw(cb: any): void;
 }
