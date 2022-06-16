@@ -53,6 +53,8 @@ export const CHAIN = {
 
 }
 
+export const EVENT_TIME_INTERVAL_MS = parseInt(process.env.EVENT_TIME_INTERVAL_MS as string);
+
 export const RELAY_APP = {
     HOST: process.env.RELAY_HTTP_HOST as string,
     API:{

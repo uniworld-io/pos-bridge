@@ -8,13 +8,13 @@ const _ = require('lodash');
 
 export class EthEventListener extends EventListenerImpl {
 
-    constructor(handler: IContractEventHandler) {
+    constructor() {
         const chain = CHAIN.ETH;
         const chainConnector = POOL_CONNECTOR.ethChainConnector;
         const rootChainManager = new chainConnector.eth.Contract(chain.ROOT_MANAGER.ABI, chain.ROOT_MANAGER.ADDRESS);
         const childChainManager = new chainConnector.eth.Contract(chain.CHILD_MANAGER.ABI, chain.CHILD_MANAGER.ADDRESS);
 
-        super(chain.ID, handler, chainConnector, rootChainManager, childChainManager);
+        super(chain.ID, chainConnector, rootChainManager, childChainManager);
 
         console.log("=======================================LISTEN ETH CHAIN=======================================");
         console.log(chainConnector.eth.currentProvider)

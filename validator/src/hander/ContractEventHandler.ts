@@ -18,7 +18,7 @@ export class ContractEventHandler implements IContractEventHandler {
         const url = RELAY_APP.HOST + '/' + RELAY_APP.API.COLLECT_VERIFICATION;
         axios.post(url, verification)
             .then((res: any) => console.log(res.data))
-            .catch((error: any) => console.error(error));
+            .catch((error: any) => console.error(error.message));
     }
 
 

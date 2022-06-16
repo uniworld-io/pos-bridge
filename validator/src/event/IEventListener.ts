@@ -1,5 +1,5 @@
 
 export interface IEventListener {
-    listenEventDeposit(cb: any): void;
-    listenEventWithdraw(cb: any): void;
+    listenEventDeposit(): Promise<any>;
+    listenEventWithdraw(): Promise<any>;
 }

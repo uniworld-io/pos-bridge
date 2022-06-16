@@ -1,8 +1,7 @@
 import {Contract} from "web3-eth-contract";
-import {IContractEventHandler} from "../hander/IContractEventHandler";
 import {IEventListener} from "./IEventListener";
-import {EventStandardization} from "../entity/EventStandardization";
 import Web3 from "web3";
+import {EVENT_TIME_INTERVAL_MS} from "../config/ConfigEnv";
 
 const logger = require('../common/Logger');
 
@@ -10,12 +9,10 @@ export class EventListenerImpl implements IEventListener {
 
     protected rootChainManager: Contract;
     protected childChainManager: Contract;
-    private readonly handler: IContractEventHandler;
     private readonly chainId: number;
     private readonly web3: Web3;
 
     constructor(chainId: number,
-                handler: IContractEventHandler,
                 web3: Web3,
                 rootChainManager: Contract,
                 childChainManager: Contract) {
@@ -24,11 +21,10 @@ export class EventListenerImpl implements IEventListener {
         this.chainId = chainId;
         this.rootChainManager = rootChainManager;
         this.childChainManager = childChainManager;
-        this.handler = handler;
     }
 
 
-    public pastEvent(contract: Contract, topic: string, from: number, to: number, cb: any): void {
+    private pullEvent(contract: Contract, topic: string, from: number, to: number, cb: any): void {
         contract.getPastEvents(topic, {
             fromBlock: from,
             toBlock: to
@@ -40,33 +36,45 @@ export class EventListenerImpl implements IEventListener {
         })
     }
 
-    public async listenEventDeposit(handler: any): Promise<void> {
-        let latest = (await this.web3.eth.getBlock('latest')).number;
+    public async listenEventDeposit(): Promise<void> {
+        let latest = (await this.web3.eth.getBlock('latest')).number
         let fromBlock = latest;
-        setInterval(async () => {
-            if(fromBlock <= latest){
-                logger.info('Start pull event deposit from block %s to %s', fromBlock, latest)
-                this.pastEvent(this.rootChainManager, 'DepositExecuted', fromBlock, latest, handler);
-                fromBlock = latest + 1;
-                latest = (await this.web3.eth.getBlock('latest')).number;
-            }
-        }, 5000);
+        return new Promise((resolve, reject) => {
+            setInterval(async () => {
+                try {
+                    if (fromBlock <= latest) {
+                        logger.info('ChainID %s tart pull event deposit from block %s to %s', this.chainId,  fromBlock, latest)
+                        this.pullEvent(this.rootChainManager, 'DepositExecuted', fromBlock, latest, resolve);
+                        fromBlock = latest + 1;
+                    }
+                    latest = (await this.web3.eth.getBlock('latest')).number;
+                } catch (e: any) {
+                    reject(e)
+                }
+            }, EVENT_TIME_INTERVAL_MS);
+        })
     }
 
-    public async listenEventWithdraw(handler: any): Promise<any> {
+    public async listenEventWithdraw(): Promise<any> {
         let latest = (await this.web3.eth.getBlock('latest')).number;
         let fromBlock = latest;
-        setInterval(async () => {
-            if(fromBlock <= latest){
-                logger.info('Start pull event withdraw from block %s to %s', fromBlock, latest)
-                this.pastEvent(this.childChainManager, 'WithdrawExecuted', fromBlock, latest,  handler);
-                fromBlock = latest + 1;
-                latest = (await this.web3.eth.getBlock('latest')).number;
-            }
-        }, 5000);
+        return new Promise((resolve, reject) => {
+            setInterval(async () => {
+                try {
+                    if (fromBlock <= latest) {
+                        logger.info('ChainId %s start pull event withdraw from block %s to %s',this.chainId,  fromBlock, latest)
+                        this.pullEvent(this.childChainManager, 'WithdrawExecuted', fromBlock, latest, resolve);
+                        fromBlock = latest + 1;
+                    }
+                    latest = (await this.web3.eth.getBlock('latest')).number;
+                } catch (e: any) {
+                    reject(e);
+                }
+
+            }, EVENT_TIME_INTERVAL_MS);
+        })
 
     }
-
 
 
 }

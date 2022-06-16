@@ -7,24 +7,19 @@ import {EventStandardization} from "./entity/EventStandardization";
 const logger = require('./common/Logger')
 
 const contractEventHandler = new ContractEventHandler();
-const bscListener = new BscEventListener(contractEventHandler);
-const ethListener = new EthEventListener(contractEventHandler);
-const uniListener = new UniEventListener(contractEventHandler);
+const bscListener = new BscEventListener();
+const ethListener = new EthEventListener();
+const uniListener = new UniEventListener();
+
+const logError = (e: any) => logger.error('Main exception: %s', e.stack)
 
 
-async function main() {
-    try{
-        await bscListener.listenEventDeposit((event: any) => contractEventHandler.handle(EventStandardization.from(event)));
-        await bscListener.listenEventWithdraw((event: any) => contractEventHandler.handle(EventStandardization.from(event)));
-        await ethListener.listenEventDeposit((event: any) => contractEventHandler.handle(EventStandardization.from(event)));
-        await ethListener.listenEventWithdraw((event: any) => contractEventHandler.handle(EventStandardization.from(event)));
-        uniListener.listenEventDeposit((event: any) => contractEventHandler.handle(EventStandardization.fromUni(event)));
-        uniListener.listenEventWithdraw((event: any) => contractEventHandler.handle(EventStandardization.fromUni(event)));
-    }catch (e: any){
-        logger.error('Main exception: %s', e.stack)
-    }
-}
-main().then();
+ethListener.listenEventDeposit().then((event: any) => contractEventHandler.handle(EventStandardization.from(event))).catch(logError);
+ethListener.listenEventWithdraw().then((event: any) => contractEventHandler.handle(EventStandardization.from(event))).catch(logError);
+bscListener.listenEventDeposit().then((event: any) => contractEventHandler.handle(EventStandardization.from(event))).catch(logError);
+bscListener.listenEventWithdraw().then((event: any) => contractEventHandler.handle(EventStandardization.from(event))).catch(logError);
+uniListener.listenEventDeposit().then((event: any) => contractEventHandler.handle(EventStandardization.fromUni(event))).catch(logError);
+uniListener.listenEventWithdraw().then((event: any) => contractEventHandler.handle(EventStandardization.fromUni(event))).catch(logError);
 
 
 
