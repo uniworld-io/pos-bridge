@@ -62,7 +62,7 @@ contract BscRootChainManager is IRootChainManager, AccessControlUni, Initializab
     }
 
     function remapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) override external only(MAPPER_ROLE) {
-        // cleanup old mapping
+        // cleanup old admin
         address oldChildToken = rootToChildToken[childChainId][rootToken];
         address oldRootToken = childToRootToken[childChainId][childToken];
 

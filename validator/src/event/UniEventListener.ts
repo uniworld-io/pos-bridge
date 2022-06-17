@@ -29,7 +29,7 @@ export class UniEventListener implements IEventListener {
     async listenEventDeposit(): Promise<any> {
         return new Promise((resolve, reject) => {
             const subscribe = CHAIN.UNI.SUBSCRIBE;
-            console.log(subscribe)
+            // console.log(subscribe)
 
             this.subscribe(subscribe.deposit, subscribe.confirm, subscribe.sort)
                 .then(data => {
@@ -48,7 +48,7 @@ export class UniEventListener implements IEventListener {
     async listenEventWithdraw(): Promise<any> {
         return new Promise((resolve, reject) => {
             const subscribe = CHAIN.UNI.SUBSCRIBE;
-            console.log(subscribe)
+            // console.log(subscribe)
             this.subscribe(subscribe.withdraw, subscribe.confirm, subscribe.sort)
                 .then(data => {
                     if (!data || !data.length)
@@ -71,11 +71,12 @@ export class UniEventListener implements IEventListener {
         return new Promise((resolve, reject) => {
             setInterval(async () => {
                 try {
-                    const timer = Date.now() - 3000;
+                    const timer = Date.now() - EVENT_TIME_INTERVAL_MS;
                     const params = `?topic=${topic}&confirmed=${confirm}&since=${timer}&sort=${sort}`;
                     const url = CHAIN.UNI.EVENT_HOST + CHAIN.UNI.SUBSCRIBE.path + params;
                     logger.info(url)
                     const resp = await axios.get(url)
+                    console.log(resp.data)
                     resolve(resp.data);
                 } catch (e) {
                     console.log('Listen event fail: ', e)
