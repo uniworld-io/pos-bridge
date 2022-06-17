@@ -2,7 +2,6 @@ import {BscEventListener} from "./event/BscEventListener";
 import {ContractEventHandler} from "./hander/ContractEventHandler";
 import {EthEventListener} from "./event/EthEventListener";
 import {UniEventListener} from "./event/UniEventListener";
-import {EventStandardization} from "./entity/EventStandardization";
 
 const logger = require('./common/Logger')
 

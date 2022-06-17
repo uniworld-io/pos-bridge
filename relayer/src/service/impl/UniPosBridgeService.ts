@@ -7,7 +7,7 @@ import {PosBridgeService} from "../PosBridgeService";
 const unichain = poolConnector.uniChainConnector;
 const logger = require('../../common/Logger')
 
-export class UniPosBridgeService implements PosBridgeService{
+export class UniPosBridgeService implements PosBridgeService {
 
     public async setup(setup: UniSetupPosBridge): Promise<any> {
         const privateKey = CHAIN.UNI.TEST.admin.privateKey;
@@ -43,16 +43,20 @@ export class UniPosBridgeService implements PosBridgeService{
         const privateKey = unichain.defaultPrivateKey;
         const tx = await unichain.transactionBuilder.posBridgeDepositExec(unichain.defaultAddress.base58, verification.signatures, verification.message);
         const signedTx = await unichain.unx.signTransaction(tx, privateKey, 0)
-        return await unichain.unx.sendRawTransaction(signedTx);
+        unichain.unx.sendRawTransaction(signedTx)
+            .then((result: any) => logger.info('Result call: %o', result))
+            .catch((error: any) => logger.error('Error call: %s', error));
+
     }
 
     public async withdrawExec(verification: GroupVerification): Promise<any> {
         const privateKey = unichain.defaultPrivateKey;
         const tx = await unichain.transactionBuilder.posBridgeWithdraw(unichain.defaultAddress.base58, verification.signatures, verification.message);
         const signedTx = await unichain.unx.signTransaction(tx, privateKey, 0)
-        return await unichain.unx.sendRawTransaction(signedTx);
+        unichain.unx.sendRawTransaction(signedTx)
+            .then((result: any) => logger.info('Result call: %o', result))
+            .catch((error: any) => logger.error('Error call: %s', error));
     }
-
 
 
     private async createTransaction(path: string, privateKey: string, data: any): Promise<any> {
