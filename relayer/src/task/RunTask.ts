@@ -15,7 +15,6 @@ export class RunTask {
     run(): void {
         this.bufferEvent.forEach((value, key) => {
             try{
-                console.log("Loop event: ", value)
                 const verification = value as GroupVerification;
                 const service = RunTask.lookupService(verification.toChainId);
 

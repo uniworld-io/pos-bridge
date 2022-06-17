@@ -3,6 +3,9 @@ import {IEventListener} from "./IEventListener";
 import {POOL_CONNECTOR} from "../config/PoolConnector";
 import axios from "axios";
 import {EVENT_TIME_INTERVAL_MS} from "../config/ConfigEnv";
+import {Contract} from "web3-eth-contract";
+import {ContractEventHandler} from "../hander/ContractEventHandler";
+import {EventStandardization} from "../entity/EventStandardization";
 
 const logger = require('../common/Logger')
 
@@ -26,20 +29,14 @@ export class UniEventListener implements IEventListener {
 
     }
 
-    async listenEventDeposit(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            const subscribe = CHAIN.UNI.SUBSCRIBE;
-            // console.log(subscribe)
-            this.subscribe(subscribe.deposit, subscribe.confirm, subscribe.sort, resolve, reject) ;
-        })
+    public async listenEventDeposit(handler: ContractEventHandler): Promise<void> {
+        const subscribe = CHAIN.UNI.SUBSCRIBE;
+        this.subscribe(subscribe.deposit, subscribe.confirm, subscribe.sort, handler);
     }
 
-    async listenEventWithdraw(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            const subscribe = CHAIN.UNI.SUBSCRIBE;
-            // console.log(subscribe)
-            this.subscribe(subscribe.withdraw, subscribe.confirm, subscribe.sort, resolve, reject);
-        })
+    public async listenEventWithdraw(handler: ContractEventHandler): Promise<void> {
+        const subscribe = CHAIN.UNI.SUBSCRIBE;
+        this.subscribe(subscribe.withdraw, subscribe.confirm, subscribe.sort, handler);
 
         // this.rootChainManager.WithdrawExecuted().watch(filter, (error: any, result: UniEventResult) => {
         //     console.log(result)
@@ -47,23 +44,17 @@ export class UniEventListener implements IEventListener {
         // })
     }
 
-    private subscribe(topic: any, confirm: boolean = true, sort: string = 'timeStamp', resolve: any, reject: any): void {
-        setInterval(async () => {
-            try {
-                const timer = Date.now() - EVENT_TIME_INTERVAL_MS;
-                const params = `?topic=${topic}&confirmed=${confirm}&since=${timer}&sort=${sort}`;
-                const url = CHAIN.UNI.EVENT_HOST + CHAIN.UNI.SUBSCRIBE.path + params;
-                logger.info(url)
-                const resp = await axios.get(url)
-
-                resp.data?.length > 0 && resp.data.forEach((event: any) => {
-                    logger.info('%o', event)
-                    resolve(event);
+    private subscribe(topic: any, confirm: boolean = true, sort: string = 'timeStamp', handler: ContractEventHandler): void {
+        setInterval( () => {
+            const timer = Date.now() - EVENT_TIME_INTERVAL_MS;
+            const params = `?topic=${topic}&confirmed=${confirm}&since=${timer}&sort=${sort}`;
+            const url = CHAIN.UNI.EVENT_HOST + CHAIN.UNI.SUBSCRIBE.path + params;
+            logger.info(url)
+            axios.get(url).then(res => {res.data?.length > 0 && res.data.forEach((event: any) => {
+                    logger.info('Capture event %s: %o', topic, event)
+                    handler.handle(EventStandardization.fromUni(event));
                 });
-            } catch (e) {
-                console.log('Listen event fail: ', e)
-                reject(e)
-            }
+            }).catch(console.error)
         }, EVENT_TIME_INTERVAL_MS)
     }
 }

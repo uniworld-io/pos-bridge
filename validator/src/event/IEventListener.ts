@@ -1,5 +1,6 @@
+import {ContractEventHandler} from "../hander/ContractEventHandler";
 
 export interface IEventListener {
-    listenEventDeposit(): Promise<any>;
-    listenEventWithdraw(): Promise<any>;
+    listenEventDeposit(handler: ContractEventHandler): Promise<void>;
+    listenEventWithdraw(handler: ContractEventHandler): Promise<void>;
 }

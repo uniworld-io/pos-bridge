@@ -21,7 +21,7 @@ export class Web3PosBridgeService implements PosBridgeService {
 
         depositExecutedCall
             .send(await this.options(depositExecutedCall))
-            .then((result: any) => logger.info('Result call: %s', result))
+            .then((result: any) => logger.info('Result call: %o', result))
             .catch((error: any) => logger.error('Error call: %s', error))
     }
 
@@ -31,7 +31,7 @@ export class Web3PosBridgeService implements PosBridgeService {
 
         withdrawExecutedCall
             .send(await this.options(withdrawExecutedCall))
-            .then((result: any) => logger.info('Result call: %s', result))
+            .then((result: any) => logger.info('Result call: %o', result))
             .catch((error: any) => logger.error('Error call: %s', error))
     }
 
