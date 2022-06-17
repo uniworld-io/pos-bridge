@@ -51,7 +51,7 @@ export class UniPosBridgeService implements PosBridgeService {
 
     public async withdrawExec(verification: GroupVerification): Promise<any> {
         const privateKey = unichain.defaultPrivateKey;
-        const tx = await unichain.transactionBuilder.posBridgeWithdraw(unichain.defaultAddress.base58, verification.signatures, verification.message);
+        const tx = await unichain.transactionBuilder.posBridgeWithdrawExec(unichain.defaultAddress.base58, verification.signatures, verification.message);
         const signedTx = await unichain.unx.signTransaction(tx, privateKey, 0)
         unichain.unx.sendRawTransaction(signedTx)
             .then((result: any) => logger.info('Result call: %o', result))
