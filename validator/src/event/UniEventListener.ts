@@ -30,18 +30,7 @@ export class UniEventListener implements IEventListener {
         return new Promise((resolve, reject) => {
             const subscribe = CHAIN.UNI.SUBSCRIBE;
             // console.log(subscribe)
-
-            this.subscribe(subscribe.deposit, subscribe.confirm, subscribe.sort)
-                .then(data => {
-                    if (!data || !data.length)
-                        return
-                    data.forEach((item: any) => {
-                        console.log('Withdraw event: ', item)
-                        resolve(item);
-                    })
-                })
-                .catch(error => reject(error));
-
+            this.subscribe(subscribe.deposit, subscribe.confirm, subscribe.sort, resolve, reject) ;
         })
     }
 
@@ -49,16 +38,7 @@ export class UniEventListener implements IEventListener {
         return new Promise((resolve, reject) => {
             const subscribe = CHAIN.UNI.SUBSCRIBE;
             // console.log(subscribe)
-            this.subscribe(subscribe.withdraw, subscribe.confirm, subscribe.sort)
-                .then(data => {
-                    if (!data || !data.length)
-                        return
-                    data.forEach((item: any) => {
-                        console.log('Withdraw event: ', item)
-                        resolve(item);
-                    })
-                })
-                .catch(error => reject(error));
+            this.subscribe(subscribe.withdraw, subscribe.confirm, subscribe.sort, resolve, reject);
         })
 
         // this.rootChainManager.WithdrawExecuted().watch(filter, (error: any, result: UniEventResult) => {
@@ -67,22 +47,23 @@ export class UniEventListener implements IEventListener {
         // })
     }
 
-    private async subscribe(topic: any, confirm: boolean = true, sort: string = 'timeStamp'): Promise<any> {
-        return new Promise((resolve, reject) => {
-            setInterval(async () => {
-                try {
-                    const timer = Date.now() - EVENT_TIME_INTERVAL_MS;
-                    const params = `?topic=${topic}&confirmed=${confirm}&since=${timer}&sort=${sort}`;
-                    const url = CHAIN.UNI.EVENT_HOST + CHAIN.UNI.SUBSCRIBE.path + params;
-                    logger.info(url)
-                    const resp = await axios.get(url)
-                    console.log(resp.data)
-                    resolve(resp.data);
-                } catch (e) {
-                    console.log('Listen event fail: ', e)
-                    reject(e);
-                }
-            }, EVENT_TIME_INTERVAL_MS)
-        })
+    private subscribe(topic: any, confirm: boolean = true, sort: string = 'timeStamp', resolve: any, reject: any): void {
+        setInterval(async () => {
+            try {
+                const timer = Date.now() - EVENT_TIME_INTERVAL_MS;
+                const params = `?topic=${topic}&confirmed=${confirm}&since=${timer}&sort=${sort}`;
+                const url = CHAIN.UNI.EVENT_HOST + CHAIN.UNI.SUBSCRIBE.path + params;
+                logger.info(url)
+                const resp = await axios.get(url)
+
+                resp.data?.length > 0 && resp.data.forEach((event: any) => {
+                    logger.info('%o', event)
+                    resolve(event);
+                });
+            } catch (e) {
+                console.log('Listen event fail: ', e)
+                reject(e)
+            }
+        }, EVENT_TIME_INTERVAL_MS)
     }
 }
