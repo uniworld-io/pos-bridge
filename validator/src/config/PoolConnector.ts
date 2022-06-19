@@ -24,7 +24,7 @@ class PoolConnector{
 
         this.ethChainConnector = new Web3(ethProvider);
         this.bscChainConnector = new Web3(bscProvider);
-        this.uniChainConnector = new UniChain({fullHost: CHAIN.UNI.EVENT_HOST});
+        this.uniChainConnector = new UniChain({fullHost: CHAIN.UNI.SEED_NODE});
 
         // this.onProvider(ethProvider, this.ethChainConnector, CHAIN.ETH.EVENT_HOST);
         // this.onProvider(bscProvider, this.bscChainConnector, CHAIN.BSC.EVENT_HOST);

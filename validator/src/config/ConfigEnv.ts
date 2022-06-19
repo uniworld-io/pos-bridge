@@ -33,6 +33,7 @@ export const CHAIN = {
     UNI: {
         ID: parseInt(process.env.UNI_CHAIN_ID as string),
         EVENT_HOST: process.env.UNI_EVENT_HOST as string,
+        SEED_NODE: process.env.UNI_SEED_NODE as string,
         CHILD_MANAGER: {
             ADDRESS: process.env.UNI_CHILD_MANAGER_PROXY as string,
             ABI: childMngAbi as any

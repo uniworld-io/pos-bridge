@@ -13,17 +13,18 @@ export class UniEventListener implements IEventListener {
 
     private rootChainManager: any;
     private childChainManager: any;
+    private unichain: any;
 
     constructor() {
-        const uniChainConnector = POOL_CONNECTOR.uniChainConnector;
+        this.unichain = POOL_CONNECTOR.uniChainConnector;
         const chain = CHAIN.UNI;
 
 
-        this.rootChainManager = uniChainConnector.contract(chain.ROOT_MANAGER.ABI, chain.ROOT_MANAGER.ADDRESS);
-        this.childChainManager = uniChainConnector.contract(chain.CHILD_MANAGER.ABI, chain.CHILD_MANAGER.ADDRESS);
+        this.rootChainManager = this.unichain.contract(chain.ROOT_MANAGER.ABI, chain.ROOT_MANAGER.ADDRESS);
+        this.childChainManager = this.unichain.contract(chain.CHILD_MANAGER.ABI, chain.CHILD_MANAGER.ADDRESS);
 
         console.log("=======================================LISTEN UNI CHAIN=======================================");
-        console.log(uniChainConnector.eventServer)
+        console.log(this.unichain.eventServer)
         console.log("=====> ROOT MANAGER CONTRACT:", this.rootChainManager.address)
         console.log("=====> CHILD MANAGER CONTRACT:", this.childChainManager.address)
 
@@ -44,7 +45,7 @@ export class UniEventListener implements IEventListener {
         // })
     }
 
-    private subscribe(topic: any, confirm: boolean = true, sort: string = 'timeStamp', handler: ContractEventHandler): void {
+    private subscribe(topic: any, confirm: boolean = true, sort: string = 'timestamp', handler: ContractEventHandler): void {
         setInterval( () => {
             const timer = Date.now() - EVENT_TIME_INTERVAL_MS;
             const params = `?topic=${topic}&confirmed=${confirm}&since=${timer}&sort=${sort}`;
