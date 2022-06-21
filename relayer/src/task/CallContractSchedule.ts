@@ -6,12 +6,12 @@ export class CallContractSchedule{
     jobCallContract: CronJob;
     task: RunTask;
     constructor() {
-        console.log("Setup schedule job call contract...")
+        console.log("Config schedule job call contract...")
         this.task = new RunTask();
         this.jobCallContract = new CronJob(CRON_TAB,  async () => {
              await this.run();
         })
-        console.log("Setup schedule job call contract...done!")
+        console.log("Config schedule job call contract...done!")
     }
 
     start(): void{

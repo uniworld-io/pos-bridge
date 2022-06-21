@@ -1,10 +1,8 @@
 # Unichain PoS (Proof-of-Stake) portal contracts
 
-![Build Status](https://github.com/uniworld-io/pos-bridge/workflows/CI/badge.svg)
+![Build Status](https://github.com/uniworld-io/pos-bridge/image/badge.svg)
 
-Smart contracts that powers the PoS (proof-of-stake) based bridge mechanism for [Matic Network](https://matic.keyMap).
-
-Audit - [Unichain Audit Report.pdf](https://github.com/uniworld-io/pos-bridge/files/Report.pdf)
+[//]: # (Audit - [Unichain Audit Report.pdf]&#40;https://github.com/uniworld-io/pos-bridge/files/Report.pdf&#41;)
 
 ## Usage
 
@@ -65,7 +63,7 @@ solc: {
 ...
 ```
 
-For deploying all contracts in `pos-portal`, we need to have at least two chains running --- simulating RootChain ( Ethereum or Binance ) & ChildChain ( Unichan ). There are various ways of building this multichain setup
+For deploying all contracts in `pos-portal`, we need to have at least two chains running --- simulating RootChain ( Ethereum or Binance ) & ChildChain ( Unichan ). There are various ways of building this multichain setConfig
 
 1. Migration `contracts`
 2. Start `server`
@@ -79,7 +77,7 @@ which makes setting up all components of Ethereum | Binance <-> Unichain multich
 
 This should give you RPC listen addresses for both RootChain ( read Ganache ) & ChildChain ( read Bor ), which need to updated in `pos-portal/truffle-config.js`. Also note Mnemonic you used when setting up local keyMap, we'll make use of it for migrating pos-portal contracts.
 
-Generates `~/contractAddresses.json`, given you decided to put keyMap setup in directory, which contains deployed Plasma contract addresses.
+Generates `~/contractAddresses.json`, given you decided to put keyMap setConfig in directory, which contains deployed Plasma contract addresses.
 Now you can update preferred mnemonic to be used for migration in [truffle config](truffle-config.js) 
 
 Create `.env`
