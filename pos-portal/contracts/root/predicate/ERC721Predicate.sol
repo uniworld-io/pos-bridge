@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
 import "./ITokenPredicate.sol";
 import "../../common/AccessControlUni.sol";
 import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "../../common/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 

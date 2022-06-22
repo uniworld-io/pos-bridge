@@ -6,7 +6,8 @@ pragma solidity ^0.8.0;
 import "./IChildChainManager.sol";
 import "./ChildChainManagerStorage.sol";
 
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "../../common/Initializable.sol";
+
 import "../token/IChildToken.sol";
 import "../../common/AccessControlUni.sol";
 import "../../common/SignaturesValidator.sol";

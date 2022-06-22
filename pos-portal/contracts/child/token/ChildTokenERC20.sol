@@ -3,11 +3,10 @@
 
 pragma solidity ^0.8.0;
 import "./IChildToken.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "../../common/AccessControlUni.sol";
 
-contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken, Initializable {
+contract ChildTokenERC20 is ERC20, AccessControlUni, IChildToken {
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
