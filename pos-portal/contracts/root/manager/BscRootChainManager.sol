@@ -4,6 +4,8 @@
 pragma solidity ^0.8.0;
 
 import "./IRootChainManager.sol";
+import "./RootChainManagerStorage.sol";
+
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "../predicate/ITokenPredicate.sol";
 import "../../common/AccessControlUni.sol";
@@ -11,13 +13,7 @@ import "../../common/SignaturesValidator.sol";
 import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
 import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 
-contract BscRootChainManager is IRootChainManager, AccessControlUni, Initializable, SignaturesValidator {
-    mapping(uint32 => mapping(address => address)) public rootToChildToken;
-    mapping(uint32 => mapping(address => address)) public childToRootToken;
-    mapping(bytes32 => address) public typeToPredicate;
-    mapping(address => bytes32) public tokenToType;
-
-    uint32 public rootChainId;
+contract BscRootChainManager is IRootChainManager, AccessControlUni, Initializable, SignaturesValidator, RootChainManagerStorage {
 
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
     bytes32 public constant MAPPER_ROLE = keccak256("MAPPER_ROLE");
@@ -49,7 +45,7 @@ contract BscRootChainManager is IRootChainManager, AccessControlUni, Initializab
      * The account sending ether receives WBNB on child chain
      */
     receive() external payable {
-        _msgSender().call{value : msg.value}("");
+
     }
 
     function mapToken(bytes32 typeToken, address rootToken, uint32 childChainId, address childToken) override external only(MAPPER_ROLE) {
@@ -134,22 +130,25 @@ contract BscRootChainManager is IRootChainManager, AccessControlUni, Initializab
         emit DepositExecuted(rootChainId, childChainId, rootToken, _msgSender(), receiver, depositData);
     }
 
-    function withdrawExecuted(bytes calldata msg, bytes[] memory signatures) public {
-        validateSignatures(msg, signatures);
+    function withdrawExecuted(bytes calldata msg, bytes[] calldata signatures) public {
+        bytes32 msgHash = keccak256(msg);
+        validateSignatures(msgHash, signatures);
 
-        (uint32 childChainId, uint32 rootChainId_, address childToken, address withdrawer, bytes memory withdrawData)
-        = abi.decode(msg, (uint32, uint32, address, address, bytes));
+        (string memory tx, uint32 childChainId, uint32 rootChainId_, address childToken, address withdrawer, bytes memory withdrawData)
+        = abi.decode(msg, (string, uint32, uint32, address, address, bytes));
 
+        require(txToMsgHash[childChainId][tx] == bytes32(0), "RootChainManager: ALREADY_TRANSACTION");
         require(rootChainId_ == rootChainId, "RootChainManager: NOT_MATCH_ROOT_CHAIN");
 
         address rootToken = childToRootToken[childChainId][childToken];
         bytes32 tokenType = tokenToType[rootToken];
-        require(rootToken != address(0x0) && tokenType != 0, "RootChainManager: Token not mapped");
+        require(rootToken != address(0x0) && tokenType != 0, "RootChainManager: TOKEN_NOT_MAPPED");
 
         address predicateAddress = typeToPredicate[tokenType];
-        require(predicateAddress != address(0), "RootChainManager: Not found predicate");
+        require(predicateAddress != address(0), "RootChainManager: PREDICATE_NOT_FOUND");
 
         ITokenPredicate(predicateAddress).unlockTokens(withdrawer, rootToken, withdrawData);
+        txToMsgHash[childChainId][tx] = msgHash;
     }
 
     function registerPredicate(bytes32 tokenType, address predicateAddress) override external only(DEFAULT_ADMIN_ROLE) {
@@ -157,7 +156,7 @@ contract BscRootChainManager is IRootChainManager, AccessControlUni, Initializab
         emit PredicateRegistered(tokenType, predicateAddress);
     }
 
-    function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_) external only(DEFAULT_ADMIN_ROLE) {
+    function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] calldata validators_) external only(DEFAULT_ADMIN_ROLE) {
         consensusRate = consensusRate_;
         minValidator = minValidator_;
         validators = validators_;

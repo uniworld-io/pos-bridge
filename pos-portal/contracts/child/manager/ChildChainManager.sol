@@ -4,20 +4,16 @@
 pragma solidity ^0.8.0;
 
 import "./IChildChainManager.sol";
+import "./ChildChainManagerStorage.sol";
+
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "../token/IChildToken.sol";
 import "../../common/AccessControlUni.sol";
 import "../../common/SignaturesValidator.sol";
 
 
-contract ChildChainManager is IChildChainManager, AccessControlUni, Initializable, SignaturesValidator {
-    mapping(uint32 => mapping(address => address)) public rootToChildToken;
-    mapping(address => address) public childToRootToken;
-    mapping(address => uint32) public rootToChainId;
-    uint32 public childChainId;
-
+contract ChildChainManager is IChildChainManager, AccessControlUni, Initializable, SignaturesValidator, ChildChainManagerStorage{
     event WithdrawExecuted(uint32 childChainId, uint32 rootChainId, address childToken, address burner, address withdrawer, bytes withdrawData);
-
 
     function initialize(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_, uint32 chainId_, address _owner) external initializer {
         _setupRole(DEFAULT_ADMIN_ROLE, _owner);
@@ -68,21 +64,24 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
         emit WithdrawExecuted(childChainId, rootChainId, childToken, _msgSender(), withdrawer, withdrawData);
     }
 
-    function depositExecuted(bytes calldata msg, bytes[] memory signatures) public {
-        validateSignatures(msg, signatures);
+    function depositExecuted(bytes calldata msg, bytes[] calldata signatures) public {
+        bytes32 msgHash = keccak256(msg);
+        validateSignatures(msgHash, signatures);
 
-        (uint32 rootChainId, uint32 childChainId_,  address rootToken,  address user, bytes memory depositData)
-        = abi.decode(msg, (uint32, uint32, address, address, bytes));
+        (string memory tx, uint32 rootChainId, uint32 childChainId_,  address rootToken,  address user, bytes memory depositData)
+        = abi.decode(msg, (string, uint32, uint32, address, address, bytes));
 
+        require(txToMsgHash[rootChainId][tx] == bytes32(0), "RootChainManager: ALREADY_TRANSACTION");
         require(childChainId == childChainId_, "ChildChainManager: NOT_MATCH_CHILD_CHAIN");
 
         address childToken = rootToChildToken[rootChainId][rootToken];
         require(childToken != address(0), "ChildChainManager: TOKEN_NOT_MAPPED");
 
         IChildToken(childToken).deposit(user, depositData);
+        txToMsgHash[rootChainId][tx] = msgHash;
     }
 
-    function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] memory validators_)
+    function validatorChanged(uint8 consensusRate_, uint8 minValidator_, address[] calldata validators_)
     override external only(DEFAULT_ADMIN_ROLE) {
         consensusRate = consensusRate_;
         minValidator = minValidator_;

@@ -36,8 +36,9 @@ export class ContractEventHandler implements IContractEventHandler {
     private signDepositExec(result: EventStandardization): any {
         const pickMsg = _.pick(result.values, ['rootChainId', 'childChainId', 'rootToken', 'depositor', 'receiver', 'depositData']);
         const msg = Utils.abiEncode(
-            ['uint32', 'uint32', 'address', 'address', 'bytes'],
+            ['string', 'uint32', 'uint32', 'address', 'address', 'bytes'],
             [
+                result.txHash,
                 Number(pickMsg.rootChainId),
                 Number(pickMsg.childChainId),
                 pickMsg.rootToken,
@@ -52,8 +53,9 @@ export class ContractEventHandler implements IContractEventHandler {
     private signWithdrawExec(result: EventStandardization): any {
         const pickMsg = _.pick(result.values, ['childChainId', 'rootChainId', 'childToken', 'burner', 'withdrawer', 'withdrawData']);
         const msg = Utils.abiEncode(
-            ['uint32', 'uint32', 'address', 'address', 'bytes'],
+            ['string', 'uint32', 'uint32', 'address', 'address', 'bytes'],
             [
+                result.txHash,
                 Number(pickMsg.childChainId),
                 Number(pickMsg.rootChainId),
                 pickMsg.childToken,

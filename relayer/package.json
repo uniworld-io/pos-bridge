@@ -4,7 +4,8 @@
   "description": "pos, validator, trustless, secure",
   "main": "RelayApp.js",
   "scripts": {
-    "start": "npx tsc && NODE_ENV=testnet node build/src/RelayApp.js"
+    "start": "npx tsc && NODE_ENV=testnet node build/src/RelayApp.js",
+    "dev": "npx tsc && NODE_ENV=devnet node build/src/RelayApp.js"
   },
   "keywords": [
     "pos",

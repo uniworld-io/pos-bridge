@@ -10,10 +10,9 @@ contract SignaturesValidator is SignatureVerifier{
     uint8 internal minValidator;
     uint8 internal consensusRate;
 
-    function validateSignatures(bytes calldata msg, bytes[] memory signatures) public view{
+    function validateSignatures(bytes32 msgHash, bytes[] calldata signatures) public view{
         _removeDuplicateSignature(signatures);
 
-        bytes32 msgHash = keccak256(msg);
         uint8 countVerify = 0;
         for(uint i = 0; i < signatures.length; i++ ){
             if(signatures[i].length != 65){
