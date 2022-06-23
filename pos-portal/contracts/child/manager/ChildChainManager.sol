@@ -89,5 +89,7 @@ contract ChildChainManager is IChildChainManager, AccessControlUni, Initializabl
         validators = validators_;
     }
 
-
+    function setChainId(uint32 chainId)external only(DEFAULT_ADMIN_ROLE){
+        childChainId = chainId;
+    }
 }

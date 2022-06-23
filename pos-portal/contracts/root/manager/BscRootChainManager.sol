@@ -161,4 +161,8 @@ contract BscRootChainManager is IRootChainManager, AccessControlUni, Initializab
         minValidator = minValidator_;
         validators = validators_;
     }
+
+    function setChainId(uint32 chainId)external only(DEFAULT_ADMIN_ROLE){
+        rootChainId = chainId;
+    }
 }

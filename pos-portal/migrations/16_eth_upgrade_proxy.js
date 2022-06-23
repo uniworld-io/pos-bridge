@@ -12,8 +12,6 @@ module.exports = async(deployer, network, ) => {
     await deployer
     const contractAddresses = utils.getContractAddresses(network)
 
-    await deployer
-
     await deployer.deploy(EthRootChainManager)
     const RootChainManagerProxy = await EthRootChainManagerProxy.at(contractAddresses.root.eth.RootChainManagerProxy)
     const upgradeRoot = await RootChainManagerProxy.updateImplementation(EthRootChainManager.address);
@@ -34,4 +32,13 @@ module.exports = async(deployer, network, ) => {
     contractAddresses.child.eth.ChildChainManager = EthChildChainManager.address;
 
     utils.writeContractAddresses(contractAddresses, network)
+
+    const RootChainManager = await EthRootChainManager.at(contractAddresses.root.eth.RootChainManagerProxy);
+    await RootChainManager.setChainId(deployer.options.network_id);
+
+    const ChildChainManager = await EthChildChainManager.at(contractAddresses.child.eth.ChildChainManagerProxy);
+    await ChildChainManager.setChainId(deployer.options.network_id);
+
+    console.log('=================', await RootChainManager.rootChainId())
+    console.log('=================', await ChildChainManager.childChainId())
 }
