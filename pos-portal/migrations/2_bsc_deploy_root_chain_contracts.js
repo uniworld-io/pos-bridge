@@ -15,7 +15,6 @@ const utils = require('./utils')
 module.exports = async(deployer, network, accounts) => {
     await deployer
 
-    console.log('deploying contracts...', deployer.options)
     const RootChainManager = await deployer.deploy(BscRootChainManager)
     const RootChainManagerProxy = await deployer.deploy(BscRootChainManagerProxy, '0x0000000000000000000000000000000000000000')
     await RootChainManagerProxy.updateAndCall(BscRootChainManager.address, RootChainManager.contract.methods.initialize(

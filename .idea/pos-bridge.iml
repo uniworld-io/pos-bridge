@@ -12,5 +12,6 @@
     <orderEntry type="module" module-name="Polygon" />
     <orderEntry type="module" module-name="posbrigde-swap" />
     <orderEntry type="module" module-name="developer-docs" />
+    <orderEntry type="module" module-name="URCs" />
   </component>
 </module>
