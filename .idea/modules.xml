@@ -6,7 +6,9 @@
       <module fileurl="file://$PROJECT_DIR$/../URCs/.idea/URCs.iml" filepath="$PROJECT_DIR$/../URCs/.idea/URCs.iml" />
       <module fileurl="file://$PROJECT_DIR$/../developer-docs/.idea/developer-docs.iml" filepath="$PROJECT_DIR$/../developer-docs/.idea/developer-docs.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/pos-bridge.iml" filepath="$PROJECT_DIR$/.idea/pos-bridge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pos-uni-portal/.idea/pos-uni-portal.iml" filepath="$PROJECT_DIR$/pos-uni-portal/.idea/pos-uni-portal.iml" />
       <module fileurl="file://$PROJECT_DIR$/../posbrigde-swap/.idea/posbrigde-swap.iml" filepath="$PROJECT_DIR$/../posbrigde-swap/.idea/posbrigde-swap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../truffle/.idea/truffle.iml" filepath="$PROJECT_DIR$/../truffle/.idea/truffle.iml" />
     </modules>
   </component>
 </project>

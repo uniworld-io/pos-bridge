@@ -101,6 +101,16 @@ module.exports = {
             host: '18.141.168.229',
             port: 4242,
             from: deployerAddress
+        },
+        trxdev: {
+            provider: () => new HDWalletProvider(privateKeys, `http://13.213.56.230:8545/jsonrpc`),
+            network_id: "*",
+            host: '13.213.56.230/jsonrpc',
+            port: 8545,
+            timeoutBlocks: 10000,
+            skipDryRun: true,
+            networkCheckTimeout: 10000,
+            from: deployerAddress
         }
     },
 
@@ -112,7 +122,7 @@ module.exports = {
     // Configure your compilers
     compilers: {
         solc: {
-            version: "0.8.13",    // Fetch exact version from solc-bin (default: truffle's version)
+            version: "0.8.6",    // Fetch exact version from solc-bin (default: truffle's version)
             // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
             // settings: {          // See the solidity docs for advice about optimization and evmVersion
              optimizer: {

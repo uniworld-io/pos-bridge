@@ -8,7 +8,7 @@ const EthChildChainManagerProxy = artifacts.require('ChildChainManagerProxy')
 const utils = require('./utils')
 
 module.exports = async(deployer, network, ) => {
-    console.log('Upgrading contracts...', deployer.options.network_id)
+    console.log('Upgrading pos-uni-portal...', deployer.options.network_id)
     await deployer
     const contractAddresses = utils.getContractAddresses(network)
 

@@ -4,5 +4,6 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../developer-docs" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../posbrigde-swap" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../truffle" vcs="Git" />
   </component>
 </project>

@@ -21,7 +21,7 @@ contract ENFT is ERC721 {
     /**
     * @dev Base URI for computing {tokenURI}. If set, the resulting URI for each
      * token will be the concatenation of the `baseURI` and the `tokenId`. Empty
-     * by default, can be overriden in child contracts.
+     * by default, can be overriden in child pos-uni-portal.
      */
     function _baseURI() internal override view virtual returns (string memory) {
         return "https://api.fancybearsmetaverse.com/";

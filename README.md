@@ -43,10 +43,10 @@ Compile all contracts
 truffle coompile
 ```
 
-If you prefer not using docker for compiling contracts, consider setting `docker: false` in truffle-config.js.
+If you prefer not using docker for compiling contracts, consider setting `docker: false` in tronbox-config.js.
 
 ```js
-// file: truffle-config.js
+// file: tronbox-config.js
 ...
 
 solc: {
@@ -75,7 +75,7 @@ which makes setting up all components of Ethereum | Binance <-> Unichain multich
 ### 1. Migration `contracts`
 
 
-This should give you RPC listen addresses for both RootChain ( read Ganache ) & ChildChain ( read Bor ), which need to updated in `pos-portal/truffle-config.js`. Also note Mnemonic you used when setting up local keyMap, we'll make use of it for migrating pos-portal contracts.
+This should give you RPC listen addresses for both RootChain ( read Ganache ) & ChildChain ( read Bor ), which need to updated in `pos-portal/tronbox-config.js`. Also note Mnemonic you used when setting up local keyMap, we'll make use of it for migrating pos-portal contracts.
 
 Generates `~/contractAddresses.json`, given you decided to put keyMap setConfig in directory, which contains deployed Plasma contract addresses.
 Now you can update preferred mnemonic to be used for migration in [truffle config](truffle-config.js) 
@@ -96,7 +96,7 @@ BSC_CHAIN_ID=97
 ETH_CHAIN_ID=42
 ```
 
-Also consider updating keyMap configurations for `root` in truffle-config.js
+Also consider updating keyMap configurations for `root` in tronbox-config.js
 
 ```js
 // make sure host:port of RPC matches properly

@@ -3,6 +3,7 @@ import {ContractEventHandler} from "./hander/ContractEventHandler";
 import {EthEventListener} from "./event/EthEventListener";
 import {UniEventListener} from "./event/UniEventListener";
 
+
 const logger = require('./common/Logger')
 
 const handler = new ContractEventHandler();
@@ -11,7 +12,6 @@ const ethListener = new EthEventListener();
 const uniListener = new UniEventListener();
 
 const logError = (e: any) => logger.error('Main exception: %s', e.stack)
-
 
 ethListener.listenEventDeposit(handler).then(() => console.log('Start listen deposit event from BSC')).catch(logError);
 ethListener.listenEventWithdraw(handler).then(() => console.log('Start listen withdraw event from BSC')).catch(logError);

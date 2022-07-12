@@ -11,7 +11,7 @@ module.exports = async(deployer, network) => {
     await deployer
     const contractAddresses = utils.getContractAddresses(network)
 
-    console.log('Upgrading contracts...', deployer.options.network_id)
+    console.log('Upgrading pos-uni-portal...', deployer.options.network_id)
     await deployer.deploy(BscRootChainManager)
     const RootChainManagerProxy = await BscRootChainManagerProxy.at(contractAddresses.root.bsc.RootChainManagerProxy)
     const upgradeRoot = await RootChainManagerProxy.updateImplementation(BscRootChainManager.address)
